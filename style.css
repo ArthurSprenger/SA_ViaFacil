@@ -113,3 +113,59 @@ body {
   }
 }
 
+.forgot-container {
+  width: 90%;
+  max-width: 350px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+  background-color: #2D3B50;
+  border-radius: 8px;
+}
+
+.forgot-container h1 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.forgot-container p {
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.forgot-container form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 4px;
+}
+
+.forgot-container form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #008CBA;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.forgot-container form button:hover {
+  background-color: #0079A0;
+}
+
+.forgot-container a.back-login-link {
+  display: block;
+  margin-top: 10px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.support-redirect-container {
+  text-align: center;
+  color: #ffffff;
+  font-size: 1.2rem;
+}
