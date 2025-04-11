@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Ferroviário</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="logo.PNG" alt="Logo Empresa Ferroviária">
+        <span>FerroVia Express</span>
+      </div>
+      <nav class="menu">
+        <ul>
+          <li class="active"><a href="dashboard.html">Início</a></li>
+          <li><a href="#">Horários</a></li>
+          <li><a href="#">Operações</a></li>
+          <li><a href="#">Relatórios</a></li>
+          <li><a href="#">Manutenções</a></li>
+          <li><a href="login.html">Perfil</a></li>
+          <li><a href="suporte.html">Suporte</a></li>
+          <li><a href="login.html">Sair</a></li>
+        </ul>
+      </nav>
+    </aside>
+    
+    <main class="main-content">
+      <header class="header">
+        <h1>Dashboard</h1>
+        <div class="header-info">
+          <span>Bem-vindo, João</span>
+        </div>
+      </header>
+
+      <section class="cards">
+        <div class="card">
+          <h2>Trens em Operação</h2>
+          <p>23</p>
+        </div>
+        <div class="card">
+          <h2>Atrasos</h2>
+          <p>05</p>
+        </div>
+        <div class="card">
+          <h2>Cargas Transportadas</h2>
+          <p>120T</p>
+        </div>
+        <div class="card">
+          <h2>Manutenções</h2>
+          <p>2 Pendentes</p>
+        </div>
+      </section>
+
+      <section class="table-section">
+        <h2>Horários de Partida</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Origem</th>
+              <th>Destino</th>
+              <th>Horário</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>São Paulo</td>
+              <td>Rio de Janeiro</td>
+              <td>08:00</td>
+              <td>No Horário</td>
+            </tr>
+            <tr>
+              <td>Belo Horizonte</td>
+              <td>Curitiba</td>
+              <td>09:30</td>
+              <td>Atrasado</td>
+            </tr>
+            <tr>
+              <td>Porto Alegre</td>
+              <td>Florianópolis</td>
+              <td>10:15</td>
+              <td>No Horário</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

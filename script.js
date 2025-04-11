@@ -14,3 +14,7 @@ if (spinner) {
 setTimeout(() => {
   window.location.href = 'login.html';
 }, 3000);
+
+document.addEventListener("DOMContentLoaded", function() {
+  console.log("Dashboard carregado");
+});
