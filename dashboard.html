@@ -1,94 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Ferroviário</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | Viafácil</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="script.js"></script>
 </head>
 <body>
-  <div class="dashboard-container">
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <img src="logo.PNG" alt="Logo Empresa Ferroviária">
-        <span>FerroVia Express</span>
-      </div>
-      <nav class="menu">
-        <ul>
-          <li class="active"><a href="dashboard.html">Início</a></li>
-          <li><a href="#">Horários</a></li>
-          <li><a href="#">Operações</a></li>
-          <li><a href="#">Relatórios</a></li>
-          <li><a href="#">Manutenções</a></li>
-          <li><a href="login.html">Perfil</a></li>
-          <li><a href="suporte.html">Suporte</a></li>
-          <li><a href="login.html">Sair</a></li>
-        </ul>
-      </nav>
-    </aside>
-    
-    <main class="main-content">
-      <header class="header">
-        <h1>Dashboard</h1>
-        <div class="header-info">
-          <span>Bem-vindo, João</span>
-        </div>
-      </header>
+  <header class="header">
+    <button class="menu-btn" aria-label="Abrir menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <img src="https://placehold.co/120x30" alt="ViaFácil" class="logo" />
+  </header>
 
-      <section class="cards">
-        <div class="card">
-          <h2>Trens em Operação</h2>
-          <p>23</p>
-        </div>
-        <div class="card">
-          <h2>Atrasos</h2>
-          <p>05</p>
-        </div>
-        <div class="card">
-          <h2>Cargas Transportadas</h2>
-          <p>120T</p>
-        </div>
-        <div class="card">
-          <h2>Manutenções</h2>
-          <p>2 Pendentes</p>
-        </div>
-      </section>
+  <main class="container">
+    <section class="cards">
+      <article class="card" id="passageiros">
+        <img src="https://placehold.co/40" alt="Ícone Passageiros" />
+        <span>Passageiros</span>
+      </article>
+      <article class="card" id="trens-rotas">
+        <img src="https://placehold.co/40" alt="Ícone Trens e Rotas" />
+        <span>Trens e Rotas</span>
+      </article>
+      <article class="card" id="avisos">
+        <img src="https://placehold.co/40" alt="Ícone Avisos" />
+        <span>Avisos</span>
+      </article>
+      <article class="card" id="solicitacoes">
+        <img src="https://placehold.co/40" alt="Ícone Solicitações" />
+        <span>Solicitações</span>
+      </article>
+    </section>
 
-      <section class="table-section">
-        <h2>Horários de Partida</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Origem</th>
-              <th>Destino</th>
-              <th>Horário</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>São Paulo</td>
-              <td>Rio de Janeiro</td>
-              <td>08:00</td>
-              <td>No Horário</td>
-            </tr>
-            <tr>
-              <td>Belo Horizonte</td>
-              <td>Curitiba</td>
-              <td>09:30</td>
-              <td>Atrasado</td>
-            </tr>
-            <tr>
-              <td>Porto Alegre</td>
-              <td>Florianópolis</td>
-              <td>10:15</td>
-              <td>No Horário</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-    </main>
-  </div>
+    <section class="form-section">
+      <h2>Enviar avisos</h2>
+      <form id="aviso-form">
+        <input type="text" id="aviso-input" placeholder="enviar avisos" required />
+        <button type="submit" id="aviso-btn">enviar aviso</button>
+      </form>
+    </section>
+
+    <section class="form-section">
+      <h2>Nova Solicitação</h2>
+      <form id="solicitacao-form">
+        <input type="text" id="solicitacao-input" placeholder="Digite sua solicitação" required />
+        <button type="submit" id="solicitacao-btn">enviar solicitação</button>
+      </form>
+    </section>
+
+    <section class="table-section">
+      <h2>Solicitações</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Estação</th>
+            <th>Horário</th>
+            <th>Situação</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
 </body>
 </html>
