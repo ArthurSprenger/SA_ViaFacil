@@ -22,13 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Menu button functionality
   const menuBtn = document.querySelector('.menu-btn');
   menuBtn.addEventListener('click', () => {
     document.body.classList.toggle('menu-open');
   });
 
-  // Form submission handling
   const avisoForm = document.getElementById('aviso-form');
   if (avisoForm) {
     avisoForm.addEventListener('submit', (e) => {
@@ -43,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Solicitação form handling
   const solicitacaoForm = document.getElementById('solicitacao-form');
   if (solicitacaoForm) {
     solicitacaoForm.addEventListener('submit', (e) => {
@@ -58,13 +55,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Card click handlers
   const cards = document.querySelectorAll('.card');
   cards.forEach(card => {
     card.addEventListener('click', () => {
       const section = card.id;
       console.log(`Navegando para seção: ${section}`);
-      // Implement navigation logic here
     });
   });
 });
