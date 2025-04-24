@@ -3,9 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
   menuBtn.addEventListener('click', () => document.body.classList.toggle('menu-open'));
 
   if (document.querySelector('.spinner')) {
-    setTimeout(() => window.location.href = 'login.html', 3000);
+    setTimeout(() => window.location.href = '../public/Login.html', 3000);
   }
-
+  
   const avisoForm = document.getElementById('aviso-form');
   if (avisoForm) {
     avisoForm.addEventListener('submit', (e) => {
