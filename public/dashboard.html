@@ -8,65 +8,61 @@
   <script type="module" src="../scripts/script.js"></script>
 </head>
 <body>
-  <header class="header">
-    <button class="menu-btn" aria-label="Abrir menu">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
-    <img src="../assets/logo.PNG" alt="ViaFácil" class="logo" />
-  </header>
-
-  <main class="container">
+  <div class="dashboard-bg">
+    <header class="header">
+      <button class="menu-btn" aria-label="Abrir menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+      <img src="../assets/logo.PNG" alt="ViaFácil" class="logo" />
+    </header>
     <section class="cards">
       <article class="card" id="passageiros">
         <img src="../assets/passageiros.png" alt="Ícone Passageiros" />
         <span>passageiros</span>
       </article>
       <article class="card" id="trens">
-        <img src="../assets/trens.png" alt="Ícone Trens" />
-        <span>trens</span>
+        <img src="../assets/trens.png" alt="Ícone Trens e Rotas" />
+        <span>trens e rotas</span>
       </article>
       <article class="card" id="aviso">
         <img src="../assets/aviso.png" alt="Ícone Aviso" />
         <span>aviso</span>
       </article>
       <article class="card" id="solicitacao">
-        <img src="../assets/solicitacao.png" alt="Ícone Solicitacao" />
-        <span>solicitacao</span>
+        <img src="../assets/solicitacao.png" alt="Ícone Solicitação" />
+        <span>solicitação</span>
       </article>
     </section>
-
-    <section class="form-section">
-      <h2>Enviar avisos</h2>
-      <form id="aviso-form">
-        <input type="text" id="aviso-input" placeholder="enviar avisos" required />
-        <button type="submit" id="aviso-btn">enviar aviso</button>
-      </form>
-    </section>
-
-    <section class="form-section">
-      <h2>Nova Solicitação</h2>
-      <form id="solicitacao-form">
-        <input type="text" id="solicitacao-input" placeholder="Digite sua solicitação" required />
-        <button type="submit" id="solicitacao-btn">enviar solicitação</button>
-      </form>
-    </section>
-
-    <section class="table-section">
-      <h2>Solicitações</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Estação</th>
-            <th>Horário</th>
-            <th>Situação</th>
-            <th>Ação</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </section>
-  </main>
+  </div>
+  <section class="form-section">
+    <h2>Enviar avisos</h2>
+    <form id="aviso-form">
+      <input type="text" id="aviso-input" placeholder="enviar avisos" required />
+      <button type="submit" id="aviso-btn">enviar aviso</button>
+    </form>
+  </section>
+  <section class="form-section">
+    <h2>Nova Solicitação</h2>
+    <form id="solicitacao-form">
+      <input type="text" id="solicitacao-input" placeholder="Digite sua solicitação" required />
+      <button type="submit" id="solicitacao-btn">enviar solicitação</button>
+    </form>
+  </section>
+  <section class="table-section">
+    <h2>Solicitações</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Estação</th>
+          <th>Horário</th>
+          <th>Situação</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
 </body>
 </html>
