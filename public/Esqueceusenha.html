@@ -10,11 +10,33 @@
   <div class="forgot-container">
     <h1>Recuperar Senha</h1>
     <p>Digite seu e-mail para receber as instruções de recuperação.</p>
-    <form action="#" method="POST">
-      <input type="email" placeholder="Seu e-mail" required />
+    <form id="recuperar-form" action="#" method="POST">
+      <input type="email" id="recuperar-email" placeholder="Seu e-mail" required />
       <button type="submit">Enviar</button>
     </form>
     <a href="Login.html" class="back-login-link">Voltar ao Login</a>
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var form = document.getElementById('recuperar-form');
+      var email = document.getElementById('recuperar-email');
+      form.addEventListener('submit', function(e) {
+        if (!email.value.trim()) {
+          e.preventDefault();
+          alert('Por favor, preencha o e-mail.');
+          email.focus();
+          return false;
+        }
+        // Validação básica de e-mail
+        var re = /^\S+@\S+\.\S+$/;
+        if (!re.test(email.value.trim())) {
+          e.preventDefault();
+          alert('Digite um e-mail válido.');
+          email.focus();
+          return false;
+        }
+      });
+    });
+  </script>
 </body>
 </html>

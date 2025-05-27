@@ -6,12 +6,31 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => window.location.href = '../public/Login.html', 3000);
   }
   
+  // Validação do formulário de aviso
   const avisoForm = document.getElementById('aviso-form');
   if (avisoForm) {
     avisoForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const txt = document.getElementById('aviso-input').value.trim();
-      if (txt) { alert(`Aviso enviado: ${txt}`); avisoForm.reset(); }
+      const avisoInput = document.getElementById('aviso-input');
+      if (!avisoInput.value.trim()) {
+        e.preventDefault();
+        alert('Por favor, preencha o campo de aviso.');
+        avisoInput.focus();
+        return false;
+      }
+    });
+  }
+
+  // Validação do formulário de solicitação
+  const solicitacaoForm = document.getElementById('solicitacao-form');
+  if (solicitacaoForm) {
+    solicitacaoForm.addEventListener('submit', (e) => {
+      const solicitacaoInput = document.getElementById('solicitacao-input');
+      if (!solicitacaoInput.value.trim()) {
+        e.preventDefault();
+        alert('Por favor, preencha o campo de solicitação.');
+        solicitacaoInput.focus();
+        return false;
+      }
     });
   }
 
