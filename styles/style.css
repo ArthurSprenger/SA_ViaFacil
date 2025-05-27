@@ -218,9 +218,15 @@ body {
 
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  position: relative;
+  padding: 0 10px;
+  height: 48px;
+  min-height: 48px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 .header h1 {
   font-size: 2rem;
@@ -311,12 +317,14 @@ body {
 
 .header {
   background-color: #0d3b66;
-  padding: 10px 20px;
+  padding: 0 10px;
+  height: 48px;
+  min-height: 48px;
   display: flex;
   align-items: center;
-  height: 60px;
-  min-height: 60px;
-  box-sizing: border-box;
+  justify-content: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .menu-btn {
@@ -328,6 +336,8 @@ body {
   justify-content: space-between;
   height: 20px;
   margin-right: 15px;
+  position: absolute;
+  left: 20px;
 }
 
 .bar {
@@ -339,9 +349,12 @@ body {
 }
 
 .logo {
-  height: 36px;
-  width: auto;
+  height: 22px;
+  max-width: 120px;
   margin-bottom: 0;
+  margin-left: 0;
+  object-fit: contain;
+  display: block;
 }
 
 .container {
