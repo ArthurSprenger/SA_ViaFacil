@@ -196,7 +196,6 @@ body {
 .logo {
   width: 180px;
   height: auto;
-  margin-bottom: 10px;
 }
 
 .bolinha-carregamento {
@@ -254,12 +253,13 @@ body {
   margin-bottom: 0;
   display: flex;
   justify-content: center;
-  margin-top: -200px;
+  margin-top: -90px;
 }
 
 .login-logo img {
   width: 300px;
-  height: auto;
+  height: 433.33px;
+  margin-bottom: -150px;
 }
 
 .login-form {
@@ -324,6 +324,7 @@ body {
 .user-avatar img {
   width: 300px;
   height: 300px;
+  margin-bottom: -10px;
   object-fit: contain;
   border-radius: 50%;
   background: transparent;
