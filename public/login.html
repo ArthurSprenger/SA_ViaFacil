@@ -18,7 +18,7 @@
       <input type="text" placeholder="usuario" />
       <input type="password" placeholder="senha" />
 
-      <a href="Esqueceusenha.html" class="forgot-link">esqueceu sua senha</a>
+      <a href="#" id="forgot-link" class="forgot-link">esqueceu sua senha</a>
 
       <button id="botao-entrar">Entrar</button>
 
@@ -26,5 +26,11 @@
     </div>
   </div>
   <script src="../scripts/login.js"></script>
+  <script>
+    document.getElementById('forgot-link').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('Esqueceusenha.html', '_blank');
+    });
+  </script>
 </body>
 </html>
