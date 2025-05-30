@@ -4,6 +4,13 @@
   box-sizing: border-box;
 }
 
+html, body {
+  width: 100vw;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: Arial, sans-serif;
   background: #fff;
@@ -265,12 +272,11 @@ body {
 
 .dashboard-bg {
   background: #0d3b66;
+  width: 100%;
   border-bottom-left-radius: 32px;
   border-bottom-right-radius: 32px;
+  /* Se quiser todos os cantos arredondados, use: border-radius: 32px; */
   padding-bottom: 100px;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
   position: relative;
   z-index: 1;
 }
