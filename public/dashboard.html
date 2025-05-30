@@ -43,13 +43,6 @@
       <button type="submit" id="aviso-btn">enviar aviso</button>
     </form>
   </section>
-  <section class="form-section">
-    <h2>Nova Solicitação</h2>
-    <form id="solicitacao-form">
-      <input type="text" id="solicitacao-input" placeholder="Digite sua solicitação" required />
-      <button type="submit" id="solicitacao-btn">enviar solicitação</button>
-    </form>
-  </section>
   <!-- Apenas a tabela visual de solicitações -->
   <section class="form-section">
     <h2>Solicitações</h2>
@@ -59,6 +52,7 @@
           <th>Estação</th>
           <th>Horário</th>
           <th>Situação</th>
+          <th>Ação</th>
         </tr>
       </thead>
       <tbody id="tabela-solicitacoes">
@@ -66,16 +60,19 @@
           <td>Central</td>
           <td>08:00</td>
           <td>Pendente</td>
+          <td><button class="btn-aviso">enviar em avisos</button></td>
         </tr>
         <tr>
           <td>Jardim</td>
           <td>09:30</td>
           <td>Resolvido</td>
+          <td><button class="btn-aviso">enviar em avisos</button></td>
         </tr>
         <tr>
           <td>Vila Nova</td>
           <td>10:15</td>
           <td>Pendente</td>
+          <td><button class="btn-aviso">enviar em avisos</button></td>
         </tr>
         <!-- Adicione mais linhas conforme necessário -->
       </tbody>
