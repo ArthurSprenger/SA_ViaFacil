@@ -50,26 +50,34 @@
       <button type="submit" id="solicitacao-btn">enviar solicitação</button>
     </form>
   </section>
-  <!-- Tabela de Solicitações -->
+  <!-- Apenas a tabela visual de solicitações -->
   <section class="form-section">
     <h2>Solicitações</h2>
-    <form id="form-add-solicitacao" style="display:flex; gap:8px; margin-bottom:10px;">
-      <input type="text" id="nova-estacao" placeholder="Estação" required>
-      <input type="text" id="novo-horario" placeholder="Horário" required>
-      <input type="text" id="nova-situacao" placeholder="Situação" required>
-      <button type="submit" class="btn-acoes">Adicionar</button>
-    </form>
     <table class="table-section">
       <thead>
         <tr>
           <th>Estação</th>
           <th>Horário</th>
           <th>Situação</th>
-          <th>Ação</th>
         </tr>
       </thead>
       <tbody id="tabela-solicitacoes">
-        <!-- Linhas dinâmicas aqui -->
+        <tr>
+          <td>Central</td>
+          <td>08:00</td>
+          <td>Pendente</td>
+        </tr>
+        <tr>
+          <td>Jardim</td>
+          <td>09:30</td>
+          <td>Resolvido</td>
+        </tr>
+        <tr>
+          <td>Vila Nova</td>
+          <td>10:15</td>
+          <td>Pendente</td>
+        </tr>
+        <!-- Adicione mais linhas conforme necessário -->
       </tbody>
     </table>
   </section>
