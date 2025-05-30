@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     avisoForm.addEventListener('submit', (e) => {
       const avisoInput = document.getElementById('aviso-input');
       if (!avisoInput.value.trim()) {
-        e.preventDefault();
+        // e.preventDefault();
         alert('Por favor, preencha o campo de aviso.');
         avisoInput.focus();
         return false;
