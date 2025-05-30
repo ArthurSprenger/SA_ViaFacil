@@ -67,14 +67,12 @@ body {
 .cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 36px;
+  gap: 24px;
   margin-bottom: 30px;
   background: none;
-  margin-top: 32px;
+  margin-top: 24px;
   margin-bottom: 0;
-  padding: 0 0;
-  width: 100%;
-  box-sizing: border-box;
+  padding: 0 16px;
 }
 
 .card {
@@ -83,39 +81,34 @@ body {
   border-radius: 16px;
   box-shadow: none;
   margin-bottom: 0;
-  padding: 18px 0 10px 0;
+  padding: 22px 0 14px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: transform 0.2s;
-  width: 90%;
-  max-width: 260px;
-  min-width: 120px;
-  min-height: 90px;
+  max-width: 200px;
+  min-width: 150px;
+  min-height: 120px;
   margin-left: auto;
   margin-right: auto;
-  box-sizing: border-box;
 }
 
 .card:hover {
   transform: translateY(-5px);
 }
 
+.card img {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+}
+
 .card span {
   color: #222;
   font-weight: bold;
-  font-size: 1.35rem;
-  margin-bottom: 8px;
-  order: -1;
-  display: block;
-}
-
-.card img {
-  width: 64px;
-  height: 64px;
-  margin-bottom: 0;
+  font-size: 1.18rem;
 }
 
 .form-section {
@@ -124,17 +117,23 @@ body {
   border-radius: 0;
   box-shadow: none;
   margin-bottom: 30px;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .form-section h2 {
   color: #333333;
   margin-bottom: 15px;
+  font-size: 1.4rem;
+  font-weight: bold;
 }
 
 #aviso-form,
 #solicitacao-form {
   display: flex;
   gap: 10px;
+  margin-bottom: 0;
 }
 
 #aviso-input,
@@ -150,7 +149,7 @@ body {
 #solicitacao-btn {
   padding: 0 20px;
   border: none;
-  background-color: #4caf50;
+  background-color: #008CBA;
   color: #ffffff;
   border-radius: 4px;
   cursor: pointer;
@@ -160,7 +159,7 @@ body {
 
 #aviso-btn:hover,
 #solicitacao-btn:hover {
-  background-color: #388e3c;
+  background-color: #0079A0;
 }
 
 /* Tabela */
@@ -168,6 +167,9 @@ body {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .table-section th,

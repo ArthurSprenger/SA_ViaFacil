@@ -41,44 +41,46 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const menuBtn = document.querySelector('.menu-btn');
-  menuBtn.addEventListener('click', () => {
-    document.body.classList.toggle('menu-open');
-  });
+  const botaoMenu = document.querySelector('.botao-menu');
+  if (botaoMenu) {
+    botaoMenu.addEventListener('click', () => document.body.classList.toggle('menu-open'));
+  }
 
-  const avisoForm = document.getElementById('aviso-form');
-  if (avisoForm) {
-    avisoForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const avisoInput = document.getElementById('aviso-input');
-      const aviso = avisoInput.value.trim();
-      
-      if (aviso) {
-        alert(`Aviso enviado: ${aviso}`);
-        avisoInput.value = '';
+  // Validação do formulário de aviso
+  const formularioAviso = document.getElementById('formulario-aviso');
+  if (formularioAviso) {
+    formularioAviso.addEventListener('submit', (e) => {
+      const inputAviso = document.getElementById('input-aviso');
+      if (!inputAviso.value.trim()) {
+        e.preventDefault();
+        alert('Por favor, preencha o campo de aviso.');
+        inputAviso.focus();
+        return false;
       }
+      alert(`Aviso enviado: ${inputAviso.value.trim()}`);
+      inputAviso.value = '';
     });
   }
 
-  const solicitacaoForm = document.getElementById('solicitacao-form');
-  if (solicitacaoForm) {
-    solicitacaoForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const solicitacaoInput = document.getElementById('solicitacao-input');
-      const solicitacao = solicitacaoInput.value.trim();
-      
-      if (solicitacao) {
-        alert(`Solicitação enviada: ${solicitacao}`);
-        solicitacaoInput.value = '';
+  // Validação do formulário de solicitação
+  const formularioSolicitacao = document.getElementById('formulario-solicitacao');
+  if (formularioSolicitacao) {
+    formularioSolicitacao.addEventListener('submit', (e) => {
+      const inputSolicitacao = document.getElementById('input-solicitacao');
+      if (!inputSolicitacao.value.trim()) {
+        e.preventDefault();
+        alert('Por favor, preencha o campo de solicitação.');
+        inputSolicitacao.focus();
+        return false;
       }
+      alert(`Solicitação enviada: ${inputSolicitacao.value.trim()}`);
+      inputSolicitacao.value = '';
     });
   }
 
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(card => {
-    card.addEventListener('click', () => {
-      const section = card.id;
-      console.log(`Navegando para seção: ${section}`);
-    });
+  // Navegação dos cartões
+  ['passageiros','trens','aviso','solicitacao'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('click', () => window.location.href='#');
   });
 });
