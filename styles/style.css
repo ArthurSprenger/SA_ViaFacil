@@ -178,6 +178,25 @@ body {
   background: #388e3c;
 }
 
+.btn-aviso {
+  padding: 6px 18px;
+  border: none;
+  background-color: #4caf50;
+  color: #fff;
+  border-radius: 20px;
+  font-size: 0.98rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 1px 4px #0001;
+  margin: 0 auto;
+  display: block;
+}
+
+.btn-aviso:hover {
+  background-color: #388e3c;
+}
+
 /* Tabela */
 .table-section {
   width: 100%;
