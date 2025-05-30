@@ -103,16 +103,19 @@ body {
   transform: translateY(-5px);
 }
 
-.card img {
-  width: 64px;
-  height: 64px;
-  margin-bottom: 16px;
-}
-
 .card span {
   color: #222;
   font-weight: bold;
   font-size: 1.35rem;
+  margin-bottom: 8px;
+  order: -1;
+  display: block;
+}
+
+.card img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 0;
 }
 
 .form-section {
