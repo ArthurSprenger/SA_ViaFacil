@@ -254,12 +254,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 0;
+  margin-top: -160px;
 }
 
 .logo-login img {
   width: 300px;
   height: auto;
+  margin-bottom: -200px;
+  margin-top: 0px;
 }
 
 .avatar-usuario {
@@ -273,7 +275,7 @@ body {
 .avatar-usuario img {
   width: 300px;
   height: 300px;
-  margin-bottom: -10px;
+  margin-bottom: -80px;
   object-fit: contain;
   border-radius: 50%;
   background: transparent;
@@ -290,6 +292,7 @@ body {
   min-width: 300px;
   align-items: stretch;
   margin-top: 16px;
+  margin-bottom: 200px;
 }
 
 .formulario-login input[type="text"],
@@ -308,7 +311,7 @@ body {
   padding: 12px;
   font-size: 1rem;
   cursor: pointer;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
   transition: background 0.2s;
 }
 

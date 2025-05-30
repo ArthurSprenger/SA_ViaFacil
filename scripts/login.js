@@ -1,5 +1,6 @@
-document.getElementById('botao-entrar').onclick = function() {
-  var inputs = document.querySelectorAll('.login-form input');
+document.getElementById('botao-entrar').onclick = function(e) {
+  e.preventDefault();
+  var inputs = document.querySelectorAll('.formulario-login input');
   var usuario = inputs[0].value.trim();
   var senha = inputs[1].value.trim();
   if (!usuario) {
