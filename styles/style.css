@@ -149,17 +149,18 @@ body {
 #solicitacao-btn {
   padding: 0 20px;
   border: none;
-  background-color: #008CBA;
+  background-color: #4caf50;
   color: #ffffff;
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
+  font-weight: bold; /* Adicione esta linha */
   transition: background 0.2s;
 }
 
 #aviso-btn:hover,
 #solicitacao-btn:hover {
-  background-color: #0079A0;
+  background-color: #00a023;
 }
 
 .btn-acoes {
