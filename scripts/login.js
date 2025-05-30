@@ -13,5 +13,10 @@ document.getElementById('botao-entrar').onclick = function(e) {
     inputs[1].focus();
     return false;
   }
-  window.location.href = "dashboard.html";
+  if (usuario.toLowerCase() === "admin") {
+    window.location.href = "dashboard.html";
+  } else {
+    alert('Usuário ou senha inválidos.');
+    return false;
+  }
 }
