@@ -50,9 +50,16 @@
       <button type="submit" id="solicitacao-btn">enviar solicitação</button>
     </form>
   </section>
-  <section class="table-section">
+  <!-- Tabela de Solicitações -->
+  <section class="form-section">
     <h2>Solicitações</h2>
-    <table>
+    <form id="form-add-solicitacao" style="display:flex; gap:8px; margin-bottom:10px;">
+      <input type="text" id="nova-estacao" placeholder="Estação" required>
+      <input type="text" id="novo-horario" placeholder="Horário" required>
+      <input type="text" id="nova-situacao" placeholder="Situação" required>
+      <button type="submit" class="btn-acoes">Adicionar</button>
+    </form>
+    <table class="table-section">
       <thead>
         <tr>
           <th>Estação</th>
@@ -61,7 +68,9 @@
           <th>Ação</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody id="tabela-solicitacoes">
+        <!-- Linhas dinâmicas aqui -->
+      </tbody>
     </table>
   </section>
 </body>

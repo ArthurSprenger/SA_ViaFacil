@@ -83,4 +83,86 @@ document.addEventListener('DOMContentLoaded', () => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('click', () => window.location.href='#');
   });
+
+  // Tabela de Solicitações
+  const tabelaSolicitacoes = document.getElementById('tabela-solicitacoes');
+  const formAddSolicitacao = document.getElementById('form-add-solicitacao');
+
+  if (tabelaSolicitacoes && formAddSolicitacao) {
+    formAddSolicitacao.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const estacaoInput = document.getElementById('nova-estacao');
+      const horarioInput = document.getElementById('novo-horario');
+      const situacaoInput = document.getElementById('nova-situacao');
+
+      if (!estacaoInput.value.trim() || !horarioInput.value.trim() || !situacaoInput.value.trim()) {
+        return alert('Por favor, preencha todos os campos.');
+      }
+
+      const newRow = tabelaSolicitacoes.insertRow(-1);
+      newRow.innerHTML = `
+        <td>${estacaoInput.value.trim()}</td>
+        <td>${horarioInput.value.trim()}</td>
+        <td>${situacaoInput.value.trim()}</td>
+        <td>
+          <button class="btn-editar">Editar</button>
+          <button class="btn-excluir">Excluir</button>
+        </td>
+      `;
+
+      estacaoInput.value = '';
+      horarioInput.value = '';
+      situacaoInput.value = '';
+
+      // Adiciona eventos para os botões de editar e excluir
+      newRow.querySelector('.btn-editar').addEventListener('click', () => {
+        estacaoInput.value = newRow.cells[0].innerText;
+        horarioInput.value = newRow.cells[1].innerText;
+        situacaoInput.value = newRow.cells[2].innerText;
+        tabelaSolicitacoes.deleteRow(newRow.rowIndex - 1);
+      });
+
+      newRow.querySelector('.btn-excluir').addEventListener('click', () => {
+        tabelaSolicitacoes.deleteRow(newRow.rowIndex - 1);
+      });
+    });
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const tabela = document.getElementById('tabela-solicitacoes');
+  const form = document.getElementById('form-add-solicitacao');
+  const estacao = document.getElementById('nova-estacao');
+  const horario = document.getElementById('novo-horario');
+  const situacao = document.getElementById('nova-situacao');
+
+  if (form && tabela) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!estacao.value.trim() || !horario.value.trim() || !situacao.value.trim()) {
+        alert('Por favor, preencha todos os campos.');
+        return;
+      }
+      adicionarLinha(estacao.value, horario.value, situacao.value);
+      estacao.value = '';
+      horario.value = '';
+      situacao.value = '';
+    });
+  }
+
+  function adicionarLinha(est, hor, sit) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td contenteditable="true">${est}</td>
+      <td contenteditable="true">${hor}</td>
+      <td contenteditable="true">${sit}</td>
+      <td>
+        <button class="btn-acoes btn-remover" type="button">Remover</button>
+      </td>
+    `;
+    tr.querySelector('.btn-remover').onclick = function() {
+      tr.remove();
+    };
+    tabela.appendChild(tr);
+  }
 });
