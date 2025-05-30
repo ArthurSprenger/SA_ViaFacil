@@ -162,6 +162,22 @@ body {
   background-color: #0079A0;
 }
 
+.btn-acoes {
+  background: #43b047;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 12px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+  margin-right: 4px;
+}
+
+.btn-acoes:hover {
+  background: #388e3c;
+}
+
 /* Tabela */
 .table-section {
   width: 100%;
@@ -182,22 +198,6 @@ body {
 .table-section th {
   background: #f5f5f5;
   font-weight: bold;
-}
-
-.btn-acoes {
-  background: #43b047;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 4px 12px;
-  cursor: pointer;
-  font-size: 0.95rem;
-  transition: background 0.2s;
-  margin-right: 4px;
-}
-
-.btn-acoes:hover {
-  background: #388e3c;
 }
 
 .carregamento {
