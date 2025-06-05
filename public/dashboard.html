@@ -5,18 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Administrador | Viafácil</title>
   <link rel="stylesheet" href="../styles/style.css" />
-  <script type="module" src="../scripts/script.js"></script>
+  <script src="../scripts/script.js"></script>
+  <style>
+    .header {
+      background-color: #0d3b66;
+      height: 64px;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+    }
+  </style>
 </head>
 <body>
+  <header class="header">
+    <button class="menu-btn" aria-label="Abrir menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <img src="../assets/logo.PNG" alt="Viafacil" class="logo" />
+  </header>
   <div class="dashboard-bg">
-    <header class="header">
-      <button class="menu-btn" aria-label="Abrir menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
-      <img src="../assets/logo.PNG" alt="ViaFácil" class="logo" />
-    </header>
     <section class="cards">
       <article class="card" id="passageiros">
         <img src="../assets/passageiros.png" alt="Ícone Passageiros" />
@@ -43,7 +57,6 @@
       <button type="submit" id="aviso-btn">ENVIAR EM AVISOS</button>
     </form>
   </section>
-  <!-- Apenas a tabela visual de solicitações -->
   <section class="form-section">
     <h2>Solicitações</h2>
     <table class="table-section">
@@ -73,10 +86,29 @@
           <td>10:15</td>
           <td>Pendente</td>
           <td><button class="btn-aviso">ENVIAR SOLICITAÇÃO</button></td>
-        </tr>
-        <!-- Adicione mais linhas conforme necessário -->
+        </tr> 
       </tbody>
     </table>
   </section>
+  <nav class="sidebar-menu">
+    <ul>
+      <li>
+        <img src="../assets/dashboard.png" alt="Dashboard" class="sidebar-icon" />
+        <span>DASHBOARD</span>
+      </li>
+      <li>
+        <img src="../assets/logo usuario.png" alt="Conta" class="sidebar-icon" />
+        <span>CONTA</span>
+      </li>
+      <li>
+        <img src="../assets/config.png" alt="Configurações" class="sidebar-icon" />
+        <span>CONFIGURAÇÕES</span>
+      </li>
+      <li>
+        <img src="../assets/sair.png" alt="Sair" class="sidebar-icon" />
+        <span>Sair</span>
+      </li>
+    </ul>
+  </nav>
 </body>
 </html>

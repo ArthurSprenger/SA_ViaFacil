@@ -1,6 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
   const menuBtn = document.querySelector('.menu-btn');
-  menuBtn.addEventListener('click', () => document.body.classList.toggle('menu-open'));
+  const sidebar = document.querySelector('.sidebar-menu');
+
+  // Abre/fecha o menu ao clicar no botão
+  if (menuBtn) {
+    menuBtn.addEventListener('click', () => {
+      document.body.classList.toggle('menu-open');
+    });
+  }
+
+  // Fecha o menu ao clicar fora dele
+  document.addEventListener('click', (e) => {
+    if (
+      document.body.classList.contains('menu-open') &&
+      !sidebar.contains(e.target) &&
+      !menuBtn.contains(e.target)
+    ) {
+      document.body.classList.remove('menu-open');
+    }
+  });
 
   if (document.querySelector('.spinner')) {
     setTimeout(() => window.location.href = '../public/Login.html', 3000);

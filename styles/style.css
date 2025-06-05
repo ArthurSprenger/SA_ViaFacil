@@ -18,15 +18,19 @@ body {
 }
 
 .header {
+  width: 100vw;
+  left: 0;
+  top: 0;
   background-color: #0d3b66;
-  padding: 0 10px;
   height: 64px;
   min-height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 14px;
-  padding-bottom: 14px;
+  position: relative;
+  padding: 0;
+  border: none;
+  box-shadow: none;
 }
 
 .menu-btn {
@@ -40,6 +44,8 @@ body {
   margin-right: 15px;
   position: absolute;
   left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .bar {
@@ -51,13 +57,11 @@ body {
 }
 
 .logo {
-  height: 22px;
-  max-width: 120px;
-  margin-bottom: 0;
-  margin-left: 0;
+  height: 40px;
+  max-width: 160px;
+  margin: 0 auto;
   object-fit: contain;
   display: block;
-  margin-top: 8px;
 }
 
 .container {
@@ -280,10 +284,11 @@ body {
   width: 100%;
   border-bottom-left-radius: 32px;
   border-bottom-right-radius: 32px;
-  /* Se quiser todos os cantos arredondados, use: border-radius: 32px; */
   padding-bottom: 100px;
   position: relative;
   z-index: 1;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .container-login {
@@ -379,6 +384,67 @@ body {
 .link-esqueceu:hover,
 .link-suporte:hover {
   text-decoration: underline;
+}
+
+/* Menu lateral estilo pasted image 2 */
+.sidebar-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background: #23272b;
+  color: #fff;
+  z-index: 1000;
+  padding-top: 80px;
+  transform: translateX(-100%);
+  transition: transform 0.3s;
+  box-shadow: 2px 0 8px #0002;
+}
+
+.sidebar-menu ul {
+  list-style: none;
+  padding: 0 0 0 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  display: flex;
+  align-items: center;
+  padding: 22px 28px 18px 28px;
+  cursor: pointer;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 1.05rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
+
+.sidebar-menu li:hover {
+  background: #1a1d20;
+}
+
+.sidebar-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 18px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+/* Mostra o menu quando .menu-open está no body */
+body.menu-open .sidebar-menu {
+  transform: translateX(0);
+}
+
+/* Escurece o fundo quando o menu está aberto */
+body.menu-open::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: #0007;
+  z-index: 999;
 }
 
 @media (max-width: 768px) {
