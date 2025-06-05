@@ -432,6 +432,16 @@ body {
   filter: brightness(0) invert(1);
 }
 
+/* Aumenta só o ícone da conta no menu lateral */
+.sidebar-icon.conta-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.dashboard-icon {
+  filter: none !important;
+}
+
 /* Mostra o menu quando .menu-open está no body */
 body.menu-open .sidebar-menu {
   transform: translateX(0);
