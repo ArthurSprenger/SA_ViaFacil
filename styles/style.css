@@ -631,3 +631,8 @@ body.menu-open::before {
     margin-left: 240px;
   }
 }
+
+.login-bg {
+  background: #22314a;
+  min-height: 100vh;
+}
