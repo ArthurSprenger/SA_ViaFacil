@@ -524,6 +524,31 @@ body.menu-open::before {
     margin-top: -20px;
     padding-top: 16px;
   }
+
+  /* Espaçamento lateral para telas pequenas */
+@media (max-width: 600px) {
+  .container,
+  .container-login,
+  .dashboard-bg,
+  .form-section,
+  .forgot-container {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    box-sizing: border-box;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  .cards {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
 }
 
 /* Estilo para a tela de Conta */
@@ -707,11 +732,25 @@ body.menu-open::before {
   text-decoration: underline;
 }
 
+/* Tabela responsiva e botões ajustados em telas pequenas */
 @media (max-width: 600px) {
-  .forgot-container {
-    min-width: unset;
-    max-width: 95vw;
-    margin: 40px 2vw 0 2vw;
-    padding: 20px 8px 16px 8px;
+  .table-section {
+    overflow-x: auto;
+    display: block;
+    width: 100%;
+  }
+  .table-section table {
+    min-width: 600px;
+    width: 100%;
+  }
+  .btn-acoes {
+    max-width: 100%;
+    white-space: normal;
+    word-break: break-word;
+    font-size: 0.95rem;
+    padding: 8px 6px;
+    box-sizing: border-box;
+    display: block;
+    margin: 0 auto;
   }
 }

@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
       email.focus();
       return false;
     }
-    alert('Se o e-mail informado estiver cadastrado, você receberá as instruções em breve.');
+    e.preventDefault();
+    window.location.href = "redefinirsenha.html";
   });
 });
