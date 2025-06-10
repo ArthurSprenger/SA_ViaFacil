@@ -676,7 +676,7 @@ body.menu-open::before {
   width: 100%;
   max-width: 420px;
   align-items: stretch;
-  margin: 0 auto; /* Agora fica colado no topo */
+  margin: 0 auto;
   justify-content: center;
   min-height: 400px;
 }
