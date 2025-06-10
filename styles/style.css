@@ -470,3 +470,8 @@ body {
     padding-top: 16px;
   }
 }
+
+.login-bg {
+  background: #22314a;
+  min-height: 100vh;
+}
