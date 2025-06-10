@@ -649,6 +649,7 @@ body.menu-open::before {
   }
 }
 
+/* Espaço para o menu lateral */
 @media (min-width: 769px) {
   .conta-header,
   .conta-container {
@@ -675,14 +676,14 @@ body.menu-open::before {
   width: 100%;
   max-width: 420px;
   align-items: stretch;
-  margin: 0 auto;
+  margin: 0 auto; /* Agora fica colado no topo */
   justify-content: center;
   min-height: 400px;
 }
 
 @media (min-width: 900px) {
   .forgot-container {
-    margin-top: 0;
+    margin-top: 16px; /* Menor ainda no desktop */
     min-height: 480px;
   }
 }

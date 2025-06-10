@@ -7,22 +7,24 @@
   <link rel="stylesheet" href="../styles/style.css" />
 </head>
 <body class="login-bg">
-  <div class="forgot-container" style="align-items:center;max-width:340px;">
-    <img src="../assets/logo.PNG" alt="Viafacil" style="width:180px;margin-bottom:12px;">
-    <h1 style="color:#fff;text-align:center;font-size:1.3rem;margin-bottom:10px;text-transform:uppercase;">Recupere sua senha</h1>
-    <div style="display:flex;justify-content:center;margin-bottom:18px;">
-      <img src="../assets/logo usuario.png" alt="Usuário" style="width:80px;height:80px;border-radius:50%;background:#fff;padding:8px;">
+  <div class="forgot-container">
+    <img src="../assets/logo.PNG" alt="Viafacil" class="logo-login">
+    <h1 class="titulo-redefinir">RECUPERE SUA SENHA</h1>
+    <div class="avatar-usuario">
+      <img src="../assets/logo usuario.png" alt="Usuário">
     </div>
-    <form id="form-redefinir" style="display:flex;flex-direction:column;gap:12px;">
-      <input type="password" placeholder="digite sua nova senha" required style="padding:12px;border-radius:20px;border:2px solid #fff;background:#22314a;color:#fff;text-align:center;font-size:1rem;outline:none;">
-      <input type="password" placeholder="confirme sua nova senha" required style="padding:12px;border-radius:20px;border:2px solid #fff;background:#22314a;color:#fff;text-align:center;font-size:1rem;outline:none;">
-      <button type="submit" style="background:#43b6e8;color:#fff;border:none;border-radius:16px;padding:10px 0;font-size:1.1rem;font-weight:bold;cursor:pointer;text-transform:uppercase;">Redefinir Senha</button>
-    </form>
-    <div style="margin-top:24px;text-align:center;">
-      <a href="suporte.html" style="color:#43b6e8;text-decoration:underline;font-size:1rem;display:inline-block;">
-        <span style="font-size:1.2rem;vertical-align:middle;">&#9432;</span>
-        Entre em contato com o Suporte Técnico.
-      </a>
+    <div class="form-box">
+      <form id="form-redefinir" class="formulario-login">
+        <input type="password" placeholder="digite sua nova senha" required>
+        <input type="password" placeholder="confirme sua nova senha" required>
+        <button type="submit">Redefinir Senha</button>
+      </form>
+      <div class="suporte-link">
+        <a href="suporte.html">
+          <span style="font-size:1.2rem;vertical-align:middle;">&#9432;</span>
+          Entre em contato com o Suporte Técnico.
+        </a>
+      </div>
     </div>
   </div>
 </body>
