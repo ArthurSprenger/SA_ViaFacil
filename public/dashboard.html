@@ -3,9 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin | Viafácil</title>
+  <title>Administrador | Viafácil</title>
   <link rel="stylesheet" href="../styles/style.css" />
-  <script type="module" src="../scripts/script.js"></script>
+  <script src="../scripts/script.js"></script>
+  <style>
+    .header {
+      background-color: #0d3b66;
+      height: 64px;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+    }
+  </style>
 </head>
 <body>
   <div class="dashboard-bg">
@@ -15,7 +29,7 @@
         <span class="bar"></span>
         <span class="bar"></span>
       </button>
-      <img src="../assets/logo.PNG" alt="ViaFácil" class="logo" />
+      <img src="../assets/logo.PNG" alt="Viafacil" class="logo" />
     </header>
     <section class="cards">
       <article class="card" id="passageiros">
@@ -40,19 +54,12 @@
     <h2>Enviar avisos</h2>
     <form id="aviso-form">
       <input type="text" id="aviso-input" placeholder="enviar avisos" required />
-      <button type="submit" id="aviso-btn">enviar aviso</button>
+      <button type="submit" id="aviso-btn">ENVIAR EM AVISOS</button>
     </form>
   </section>
   <section class="form-section">
-    <h2>Nova Solicitação</h2>
-    <form id="solicitacao-form">
-      <input type="text" id="solicitacao-input" placeholder="Digite sua solicitação" required />
-      <button type="submit" id="solicitacao-btn">enviar solicitação</button>
-    </form>
-  </section>
-  <section class="table-section">
     <h2>Solicitações</h2>
-    <table>
+    <table class="table-section">
       <thead>
         <tr>
           <th>Estação</th>
@@ -61,8 +68,51 @@
           <th>Ação</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody id="tabela-solicitacoes">
+        <tr>
+          <td>Central</td>
+          <td>08:00</td>
+          <td>Pendente</td>
+          <td><button class="btn-aviso">ENVIAR SOLICITAÇÃO</button></td>
+        </tr>
+        <tr>
+          <td>Jardim</td>
+          <td>09:30</td>
+          <td>Resolvido</td>
+          <td><button class="btn-aviso">ENVIAR SOLICITAÇÃO</button></td>
+        </tr>
+        <tr>
+          <td>Vila Nova</td>
+          <td>10:15</td>
+          <td>Pendente</td>
+          <td><button class="btn-aviso">ENVIAR SOLICITAÇÃO</button></td>
+        </tr> 
+      </tbody>
     </table>
   </section>
+  <nav class="sidebar-menu">
+    <ul>
+      <li>
+        <a href="dashboard.html">
+          <img src="../assets/dashboard.png" alt="Dashboard" class="sidebar-icon dashboard-icon" />
+          <span>DASHBOARD</span>
+        </a>
+      </li>
+      <li>
+        <a href="conta.html">
+          <img src="../assets/logo usuario menu.png" alt="Conta" class="sidebar-icon conta-icon" />
+          <span>CONTA</span>
+        </a>
+      </li>
+      <li>
+        <img src="../assets/configurações.png" alt="Configurações" class="sidebar-icon" />
+        <span>CONFIGURAÇÕES</span>
+      </li>
+      <li>
+        <img src="../assets/sair.png" alt="Sair" class="sidebar-icon" />
+        <span>SAIR</span>
+      </li>
+    </ul>
+  </nav>
 </body>
 </html>
