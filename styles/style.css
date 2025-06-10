@@ -660,6 +660,9 @@ body.menu-open::before {
 .login-bg {
   background: #22314a;
   min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .forgot-container {
@@ -670,25 +673,19 @@ body.menu-open::before {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  min-width: 300px;
-  max-width: 380px;
+  width: 100%;
+  max-width: 420px;
   align-items: stretch;
-  margin: 80px auto 0;
+  margin: 0 auto; /* Agora fica colado no topo */
   justify-content: center;
+  min-height: 400px;
 }
 
-.forgot-container h1 {
-  color: #0d3b66;
-  font-size: 2rem;
-  margin-bottom: 8px;
-  text-align: center;
-}
-
-.forgot-container p {
-  color: #333;
-  font-size: 1rem;
-  margin-bottom: 12px;
-  text-align: center;
+@media (min-width: 900px) {
+  .forgot-container {
+    margin-top: 0;
+    min-height: 480px;
+  }
 }
 
 #recuperar-form {
