@@ -649,7 +649,6 @@ body.menu-open::before {
   }
 }
 
-/* Espaço para o menu lateral */
 @media (min-width: 769px) {
   .conta-header,
   .conta-container {
