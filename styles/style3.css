@@ -63,7 +63,7 @@ main {
 }
 
 .logo-passageiros {
-    height: 80px; /* Increased from 60px */
+    height: 100px; /* Increased from 60px */
     width: auto;
     max-width: 85vw;
     margin: 0 auto;
@@ -71,7 +71,7 @@ main {
 }
 @media (max-width: 600px) {
     .logo-passageiros {
-        height: 65px; /* Increased from 50px */
+        height: 100px; /* Increased from 50px */
         max-width: 98vw;
     }
 }
