@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const menuBtn = document.querySelector('.menu-btn');
   const sidebar = document.querySelector('.sidebar-menu');
+  const overlay = document.querySelector('.menu-overlay');
 
   // Abre/fecha o menu ao clicar no botão
   if (menuBtn) {
@@ -182,5 +183,29 @@ document.addEventListener('DOMContentLoaded', function() {
       tr.remove();
     };
     tabela.appendChild(tr);
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const menuBtn = document.querySelector('.menu-btn');
+  const sidebar = document.querySelector('.sidebar-menu');
+  const overlay = document.querySelector('.menu-overlay');
+
+  if (menuBtn && sidebar && overlay) {
+    menuBtn.addEventListener('click', function() {
+      sidebar.classList.toggle('ativo');
+      overlay.classList.toggle('ativo');
+    });
+    overlay.addEventListener('click', function() {
+      sidebar.classList.remove('ativo');
+      overlay.classList.remove('ativo');
+    });
+    // Fecha o menu ao clicar em um link
+    sidebar.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', function() {
+        sidebar.classList.remove('ativo');
+        overlay.classList.remove('ativo');
+      });
+    });
   }
 });
