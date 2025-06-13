@@ -146,28 +146,15 @@ main {
     }
 }
 
-/* TABELA COMO CARDS NO MOBILE */
-@media (max-width: 600px) {
-    html, body {
-        height: 100%;
-        min-height: 100vh;
-    }
-    body, main {
-        height: 100vh;
-        min-height: 100vh;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+/* TABELA COMO CARDS NO MOBILE E TABLET */
+@media (max-width: 900px) {
     .tabela-passageiros,
     .tabela-passageiros tbody {
         display: flex;
         flex-direction: column;
         width: 100%;
-        height: 100vh;
-        min-height: 100vh;
+        min-width: 0;
         max-width: 100vw;
-        flex: 1 1 auto;
         margin: 0;
         padding: 0;
     }
@@ -177,16 +164,14 @@ main {
     .tabela-passageiros tr {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        flex: 1 1 0;
         background: #fff;
-        border-radius: 2vw;
-        box-shadow: 0 0.5vw 2vw #00336622;
-        margin: 1vw 0;
-        border: 0.4vw solid #003366;
-        padding: 2vw 4vw;
-        width: 96vw;
-        max-width: 100vw;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px #00336622;
+        margin: 10px 0;
+        border: 2px solid #003366;
+        padding: 12px 18px;
+        width: 95vw;
+        max-width: 98vw;
         box-sizing: border-box;
         align-self: center;
     }
@@ -195,41 +180,194 @@ main {
         align-items: center;
         border: none;
         border-bottom: none;
-        padding: 2vw 0;
-        font-size: 4vw;
+        padding: 8px 0;
+        font-size: 1.1em;
         background: none;
         color: #222;
         position: relative;
-        min-height: 7vw;
+        min-height: 28px;
         width: 100%;
         box-sizing: border-box;
     }
     .tabela-passageiros td::before {
         font-weight: bold;
         color: #003366;
-        margin-right: 3vw;
-        min-width: 28vw;
+        margin-right: 18px;
+        min-width: 90px;
         display: inline-block;
-        font-size: 4vw;
+        font-size: 1em;
         flex-shrink: 0;
     }
     .tabela-passageiros td:nth-child(1)::before { content: "Nome:"; }
     .tabela-passageiros td:nth-child(2)::before { content: "Rota:"; }
     .tabela-passageiros td:nth-child(3)::before { content: "Horário:"; }
+}
 
-    .rodape-passageiros {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100vw;
-        z-index: 10;
-    }
-    main {
-        padding-bottom: 44px; /* altura do rodapé */        padding-bottom: 44px; /* altura do rodapé */
-    }    .logo-passageiros {
-        height: 120px;
-        max-width: 98vw;
-    }
+/* Novas classes para uso futuro */
+.painel-informacoes {
+    background: #f9f9f9;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 16px 0;
+}
+
+.titulo-informacoes {
+    font-size: 1.5em;
+    color: #003366;
+    margin-bottom: 8px;
+}
+
+.texto-informacoes {
+    font-size: 1em;
+    color: #333;
+}
+
+.bloco-destaque {
+    background: #fff3cd;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin: 16px 0;
+}
+
+.icone-destaque {
+    font-size: 1.5em;
+    margin-right: 8px;
+}
+
+.texto-destaque {
+    font-size: 1.2em;
+    color: #856404;
+}
+
+.area-mensagem {
+    background: #e2f0d9;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 16px 0;
+}
+
+.formulario-mensagem {
+    display: flex;
+    flex-direction: column;
+}
+
+.rotulo-mensagem {
+    font-size: 1em;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.campo-mensagem {
+    height: 100px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    font-size: 1em;
+}
+
+.botao-enviar-mensagem {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.caixa-alerta {
+    background: #f8d7da;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin: 16px 0;
+}
+
+.icone-alerta {
+    font-size: 1.5em;
+    margin-right: 8px;
+}
+
+.texto-alerta {
+    font-size: 1.2em;
+    color: #721c24;
+}
+
+.lista-usuarios {
+    background: #e9ecef;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 16px 0;
+}
+
+.usuarios-itens {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.usuario-item {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+    font-size: 1em;
+    color: #333;
+}
+
+.usuario-item:last-child {
+    border-bottom: none;
+}
+
+/* Cards responsivos para passageiros */
+.lista-passageiros {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 8px;
+}
+
+.card-passageiro {
+  background: #fff;
+  border: 2px solid #003366;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #00336622;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.campo-passageiro {
+  display: flex;
+  gap: 8px;
+  font-size: 1.1em;
+}
+
+.rotulo-passageiro {
+  font-weight: bold;
+  color: #003366;
+  min-width: 90px;
+}
+
+.valor-passageiro {
+  color: #222;
+  word-break: break-word;
+}
+
+/* Responsivo: cards lado a lado em telas grandes */
+@media (min-width: 700px) {
+  .lista-passageiros {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .card-passageiro {
+    width: 320px;
+    margin: 8px;
+  }
 }
 
 
