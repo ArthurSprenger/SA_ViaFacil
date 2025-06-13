@@ -1,6 +1,9 @@
 html, body {
     height: 100%;
     min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 body {
@@ -31,7 +34,9 @@ main {
     align-items: center;
     justify-content: center; /* Centraliza o conteúdo */
     padding: 8px 0 8px 8px;
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     min-height: 48px;
 }
 
@@ -49,20 +54,24 @@ main {
     transform: translateY(-50%);
 }
 .icone-menu-passageiros div {
-    height: 5px;
-    background: #fff;
-    border-radius: 3px;
+  width: 32px !important;
+  height: 5px !important;
+  background: #fff !important;
+  border-radius: 3px !important;
+  margin: 6px 0 !important;
+  display: block !important;
 }
 
 .logo-passageiros {
-    height: 110px;
-    max-width: 95vw;
+    height: 60px;
+    width: auto;
+    max-width: 80vw;
     margin: 0 auto;
     display: block;
 }
 @media (max-width: 600px) {
     .logo-passageiros {
-        height: 120px;
+        height: 50px;
         max-width: 98vw;
     }
 }
@@ -118,6 +127,10 @@ main {
     align-items: center;
     height: 44px;
     margin-top: 0;
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+    padding: 10px 0;
 }
 
 .seta-passageiros {
@@ -325,36 +338,50 @@ main {
 .lista-passageiros {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 0 8px;
+  gap: 12px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
 }
 
 .card-passageiro {
   background: #fff;
   border: 2px solid #003366;
   border-radius: 10px;
-  box-shadow: 0 2px 8px #00336622;
-  padding: 16px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0, 51, 102, 0.1);
+  padding: 15px;
+  width: calc(100% - 20px);
+  margin: 0 auto;
+  box-sizing: border-box;
+  transition: transform 0.2s;
+}
+
+.card-passageiro:active,
+.card-passageiro:focus-within {
+  transform: scale(1.02); /* Efeito de zoom ao tocar/clicar */
 }
 
 .campo-passageiro {
-  display: flex;
-  gap: 8px;
-  font-size: 1.1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.campo-passageiro:last-child {
+    border-bottom: none;
 }
 
 .rotulo-passageiro {
-  font-weight: bold;
-  color: #003366;
-  min-width: 90px;
+    font-weight: bold;
+    color: #003366;
+    margin-right: 10px;
 }
 
 .valor-passageiro {
-  color: #222;
-  word-break: break-word;
+    color: #333;
 }
 
 /* Responsivo: cards lado a lado em telas grandes */
@@ -363,11 +390,129 @@ main {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 0 8px;
   }
   .card-passageiro {
     width: 320px;
+    max-width: 95vw;
     margin: 8px;
+    padding: 16px 18px;
+    transform: none;
   }
+}
+
+.sidebar-menu {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 240px;
+  height: 100vh;
+  background: #003366;
+  color: #fff;
+  z-index: 1002;
+  transition: left 0.3s;
+  box-shadow: 2px 0 8px #0002;
+  padding-top: 60px;
+}
+.sidebar-menu.ativo {
+  left: 0;
+}
+
+/* Overlay para fechar ao clicar fora */
+.menu-overlay {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.3);
+}
+.menu-overlay.ativo {
+  display: block;
+}
+
+/* Ajuste para o botão das três linhas */
+.menu-btn {
+  cursor: pointer;
+  z-index: 1100;
+}
+.sidebar-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar-menu li {
+  margin: 24px 0;
+  text-align: left;
+}
+.sidebar-menu a {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  font-size: 1.1em;
+}
+.sidebar-icon {
+  width: 28px;
+  height: 28px;
+  margin-right: 12px;
+}
+
+@media (max-width: 400px) {
+    .sidebar-menu {
+        width: 85vw;
+    }
+    
+    .sidebar-menu a {
+        padding: 10px 15px;
+        font-size: 1em;
+    }
+    
+    .sidebar-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+    .lista-passageiros {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .card-passageiro {
+        width: calc(50% - 30px);
+        margin: 0;
+    }
+}
+
+@media (min-width: 901px) {
+    .lista-passageiros {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+    }
+    
+    .card-passageiro {
+        width: calc(33.33% - 40px);
+        margin: 0;
+    }
+}
+
+.cabecalho-passageiros a {
+    display: block;
+    margin: 0 auto;
+    text-decoration: none;
+}
+
+.cabecalho-passageiros a:hover {
+    opacity: 0.9;
 }
 
 
