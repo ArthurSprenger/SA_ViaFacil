@@ -1,0 +1,235 @@
+html, body {
+    height: 100%;
+    min-height: 100vh;
+}
+
+body {
+    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+    box-sizing: border-box;
+    width: 100vw;
+    max-width: 100vw;
+    padding: 0;
+    margin: 0;
+}
+
+/* Cabeçalho */
+.cabecalho-passageiros {
+    background: #003366;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o conteúdo */
+    padding: 8px 0 8px 8px;
+    position: relative;
+    min-height: 48px;
+}
+
+.icone-menu-passageiros {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 10px;
+    cursor: pointer;
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.icone-menu-passageiros div {
+    height: 5px;
+    background: #fff;
+    border-radius: 3px;
+}
+
+.logo-passageiros {
+    height: 110px;
+    max-width: 95vw;
+    margin: 0 auto;
+    display: block;
+}
+@media (max-width: 600px) {
+    .logo-passageiros {
+        height: 120px;
+        max-width: 98vw;
+    }
+}
+
+/* Título */
+.titulo-passageiros {
+    text-align: center;
+    color: #003366;
+    margin: 16px 0 10px 0;
+    font-size: 1.3em;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+/* Tabela MOBILE FIRST */
+.tabela-passageiros {
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    border-collapse: collapse;
+    background: #fff;
+    font-size: 0.98em;
+    box-sizing: border-box;
+}
+
+.tabela-passageiros th, .tabela-passageiros td {
+    border: 2px solid #222;
+    padding: 7px 3px;
+    text-align: center;
+    font-size: 0.98em;
+    word-break: break-word;
+}
+
+.tabela-passageiros th {
+    background: #fff;
+    color: #222;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.tabela-passageiros td {
+    background: #fff;
+    color: #222;
+    font-size: 0.98em;
+}
+
+/* Rodapé */
+.rodape-passageiros {
+    background: #003366;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 44px;
+    margin-top: 0;
+}
+
+.seta-passageiros {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.7em;
+    cursor: pointer;
+    margin: 0 18px;
+}
+
+.numero-pagina-passageiros {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0 8px;
+}
+
+/* Ajuste para telas muito pequenas */
+@media (max-width: 400px) {
+    .tabela-passageiros th, .tabela-passageiros td {
+        padding: 5px 1px;
+        font-size: 0.92em;
+    }
+    .titulo-passageiros {
+        font-size: 1em;
+    }
+}
+
+/* TABELA COMO CARDS NO MOBILE */
+@media (max-width: 600px) {
+    html, body {
+        height: 100%;
+        min-height: 100vh;
+    }
+    body, main {
+        height: 100vh;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .tabela-passageiros,
+    .tabela-passageiros tbody {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        min-height: 100vh;
+        max-width: 100vw;
+        flex: 1 1 auto;
+        margin: 0;
+        padding: 0;
+    }
+    .tabela-passageiros thead {
+        display: none;
+    }
+    .tabela-passageiros tr {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1 1 0;
+        background: #fff;
+        border-radius: 2vw;
+        box-shadow: 0 0.5vw 2vw #00336622;
+        margin: 1vw 0;
+        border: 0.4vw solid #003366;
+        padding: 2vw 4vw;
+        width: 96vw;
+        max-width: 100vw;
+        box-sizing: border-box;
+        align-self: center;
+    }
+    .tabela-passageiros td {
+        display: flex;
+        align-items: center;
+        border: none;
+        border-bottom: none;
+        padding: 2vw 0;
+        font-size: 4vw;
+        background: none;
+        color: #222;
+        position: relative;
+        min-height: 7vw;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .tabela-passageiros td::before {
+        font-weight: bold;
+        color: #003366;
+        margin-right: 3vw;
+        min-width: 28vw;
+        display: inline-block;
+        font-size: 4vw;
+        flex-shrink: 0;
+    }
+    .tabela-passageiros td:nth-child(1)::before { content: "Nome:"; }
+    .tabela-passageiros td:nth-child(2)::before { content: "Rota:"; }
+    .tabela-passageiros td:nth-child(3)::before { content: "Horário:"; }
+
+    .rodape-passageiros {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        z-index: 10;
+    }
+    main {
+        padding-bottom: 44px; /* altura do rodapé */        padding-bottom: 44px; /* altura do rodapé */
+    }    .logo-passageiros {
+        height: 120px;
+        max-width: 98vw;
+    }
+}
+
+
