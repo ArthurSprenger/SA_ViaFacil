@@ -61,7 +61,7 @@ body {
     padding: 16px 8px 8px 8px;
     margin-bottom: 18px;
     text-align: center;
-    min-height: 45vh; /* diminuído para reduzir o espaço em branco */
+    min-height: 45vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

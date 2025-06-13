@@ -66,7 +66,10 @@ main {
     height: 100px; /* Increased from 60px */
     width: auto;
     max-width: 85vw;
-    margin: 0 auto;
+    margin: 
+    
+    
+    auto;
     display: block;
 }
 @media (max-width: 600px) {
