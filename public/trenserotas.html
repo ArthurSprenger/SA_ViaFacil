@@ -1,61 +1,69 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trens e Rotas</title>
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="../styles/style2.css">
 </head>
 <body>
-    <div class="menu-superior">
-        <ul>
-            <li>Início</li>
-            <li>Sobre</li>
-            <li>Contato</li>
-        </ul>
-    </div>
+    <header class="cabecalho-trens">
+        <button class="menu-btn" aria-label="Abrir menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <img src="../assets/logo.PNG" alt="Viafácil" class="logo-trens" />
+    </header>
 
-    <div class="conteudo-principal">
-        <h1>Bem-vindo ao sistema Viafácil!</h1>
-    </div>
-
-    <div class="secao-alerta">
-        <strong>Atenção:</strong> Verifique suas notificações.
-    </div>
-
-    <div class="lista-beneficios">
-        <ul>
-            <li>Benefício 1</li>
-            <li>Benefício 2</li>
-            <li>Benefício 3</li>
-        </ul>
-    </div>
-
-    <div class="cartao-usuario">
-        <img src="usuario.png" alt="Usuário">
-        <span>Nome do Usuário</span>
-    </div>
-
-    <div class="painel-controle">
-        <button>Configurações</button>
-        <button>Relatórios</button>
-    </div>
-
-    <div class="bloco-informacoes">
-        <h2>Informações Importantes</h2>
-        <p>Este é um bloco para exibir informações relevantes ao usuário.</p>
-    </div>
-
-    <div class="area-mensagem">
-        <p>Mensagem do sistema para o usuário.</p>
-    </div>
-
-    <div class="caixa-destaque">
-        <h3>Destaque</h3>
-        <p>Conteúdo em destaque para chamar atenção.</p>
-    </div>
-
-    <div class="rodape-site">
-        <p>&copy; 2025 Viafácil. Todos os direitos reservados.</p>
-    </div>
+    <main class="conteudo-trens">
+        <h1 class="titulo-trens">Trens e Rotas</h1>
+        <div class="bloco-mapa">
+            <span class="subtitulo-mapa">Estações atuando agora na região</span>
+            <img src="../assets/imagemmapa.png" alt="Mapa das estações" class="imagem-mapa" />
+        </div>
+        <div class="lista-estacoes">
+            <div class="linha-estacao">
+                <span class="icone-estacao" style="color:#222;"><img src="../assets/pin-preto.png" alt="Preto" /></span>
+                <span class="nome-estacao">Estação 1</span>
+                <a href="#" class="link-horario">Quadro de horários</a>
+            </div>
+            <div class="linha-estacao">
+                <span class="icone-estacao" style="color:#7c3aed;"><img src="../assets/pin-roxo.png" alt="Roxo" /></span>
+                <span class="nome-estacao">Estação 2</span>
+                <a href="#" class="link-horario">Quadro de horários</a>
+            </div>
+            <div class="linha-estacao">
+                <span class="icone-estacao" style="color:#22c55e;"><img src="../assets/pin-verde.png" alt="Verde" /></span>
+                <span class="nome-estacao">Estação 3</span>
+                <a href="#" class="link-horario">Quadro de horários</a>
+            </div>
+            <div class="linha-estacao">
+                <span class="icone-estacao" style="color:#ef4444;"><img src="../assets/pin-vermelho.png" alt="Vermelho" /></span>
+                <span class="nome-estacao">Estação 4</span>
+                <a href="#" class="link-horario">Quadro de horários</a>
+            </div>
+            <div class="linha-estacao">
+                <span class="icone-estacao" style="color:#3b82f6;"><img src="../assets/pin-azul.png" alt="Azul" /></span>
+                <span class="nome-estacao">Estação 5</span>
+                <a href="#" class="link-horario">Quadro de horários</a>
+            </div>
+            <div class="linha-estacao">
+                <span class="icone-estacao" style="color:#f59e42;"><img src="../assets/pin-laranja.png" alt="Laranja" /></span>
+                <span class="nome-estacao">Estação 6</span>
+                <a href="#" class="link-horario">Quadro de horários</a>
+            </div>
+            <div class="linha-estacao">
+                <span class="icone-estacao" style="color:#e1306c;"><img src="../assets/pin-rosa.png" alt="Rosa" /></span>
+                <span class="nome-estacao">Estação 7</span>
+                <a href="#" class="link-horario">Quadro de horários</a>
+            </div>
+        </div>
+        <div class="paginacao-trens">
+            <span class="seta-paginacao">&#8592;</span>
+            <span class="numero-pagina">01</span>
+            <span class="seta-paginacao">&#8594;</span>
+        </div>
+    </main>
 </body>
 </html>
