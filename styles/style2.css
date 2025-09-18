@@ -1,3 +1,73 @@
+/* Menu lateral oculto por padrão */
+/* Menu lateral sobrepondo conteúdo, fundo escuro, alinhado à esquerda */
+
+/* Menu lateral igual à print: fundo cinza escuro, ícones/textos brancos, espaçamento elegante */
+.sidebar-menu {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 220px;
+  background: #222;
+  color: #fff;
+  padding-top: 60px;
+  box-shadow: 2px 0 16px rgba(0,0,0,0.18);
+  z-index: 9999;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+  display: block;
+}
+.sidebar-menu.ativo {
+  transform: translateX(0);
+}
+.sidebar-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar-menu li {
+  margin-bottom: 36px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-left: 28px;
+}
+.sidebar-menu a, .sidebar-menu span {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.18em;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  letter-spacing: 0.5px;
+}
+.sidebar-icon {
+  max-width: 32px;
+  width: 32px;
+  height: 32px;
+  filter: brightness(0) invert(1);
+}
+@media (max-width: 600px) {
+  .sidebar-menu {
+    width: 80vw;
+    max-width: 180px;
+    padding-top: 40px;
+  }
+  .sidebar-menu li {
+    gap: 10px;
+    padding-left: 12px;
+    margin-bottom: 24px;
+  }
+  .sidebar-icon {
+    max-width: 24px;
+    width: 24px;
+    height: 24px;
+  }
+  .sidebar-menu a, .sidebar-menu span {
+    font-size: 1em;
+  }
+}
 body {
     background: #0d3b66;
     margin: 0;
@@ -38,10 +108,10 @@ body {
 }
 
 .logo-trens {
-    height: 100px;      /* Aumente conforme necessário, ex: 60px, 70px, 80px */
+    height: 100px;     
     margin: 0 auto;
     display: block;
-    max-width: 90vw;   /* Garante que não ultrapasse a tela */
+    max-width: 90vw;  
 }
 
 .conteudo-trens {
