@@ -7,7 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Viafacil</title>
   <link rel="stylesheet" href="styles/style.css" />
-  <script src="scripts/carregamento.js"></script>
+  <script>
+    setTimeout(function() {
+      window.location.href = "public/login.php";
+    }, 3000);
+  </script>
 </head>
 <body>
   <div class="carregamento">

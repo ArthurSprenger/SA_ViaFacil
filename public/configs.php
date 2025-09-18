@@ -1,4 +1,12 @@
 <?php
+$host = "localhost";
+$db = "sa_viafacil_db";
+$user = "root";
+$pass = "root";
+$conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error) {
+  die("Falha na conexão: " . $conn->connect_error);
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
