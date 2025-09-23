@@ -1,62 +1,71 @@
 
+
 body {
-  background: #232b38;
-}
-
-.container-login {
-  background: rgba(30,40,55,0.98);
-  border-radius: 18px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.18);
-  padding: 32px 24px 18px 24px;
-  max-width: 340px;
-  width: 95%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 60px auto;
-}
-
-.logo-login {
-  margin-bottom: 18px;
-}
-.logo-login img {
-  max-width: 160px;
-  margin-bottom: 0;
-}
-
-.avatar-usuario {
-  background: rgba(0,0,0,0.10);
-  border-radius: 50%;
-  width: 90px;
-  height: 90px;
+  background: #253142;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 18px;
-}
-.avatar-usuario img {
-  max-width: 60px;
-  filter: brightness(0) invert(1);
+  margin: 0;
 }
 
+.container-login {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: #22314a;
+  padding-top: 48px;
+}
+.logo-login {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0;
+}
+.logo-login img {
+  width: 160px;
+  height: auto;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.avatar-usuario {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+.avatar-usuario img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 0;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #e9ecef;
+}
 .formulario-login {
+  background: #fff;
+  padding: 24px 18px 18px 18px;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px #0002;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  width: 100%;
-  margin-bottom: 10px;
+  min-width: 320px;
+  max-width: 95vw;
+  align-items: stretch;
+  margin-top: 0;
+  margin-bottom: 24px;
 }
-.formulario-login input {
-  padding: 10px 16px;
-  border-radius: 24px;
-  border: none;
-  background: #232b38;
-  color: #fff;
-  font-size: 1.08em;
-  outline: none;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
-  margin-bottom: 0;
+ .formulario-login input[type="text"],
+ .formulario-login input[type="password"] {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
 }
 .formulario-login input::placeholder {
   color: #bfc7d1;
@@ -72,9 +81,9 @@ body {
 }
 .formulario-login button {
   padding: 10px 0;
-  border-radius: 24px;
+  border-radius: 18px;
   border: none;
-  background: #4ec3fa;
+  background: #36b3d9;
   color: #fff;
   font-size: 1.15em;
   font-weight: bold;
@@ -83,6 +92,7 @@ body {
   margin-bottom: 0;
   box-shadow: 0 1px 4px rgba(0,0,0,0.10);
   transition: background 0.2s;
+  text-transform: uppercase;
 }
 .formulario-login button:hover {
   background: #2496c7;
@@ -94,23 +104,24 @@ body {
   font-weight: bold;
 }
 .suporte-link {
-  margin-top: 18px;
+  margin-top: 32px;
   font-size: 1em;
-  color: #4ec3fa;
+  color: #36b3d9;
   text-align: center;
   display: block;
 }
 .suporte-link a {
-  color: #4ec3fa;
+  color: #36b3d9;
   text-decoration: underline;
   font-size: 1em;
   vertical-align: middle;
   display: inline-block;
 }
-.suporte-link span {
+.suporte-link .suporte-icone {
   font-size: 1.2rem;
   vertical-align: middle;
   margin-right: 4px;
+  color: #36b3d9;
 }
 
 @media (max-width: 600px) {
@@ -402,17 +413,17 @@ body {
   font-size: 1rem;
 }
 
-.formulario-login button {
-  background-color: #008CBA;
+  background-color: #22b3e6;
   border: none;
-  border-radius: 4px;
+  border-radius: 18px;
   color: #fff;
-  padding: 12px;
-  font-size: 1rem;
+  padding: 14px;
+  font-size: 1.08em;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-bottom: 0;
   transition: background 0.2s;
   text-transform: uppercase;
+  width: 100%;
 }
 
 .formulario-login button:hover {

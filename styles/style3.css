@@ -6,6 +6,9 @@ html, body {
     overflow-x: hidden;
 }
 
+/* Oculta o menu lateral em todas as páginas que usam style3.css, mantém o botão hamburger visível */
+.sidebar-menu { display: none !important; }
+
 body {
     min-height: 100vh;
     height: 100vh;

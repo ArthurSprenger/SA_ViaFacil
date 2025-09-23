@@ -5,7 +5,7 @@ session_start();
 $host = "localhost";
 $db = "sa_viafacil_db";
 $user = "root";
-$pass = "";
+$pass = "root";
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
     die("Falha na conexão: " . $conn->connect_error);
@@ -44,23 +44,25 @@ $conn->close();
   <link rel="stylesheet" href="../styles/style.css" />
 </head>
 <body>
-  <div class="container-login">
-    <div class="logo-login">
-      <img src="../assets/logo.PNG" alt="Logo Viafacil" />
-    </div>
-    <div class="avatar-usuario">
-      <img src="../assets/logo usuario.png" alt="Usuário" />
-    </div>
-    <form class="formulario-login" method="POST" action="">
-      <input type="text" name="email" placeholder="usuario" required />
-  <input type="password" name="senha" placeholder="senha" required />
-      <a href="Esqueceusenha.php" class="link-esqueceu">esqueceu sua senha</a>
-      <button type="submit">ENTRAR</button>
-      <?php if ($erro) { echo '<div class="erro-login">'.$erro.'</div>'; } ?>
-    </form>
-    <div class="suporte-link">
-      <span>&#9432;</span>
-      <a href="suporte.php">Entre em contato com o Suporte Técnico.</a>
+  <div class="login-bg">
+    <div class="container-login">
+      <div class="logo-login">
+        <img src="../assets/logo.PNG" alt="Logo Viafacil" />
+      </div>
+      <div class="avatar-usuario">
+        <img src="../assets/avatar-login.png" alt="Usuário" />
+      </div>
+      <form class="formulario-login" method="POST" action="">
+        <input type="text" name="email" placeholder="usuario" required />
+        <input type="password" name="senha" placeholder="senha" required />
+        <a href="Esqueceusenha.php" class="link-esqueceu">esqueceu sua senha</a>
+        <button type="submit">ENTRAR</button>
+        <?php if ($erro) { echo '<div class="erro-login">'.$erro.'</div>'; } ?>
+      </form>
+      <div class="suporte-link">
+        <span class="suporte-icone">&#9432;</span>
+        <a href="suporte.php">Entre em contato com o Suporte Técnico.</a>
+      </div>
     </div>
   </div>
 </body>
