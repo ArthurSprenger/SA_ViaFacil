@@ -224,7 +224,7 @@ body {
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
-  font-weight: bold; /* Adicione esta linha */
+  font-weight: bold; 
   transition: background 0.2s;
   text-transform: uppercase;
 }
@@ -271,7 +271,6 @@ body {
   background-color: #388e3c;
 }
 
-/* Tabela */
 .table-section {
   width: 100%;
   border-collapse: collapse;
@@ -444,7 +443,6 @@ body {
   text-decoration: underline;
 }
 
-/* Menu lateral estilo pasted image 2 */
 .sidebar-menu {
   position: fixed;
   top: 0;
@@ -500,7 +498,6 @@ body {
   filter: brightness(0) invert(1);
 }
 
-/* Aumenta só o ícone da conta no menu lateral */
 .sidebar-icon.conta-icon {
   width: 32px;
   height: 32px;
@@ -510,12 +507,10 @@ body {
   filter: none !important;
 }
 
-/* Mostra o menu quando .menu-open está no body */
 body.menu-open .sidebar-menu {
   transform: translateX(0);
 }
 
-/* Escurece o fundo quando o menu está aberto */
 body.menu-open::before {
   content: '';
   position: fixed;
@@ -585,7 +580,6 @@ body.menu-open::before {
   }
 }
 
-/* Estilo para a tela de Conta */
 .conta-header {
   background: #0d3b66;
   color: #fff;
@@ -683,7 +677,6 @@ body.menu-open::before {
   }
 }
 
-/* Espaço para o menu lateral */
 @media (min-width: 769px) {
   .conta-header,
   .conta-container {
