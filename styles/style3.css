@@ -415,6 +415,7 @@ main {
   height: 100vh;
   background: #003366;
   color: #fff;
+  z-index: 1002;
 
 
 
