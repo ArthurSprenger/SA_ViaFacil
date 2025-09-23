@@ -6,7 +6,6 @@ html, body {
     overflow-x: hidden;
 }
 
-/* Oculta o menu lateral em todas as páginas que usam style3.css, mantém o botão hamburger visível */
 .sidebar-menu { display: none !important; }
 
 body {
@@ -29,13 +28,12 @@ main {
     margin: 0;
 }
 
-/* Cabeçalho */
 .cabecalho-passageiros {
     background: #003366;
     color: #fff;
     display: flex;
     align-items: center;
-    justify-content: center; /* Centraliza o conteúdo */
+    justify-content: center; 
     padding: 8px 0 8px 8px;
     position: sticky;
     top: 0;
@@ -66,7 +64,7 @@ main {
 }
 
 .logo-passageiros {
-    height: 100px; /* Increased from 60px */
+    height: 100px; 
     width: auto;
     max-width: 85vw;
     margin: 
@@ -77,12 +75,11 @@ main {
 }
 @media (max-width: 600px) {
     .logo-passageiros {
-        height: 100px; /* Increased from 50px */
+        height: 100px; 
         max-width: 98vw;
     }
 }
 
-/* Título */
 .titulo-passageiros {
     text-align: center;
     color: #003366;
@@ -92,7 +89,6 @@ main {
     font-weight: bold;
 }
 
-/* Tabela MOBILE FIRST */
 .tabela-passageiros {
     width: 100vw;
     max-width: 100vw;
@@ -124,7 +120,6 @@ main {
     font-size: 0.98em;
 }
 
-/* Rodapé */
 .rodape-passageiros {
     background: #003366;
     color: #fff;
@@ -154,7 +149,6 @@ main {
     margin: 0 8px;
 }
 
-/* Ajuste para telas muito pequenas */
 @media (max-width: 400px) {
     .tabela-passageiros th, .tabela-passageiros td {
         padding: 5px 1px;
@@ -165,7 +159,6 @@ main {
     }
 }
 
-/* TABELA COMO CARDS NO MOBILE E TABLET */
 @media (max-width: 900px) {
     .tabela-passageiros,
     .tabela-passageiros tbody {
@@ -222,7 +215,6 @@ main {
     .tabela-passageiros td:nth-child(3)::before { content: "Horário:"; }
 }
 
-/* Novas classes para uso futuro */
 .painel-informacoes {
     background: #f9f9f9;
     padding: 16px;
@@ -340,7 +332,6 @@ main {
     border-bottom: none;
 }
 
-/* Cards responsivos para passageiros */
 .lista-passageiros {
   display: flex;
   flex-direction: column;
@@ -365,7 +356,7 @@ main {
 
 .card-passageiro:active,
 .card-passageiro:focus-within {
-  transform: scale(1.02); /* Efeito de zoom ao tocar/clicar */
+  transform: scale(1.02); 
 }
 
 .campo-passageiro {
@@ -390,7 +381,6 @@ main {
     color: #333;
 }
 
-/* Responsivo: cards lado a lado em telas grandes */
 @media (min-width: 700px) {
   .lista-passageiros {
     flex-direction: row;
@@ -408,23 +398,14 @@ main {
 }
 
 .sidebar-menu {
-  position: fixed;
+ position: fixed;
   top: 0;
-  left: -260px;
-  width: 240px;
-  height: 100vh;
-  background: #003366;
-  color: #fff;
-  z-index: 1002;
-
-
 
 }
 .sidebar-menu.ativo {
   left: 0;
 }
 
-/* Overlay para fechar ao clicar fora */
 .menu-overlay {
   display: none;
   position: fixed;
@@ -436,7 +417,6 @@ main {
   display: block;
 }
 
-/* Ajuste para o botão das três linhas */
 .menu-btn {
   cursor: pointer;
   z-index: 1100;
@@ -521,7 +501,6 @@ main {
     opacity: 0.9;
 }
 
-/* Estilo para a página de solicitações */
 .solicitacoes-container {
     padding: 20px;
     max-width: 800px;
@@ -588,7 +567,6 @@ main {
     background-color: #45a049;
 }
 
-/* Responsividade */
 @media (max-width: 600px) {
     .solicitacoes-container {
         padding: 10px;
