@@ -16,11 +16,11 @@ if ($conn->connect_error) {
   <title>Configurações | Viafácil</title>
   <style>
     body{ margin:0; padding:0; font-family: Arial, sans-serif; background:#fff; min-height:100vh; }
-    .config-header{ position:relative; display:flex; align-items:center; justify-content:center; padding:18px 16px; background:#003366; color:#fff; border-radius:0 0 16px 16px; min-height:72px; }
-    .menu-btn{ background:none; border:0; display:flex; flex-direction:column; gap:4px; position:absolute; left:12px; top:50%; transform:translateY(-50%); cursor:pointer; }
-    .menu-btn .bar{ width:28px; height:4px; background:#fff; border-radius:2px; }
-    .logo-trens{ width:96px; height:auto; display:block; margin:0 auto; }
-    .config-title{ font-size:1.9em; font-weight:800; color:#fff; text-align:center; margin-top:8px; }
+  .config-header{ position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:14px 16px 18px; background:#003366; color:#fff; border-radius:0 0 16px 16px; min-height:120px; }
+  .menu-btn{ background:none; border:0; display:flex; flex-direction:column; gap:4px; position:absolute; left:12px; top:12px; cursor:pointer; }
+  .menu-btn .bar{ width:28px; height:4px; background:#fff; border-radius:2px; }
+  .logo-trens{ width:96px; height:auto; display:block; margin:6px auto 4px; }
+  .config-title{ font-size:1.9em; font-weight:800; color:#fff; text-align:center; margin:0; }
     .config-container{ padding:18px; }
     .config-list{ max-width:420px; margin:8px auto 40px; }
     .config-item{ display:flex; align-items:center; justify-content:space-between; padding:12px 8px; border-bottom:1px solid rgba(0,0,0,0.06); }

@@ -10,15 +10,6 @@
     <!-- Exemplo de uso das novas classes -->
     <header class="cabecalho-passageiros">
         <div class="icone-menu-passageiros menu-btn" id="menuBtn">
-
-<?php
-// passageiros.php
-?><!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <title>Passageiros</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       margin: 0;

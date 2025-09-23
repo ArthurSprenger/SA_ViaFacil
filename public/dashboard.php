@@ -83,6 +83,8 @@
       color: #222;
       font-weight: bold;
     }
+    /* tornar o conteúdo do card inteiro clicável */
+    .card a { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; color:inherit; text-decoration:none; width:100%; height:100%; }
     .form-section {
       background: #fff;
       border-radius: 8px;
@@ -128,6 +130,8 @@
       border-collapse: collapse;
       margin-top: 12px;
     }
+    /* container responsivo para permitir scroll horizontal em telas pequenas */
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius:6px; }
     .table-section th, .table-section td {
       border: 1px solid #ddd;
       padding: 8px;
@@ -142,7 +146,7 @@
       color: #fff;
       border: none;
       border-radius: 5px;
-      padding: 6px 12px;
+      padding: 6px 10px;
       cursor: pointer;
       font-size: 0.95em;
       transition: background 0.2s;
@@ -226,6 +230,9 @@
       .form-section {
         padding: 12px 4px;
       }
+      /* diminuir padding da tabela e botões em mobile para reduzir largura */
+      .table-section th, .table-section td { padding: 6px; font-size: 0.95em; }
+      .btn-aviso { padding: 6px 8px; font-size: 0.85em; }
       /* ajustes mobile */
       .sidebar-icon {
         max-width: 16px;
@@ -268,20 +275,28 @@
     <div class="sobreposicao-menu" id="sobreposicaoMenu"></div>
     <section class="cards">
       <article class="card" id="passageiros">
-        <img src="../assets/passageiros.png" alt="Ícone Passageiros" />
-        <span>passageiros</span>
+        <a href="passageiros.php">
+          <img src="../assets/passageiros.png" alt="Ícone Passageiros" />
+          <span>passageiros</span>
+        </a>
       </article>
       <article class="card" id="trens">
-        <img src="../assets/trens.png" alt="Ícone Trens e Rotas" />
-        <span>trens e rotas</span>
+        <a href="trenserotas.php">
+          <img src="../assets/trens.png" alt="Ícone Trens e Rotas" />
+          <span>trens e rotas</span>
+        </a>
       </article>
       <article class="card" id="aviso">
-        <img src="../assets/aviso.png" alt="Ícone Aviso" />
-        <span>aviso</span>
+        <a href="suporte.php">
+          <img src="../assets/aviso.png" alt="Ícone Aviso" />
+          <span>aviso</span>
+        </a>
       </article>
       <article class="card" id="solicitacao">
-        <img src="../assets/solicitacao.png" alt="Ícone Solicitação" />
-        <span>solicitação</span>
+        <a href="solicitacoes.php">
+          <img src="../assets/solicitacao.png" alt="Ícone Solicitação" />
+          <span>solicitação</span>
+        </a>
       </article>
     </section>
   </div>
@@ -294,7 +309,8 @@
   </section>
   <section class="form-section">
     <h2>Solicitações</h2>
-    <table class="table-section">
+    <div class="table-wrap">
+      <table class="table-section">
       <thead>
         <tr>
           <th>Estação</th>
@@ -323,7 +339,8 @@
           <td><button class="btn-aviso">ENVIAR SOLICITAÇÃO</button></td>
         </tr> 
       </tbody>
-    </table>
+      </table>
+    </div>
   </section>
 
   <script>
