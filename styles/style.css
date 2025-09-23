@@ -687,6 +687,6 @@ body.menu-open::before {
 @media (min-width: 769px) {
   .conta-header,
   .conta-container {
-   
+    margin-left: 240px;
   }
 }
