@@ -281,7 +281,7 @@
         </a>
       </article>
       <article class="card" id="aviso">
-        <a href="suporte.php">
+        <a href="aviso.php">
           <img src="../assets/aviso.png" alt="Ícone Aviso" />
           <span>aviso</span>
         </a>
