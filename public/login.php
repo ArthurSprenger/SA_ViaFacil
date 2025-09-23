@@ -43,22 +43,18 @@ $conn->close();
   <title>Viafacil - Login</title>
   <link rel="stylesheet" href="../styles/style.css" />
   <style>
-    /* Base e layout */
+
     html,body { height:100%; margin:0; font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(180deg,#07283d 0%, #0d3b66 100%); }
     .page-center { min-height:100vh; display:flex; align-items:center; justify-content:center; }
 
-    /* Card mais estreito no desktop; responsivo no mobile */
     .login-card { width: min(400px, 95vw); background: linear-gradient(180deg,#163048 0%, #20384f 100%); border-radius:18px; padding:22px 20px; box-shadow: 0 8px 28px rgba(0,0,0,0.45); color:#fff; position:relative; }
 
-    /* Logo de marca responsiva */
     .login-logo { display:block; width: clamp(120px, 20vw, 180px); height:auto; margin: 8px auto 10px; }
 
-    /* Avatar responsivo e proporcional: menor no desktop, maior relativo no mobile */
     .login-card { position: relative; padding-top: 14px; overflow: visible; }
     .avatar-holder { width: clamp(120px, 22vw, 280px); height: clamp(120px, 22vw, 280px); border-radius:50%; background:transparent; margin: 6px auto 8px; display:flex; align-items:center; justify-content:center; box-sizing:border-box; }
     .avatar-holder img { width:100%; height:100%; object-fit:contain; display:block; }
 
-    /* Tipografia e formulário */
     .login-title { text-align:center; font-weight:700; letter-spacing:1px; margin:6px 0 10px; color:#cfe8fb; }
     .form-login { display:flex; flex-direction:column; gap:12px; }
     .input-pill { width:100%; box-sizing:border-box; padding:10px 14px; border-radius:22px; background: transparent; border:2px solid rgba(255,255,255,0.35); color:#fff; font-size:0.95rem; }
@@ -70,12 +66,10 @@ $conn->close();
     .suporte { margin-top:12px; text-align:center; font-size:0.9rem; color:#9ed9ff; }
     .suporte a { color:#9ed9ff; text-decoration:none; }
 
-    /* Pequenos ajustes extras para telas muito pequenas */
     @media (max-width:420px) {
       .login-card { width:92vw; padding:18px; }
     }
 
-    /* Mobile-only: aumentar a logo do usuário (avatar) */
     @media (max-width:480px) {
       .avatar-holder { width: clamp(180px, 50vw, 320px); height: clamp(180px, 50vw, 320px); }
     }
