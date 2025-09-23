@@ -8,7 +8,6 @@
     <title>Trens e Rotas</title>
     <link rel="stylesheet" href="../styles/style2.css">
         <style>
-            /* local menu-lateral styles (same pattern used on other pages) */
             .menu-lateral { position: fixed; left: 0; top: 0; height: 100vh; width: 260px; background: #2f2f2f; color: #fff; padding-top: 28px; box-shadow: 2px 0 12px rgba(0,0,0,0.3); transform: translateX(-110%); transition: transform 0.28s ease; z-index: 1000; }
             .menu-lateral.ativo { transform: translateX(0); }
             .sobreposicao-menu { position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); opacity: 0; visibility: hidden; transition: opacity .2s ease; z-index: 900; }
@@ -82,7 +81,6 @@
             <span class="seta-paginacao">&#8594;</span>
         </div>
     </main>
-        <!-- Menu lateral (slide-in) -->
         <nav class="menu-lateral" id="menuLateral" aria-hidden="true">
             <ul class="lista-itens">
                 <li class="item-menu"><a href="dashboard.php"><img src="../assets/dashboard.png" class="icone-item" alt="Dashboard"/><span class="texto-item">DASHBOARD</span></a></li>

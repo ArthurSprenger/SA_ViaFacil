@@ -20,7 +20,6 @@
             .icone-item { width:36px; height:36px; display:block; }
             .texto-item { font-weight:700; font-size:0.95em; }
 
-            /* make inputs inside the tables fit the cell proportionally */
             .tabela-solicitacoes input[type="text"] {
                 width: 100%;
                 box-sizing: border-box;
@@ -32,7 +31,6 @@
                 background: #fff;
             }
             .tabela-container { display: grid; gap: 18px; }
-            /* Force hamburger appearance: remove button background and draw three bars */
             .menu-btn { background: transparent !important; border: 0 !important; padding: 0 !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; width: 36px !important; height: 36px !important; cursor: pointer; }
             .menu-btn div { width: 28px !important; height: 4px !important; background: #fff !important; border-radius: 2px !important; margin: 2px 0 !important; display: block !important; }
         </style>
