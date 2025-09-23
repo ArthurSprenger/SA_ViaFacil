@@ -1,5 +1,4 @@
 <?php
-// recuperar.php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
     if (!$email) {

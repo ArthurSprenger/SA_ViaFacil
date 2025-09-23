@@ -1,6 +1,5 @@
 <?php
-// script.php
-// Aqui você pode implementar as validações e manipulações de avisos/solicitações em PHP
+
 ?><!DOCTYPE html>
 <html lang="pt-BR">
 <head>
