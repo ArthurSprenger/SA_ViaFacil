@@ -83,7 +83,6 @@
       color: #222;
       font-weight: bold;
     }
-    /* tornar o conteúdo do card inteiro clicável */
     .card a { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; color:inherit; text-decoration:none; width:100%; height:100%; }
     .form-section {
       background: #fff;
@@ -130,7 +129,6 @@
       border-collapse: collapse;
       margin-top: 12px;
     }
-    /* container responsivo para permitir scroll horizontal em telas pequenas */
     .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius:6px; }
     .table-section th, .table-section td {
       border: 1px solid #ddd;
@@ -230,15 +228,12 @@
       .form-section {
         padding: 12px 4px;
       }
-      /* diminuir padding da tabela e botões em mobile para reduzir largura */
       .table-section th, .table-section td { padding: 6px; font-size: 0.95em; }
       .btn-aviso { padding: 6px 8px; font-size: 0.85em; }
-      /* ajustes mobile */
       .sidebar-icon {
         max-width: 16px;
       }
     }
-    /* Estilos do menu lateral em português (sobreposição) */
     .menu-lateral { position: fixed; left: 0; top: 0; height: 100vh; width: 260px; background: #2f2f2f; color: #fff; padding-top: 28px; box-shadow: 2px 0 12px rgba(0,0,0,0.3); transform: translateX(-110%); transition: transform 0.28s ease; z-index: 1000; }
     .menu-lateral.ativo { transform: translateX(0); }
     .sobreposicao-menu { position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); opacity: 0; visibility: hidden; transition: opacity 0.2s ease; z-index: 900; }
@@ -263,7 +258,6 @@
         <img src="../assets/logo.PNG" alt="Viafacil" class="logo" />
       </a>
     </header>
-    <!-- Menu lateral (em português) -->
     <nav class="menu-lateral" id="menuLateral">
       <ul class="lista-itens">
         <li class="item-menu"><a href="dashboard.php"><img src="../assets/dashboard.png" class="icone-item" alt="Dashboard"/><span class="texto-item">DASHBOARD</span></a></li>
@@ -344,7 +338,6 @@
   </section>
 
   <script>
-    // Script para abrir/fechar o menu lateral (nomes em português)
     (function() {
       const botaoMenu = document.querySelector('.menu-btn');
       const menuLateral = document.getElementById('menuLateral');
@@ -353,7 +346,6 @@
       function abrirMenu() {
         menuLateral.classList.add('ativo');
         sobreposicao.classList.add('ativo');
-        // manter foco para acessibilidade
         menuLateral.setAttribute('aria-hidden', 'false');
       }
 
@@ -375,7 +367,6 @@
         fecharMenu();
       });
 
-      // fechar com Esc
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
           fecharMenu();
