@@ -17,13 +17,14 @@
     .conta-header {
       position: relative;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 18px 16px;
+      padding: 14px 16px 18px;
       background: #003366;
       color: #fff;
       border-radius: 0 0 16px 16px;
-      min-height: 72px;
+      min-height: 120px;
     }
     .menu-btn {
       background: none;
@@ -34,8 +35,7 @@
       cursor: pointer;
       position: absolute;
       left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
+      top: 12px;
       z-index: 10;
     }
     .menu-btn .bar {
@@ -45,10 +45,10 @@
       border-radius: 2px;
     }
     .logo {
-      width: 120px;
+      width: 96px;
       height: auto;
       display: block;
-      margin: 0 auto;
+      margin: 6px auto 4px;
     }
     .conta-header h1 {
       font-size: 1.9em;

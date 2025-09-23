@@ -1,5 +1,5 @@
 <?php
-// suporte.php
+
 header('Refresh: 2; URL=https://chat.google.com/room/AAAAEF4_MnA?cls=7');
 ?>
 <!DOCTYPE html>
