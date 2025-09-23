@@ -2,14 +2,8 @@
 
 <?php
 session_start();
-$host = "localhost";
-$db = "sa_viafacil_db";
-$user = "root";
-$pass = "root";
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-    die("Falha na conexão: " . $conn->connect_error);
-}
+require_once __DIR__ . '/../config/db.php';
+$conn = db_connect();
 $erro = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
