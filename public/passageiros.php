@@ -1,5 +1,5 @@
 <?php
-// passageiros.php - versão em PHP (sem alterações visuais)
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -9,12 +9,10 @@
     <title>Passageiros</title>
     <link rel="stylesheet" href="../styles/style3.css">
     <style>
-      /* pequenos estilos locais mantidos para preservar aparência atual */
-  /* layout: footer fixo no rodapé da viewport */
+
   body { display: flex; flex-direction: column; min-height: 100vh; margin: 0; padding-bottom: 80px; }
   main { flex: 1 0 auto; }
-  /* footer visual atualizado: fundo azul escuro com botões claros */
-  /* rodapé central em formato 'pill' alinhado ao fundo da viewport */
+
   .rodape-passageiros {
     position: fixed;
     left: 50%;
@@ -46,7 +44,6 @@
   .seta-passageiros:active { transform: translateY(1px); }
   .numero-pagina-passageiros { font-weight: 800; color: #fff; font-size: 1.05em; letter-spacing: 1px; }
 
-  /* menu-lateral (sobreposição) */
   .menu-lateral { position: fixed; left: 0; top: 0; height: 100vh; width: 260px; background: #2f2f2f; color: #fff; padding-top: 28px; box-shadow: 2px 0 12px rgba(0,0,0,0.3); transform: translateX(-110%); transition: transform 0.28s ease; z-index: 1000; }
   .menu-lateral.ativo { transform: translateX(0); }
   .sobreposicao-menu { position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); opacity: 0; visibility: hidden; transition: opacity .2s ease; z-index: 900; }
@@ -72,7 +69,6 @@
         .container-msg { padding: 18px 8px; }
       }
 
-      /* Override local: botão hamburger como quadrado arredondado com fundo escuro e 3 barras brancas */
       .menu-btn.icone-menu-passageiros {
         background: #003366;
         border: none;
@@ -234,7 +230,6 @@
       </div>
     </main>
 
-    <!-- Menu lateral em português (slide-in) -->
   <nav class="menu-lateral" id="menuLateral" aria-hidden="true">
       <ul class="lista-itens">
         <li class="item-menu"><a href="dashboard.php"><img src="../assets/dashboard.png" class="icone-item" alt="Dashboard"/><span class="texto-item">DASHBOARD</span></a></li>
@@ -250,7 +245,7 @@
         const botaoMenu = document.querySelector('.menu-btn');
         const menuLateral = document.getElementById('menuLateral');
         const sobreposicao = document.getElementById('sobreposicaoMenu');
-        if(!menuLateral || !sobreposicao) return; // nothing to do
+        if(!menuLateral || !sobreposicao) return; 
 
         function abrirMenu(){ menuLateral.classList.add('ativo'); sobreposicao.classList.add('ativo'); menuLateral.setAttribute('aria-hidden','false'); }
         function fecharMenu(){ menuLateral.classList.remove('ativo'); sobreposicao.classList.remove('ativo'); menuLateral.setAttribute('aria-hidden','true'); }
