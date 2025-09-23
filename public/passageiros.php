@@ -1,4 +1,4 @@
-?>
+<?php  ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../styles/style3.css">
 </head>
 <body>
-    <!-- Exemplo de uso das novas classes -->
     <header class="cabecalho-passageiros">
         <div class="icone-menu-passageiros menu-btn" id="menuBtn">
   <style>
@@ -62,7 +61,7 @@
         </a>
     </header>
     <h1 class="titulo-passageiros">PASSAGEIROS</h1>
-    <!-- Substitua a tabela por esta estrutura -->
+  
     <main>
       <div class="lista-passageiros">
         <div class="card-passageiro">
@@ -79,7 +78,7 @@
             <span class="valor-passageiro">12:14</span>
           </div>
         </div>
-        <!-- Repita para cada passageiro -->
+    
         <div class="card-passageiro">
           <div class="campo-passageiro">
             <span class="rotulo-passageiro">Nome:</span>
@@ -181,7 +180,7 @@
       </div>
     </main>
     <div class="menu-overlay"></div>
-    <!-- Menu lateral -->
+   
     <nav class="sidebar-menu">
       <ul>
         <li>
