@@ -178,7 +178,6 @@
       <button type="submit">Mudar informações</button>
     </form>
   </main>
-  <!-- Menu lateral em português (slide-in) -->
   <nav class="menu-lateral" id="menuLateral">
     <ul class="lista-itens">
       <li class="item-menu"><a href="dashboard.php"><img src="../assets/dashboard.png" class="icone-item" alt="Dashboard"/><span class="texto-item">DASHBOARD</span></a></li>
@@ -212,13 +211,10 @@
 
       sobreposicao.addEventListener('click', fecharMenu);
 
-      // fechar com Esc
       document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fecharMenu(); });
 
-      // fechar menu ao clicar em um link (melhora UX antes da navegação)
       Array.from(menuLateral.querySelectorAll('a')).forEach(function(link){
         link.addEventListener('click', function(){
-          // pequena espera para animar o fechamento antes da navegação
           fecharMenu();
         });
       });
