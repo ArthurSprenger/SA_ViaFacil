@@ -1,5 +1,4 @@
 <?php
-// Exibe tela de carregamento
 echo '<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
