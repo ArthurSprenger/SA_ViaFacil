@@ -10,7 +10,6 @@
 </head>
 <body>
     <header class="cabecalho-trens">
-      <!-- Removido o botão dos três risquinhos -->
       <a href="dashboard.html">
         <img src="../assets/logo.PNG" alt="Viafácil" class="logo-trens" />
       </a>
