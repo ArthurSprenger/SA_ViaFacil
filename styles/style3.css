@@ -413,6 +413,10 @@ main {
   left: -260px;
   width: 240px;
   height: 100vh;
+  background: #003366;
+
+
+
 }
 .sidebar-menu.ativo {
   left: 0;
