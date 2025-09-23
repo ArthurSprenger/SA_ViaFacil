@@ -26,14 +26,12 @@ if ($conn->connect_error) {
     .config-item{ display:flex; align-items:center; justify-content:space-between; padding:12px 8px; border-bottom:1px solid rgba(0,0,0,0.06); }
     .config-item label{ font-weight:700; color:#111; }
     .config-icon{ display:flex; align-items:center; gap:10px; }
-    /* switch */
     .switch{ position:relative; display:inline-block; width:46px; height:26px; }
     .switch input{ opacity:0; width:0; height:0; }
     .slider{ position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background:#ccc; transition:.2s; border-radius:26px; }
     .slider:before{ position:absolute; content:''; height:20px; width:20px; left:3px; top:3px; background:white; transition:.2s; border-radius:50%; }
     .switch input:checked + .slider{ background:#43b649; }
     .switch input:checked + .slider:before{ transform:translateX(20px); }
-    /* menu-lateral styles */
     .menu-lateral{ position:fixed; left:0; top:0; height:100vh; width:260px; background:#2f2f2f; color:#fff; padding-top:28px; box-shadow:2px 0 12px rgba(0,0,0,0.3); transform:translateX(-110%); transition:transform .28s ease; z-index:1000; }
     .menu-lateral.ativo{ transform:translateX(0); }
     .sobreposicao-menu{ position:fixed; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); opacity:0; visibility:hidden; transition:opacity .2s ease; z-index:900; }
