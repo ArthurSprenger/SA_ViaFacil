@@ -408,9 +408,11 @@ main {
 }
 
 .sidebar-menu {
- position: fixed;
+  position: fixed;
   top: 0;
-
+  left: -260px;
+  width: 240px;
+  height: 100vh;
 }
 .sidebar-menu.ativo {
   left: 0;
