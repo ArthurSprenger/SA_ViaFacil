@@ -21,15 +21,19 @@
       padding-bottom: 24px;
     }
     .header {
+      position: relative;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 16px 24px;
+      justify-content: center;
+      padding: 18px 16px;
       background: #003366;
       border-radius: 0 0 16px 16px;
+      min-height: 64px;
     }
     .logo {
-      max-width: 120px;
+      width: 160px;
+      height: auto;
+      display: block;
     }
     .menu-btn {
       background: none;
@@ -38,6 +42,11 @@
       flex-direction: column;
       gap: 4px;
       cursor: pointer;
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
     }
     .bar {
       width: 28px;
@@ -57,14 +66,13 @@
       background: #e6e6e6;
       border-radius: 16px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.10);
-      padding: 28px 12px;
-      text-align: center;
       width: 100%;
       max-width: 160px;
       display: flex;
       flex-direction: column;
       align-items: center;
       transition: box-shadow 0.2s;
+      padding: 18px;
     }
     .card img {
       max-width: 64px;
@@ -218,18 +226,22 @@
       .form-section {
         padding: 12px 4px;
       }
-      .sidebar-menu {
-        width: 80px;
-        padding-top: 20px;
-      }
-      .sidebar-menu li {
-        gap: 4px;
-        padding-left: 2px;
-      }
+      /* ajustes mobile */
       .sidebar-icon {
         max-width: 16px;
       }
     }
+    /* Estilos do menu lateral em português (sobreposição) */
+    .menu-lateral { position: fixed; left: 0; top: 0; height: 100vh; width: 260px; background: #2f2f2f; color: #fff; padding-top: 28px; box-shadow: 2px 0 12px rgba(0,0,0,0.3); transform: translateX(-110%); transition: transform 0.28s ease; z-index: 1000; }
+    .menu-lateral.ativo { transform: translateX(0); }
+    .sobreposicao-menu { position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); opacity: 0; visibility: hidden; transition: opacity 0.2s ease; z-index: 900; }
+    .sobreposicao-menu.ativo { opacity: 1; visibility: visible; }
+    .lista-itens { list-style: none; padding: 0 12px; margin: 0; }
+    .item-menu { display:flex; align-items:center; gap:12px; padding:14px 8px; border-radius:8px; color:#fff; cursor:pointer; margin-bottom:8px; }
+    .item-menu:hover { background: rgba(255,255,255,0.04); }
+    .item-menu a { color: inherit; text-decoration: none; display: flex; align-items: center; gap: 12px; width: 100%; }
+    .icone-item { width:36px; height:36px; display:block; }
+    .texto-item { font-weight:700; font-size:0.95em; }
   </style>
 </head>
 <body>
@@ -244,6 +256,16 @@
         <img src="../assets/logo.PNG" alt="Viafacil" class="logo" />
       </a>
     </header>
+    <!-- Menu lateral (em português) -->
+    <nav class="menu-lateral" id="menuLateral">
+      <ul class="lista-itens">
+        <li class="item-menu"><a href="dashboard.php"><img src="../assets/dashboard.png" class="icone-item" alt="Dashboard"/><span class="texto-item">DASHBOARD</span></a></li>
+        <li class="item-menu"><a href="conta.php"><img src="../assets/logo usuario menu.png" class="icone-item" alt="Conta"/><span class="texto-item">CONTA</span></a></li>
+        <li class="item-menu"><a href="configs.php"><img src="../assets/configurações.png" class="icone-item" alt="Configurações"/><span class="texto-item">CONFIGURAÇÕES</span></a></li>
+        <li class="item-menu"><a href="login.php"><img src="../assets/sair.png" class="icone-item" alt="Sair"/><span class="texto-item">SAIR</span></a></li>
+      </ul>
+    </nav>
+    <div class="sobreposicao-menu" id="sobreposicaoMenu"></div>
     <section class="cards">
       <article class="card" id="passageiros">
         <img src="../assets/passageiros.png" alt="Ícone Passageiros" />
@@ -303,29 +325,47 @@
       </tbody>
     </table>
   </section>
-  <nav class="sidebar-menu">
-    <ul>
-      <li>
-        <a href="dashboard.php">
-          <img src="../assets/dashboard.png" alt="Dashboard" class="sidebar-icon dashboard-icon" />
-          <span>DASHBOARD</span>
-        </a>
-      </li>
-      <li>
-        <a href="conta.php">
-          <img src="../assets/logo usuario menu.png" alt="Conta" class="sidebar-icon conta-icon" />
-          <span>CONTA</span>
-        </a>
-      </li>
-      <li>
-        <img src="../assets/configurações.png" alt="Configurações" class="sidebar-icon" />
-        <span>CONFIGURAÇÕES</span>
-      </li>
-      <li>
-        <img src="../assets/sair.png" alt="Sair" class="sidebar-icon" />
-        <span>SAIR</span>
-      </li>
-    </ul>
-  </nav>
+
+  <script>
+    // Script para abrir/fechar o menu lateral (nomes em português)
+    (function() {
+      const botaoMenu = document.querySelector('.menu-btn');
+      const menuLateral = document.getElementById('menuLateral');
+      const sobreposicao = document.getElementById('sobreposicaoMenu');
+
+      function abrirMenu() {
+        menuLateral.classList.add('ativo');
+        sobreposicao.classList.add('ativo');
+        // manter foco para acessibilidade
+        menuLateral.setAttribute('aria-hidden', 'false');
+      }
+
+      function fecharMenu() {
+        menuLateral.classList.remove('ativo');
+        sobreposicao.classList.remove('ativo');
+        menuLateral.setAttribute('aria-hidden', 'true');
+      }
+
+      botaoMenu.addEventListener('click', function() {
+        if (menuLateral.classList.contains('ativo')) {
+          fecharMenu();
+        } else {
+          abrirMenu();
+        }
+      });
+
+      sobreposicao.addEventListener('click', function() {
+        fecharMenu();
+      });
+
+      // fechar com Esc
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          fecharMenu();
+        }
+      });
+    })();
+  </script>
+
 </body>
 </html>

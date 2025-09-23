@@ -15,35 +15,61 @@
       min-height: 100vh;
     }
     .conta-header {
+      position: relative;
       display: flex;
       align-items: center;
-      gap: 18px;
-      padding: 16px 24px;
-      background: #007bff;
+      justify-content: center;
+      padding: 18px 16px;
+      background: #003366;
       color: #fff;
       border-radius: 0 0 16px 16px;
+      min-height: 72px;
+    }
+    .menu-btn {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+    }
+    .menu-btn .bar {
+      width: 28px;
+      height: 4px;
+      background: #fff;
+      border-radius: 2px;
     }
     .logo {
-      max-width: 80px;
+      width: 120px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
     }
     .conta-header h1 {
-      font-size: 1.5em;
+      font-size: 1.9em;
       margin: 0;
+      font-weight: 700;
+      line-height: 1;
     }
     .conta-container {
       background: #fff;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      max-width: 400px;
-      width: 90%;
-      margin: 32px auto;
-      padding: 32px 24px;
-      text-align: center;
+      max-width: 480px;
+      width: 95%;
+      margin: 18px auto;
+      padding: 20px 18px;
+      text-align: left;
     }
     .perfil-title {
-      font-size: 1.2em;
-      color: #007bff;
-      margin-bottom: 18px;
+      font-size: 1.3em;
+      color: #111;
+      margin-bottom: 14px;
     }
     .conta-form {
       display: flex;
@@ -64,54 +90,31 @@
       font-size: 1em;
     }
     .conta-form button {
-      padding: 10px;
-      border-radius: 5px;
+      padding: 10px 18px;
+      border-radius: 20px;
       border: none;
-      background: #007bff;
+      background: #43b649; /* botão verde */
       color: #fff;
       font-size: 1em;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.15s ease;
+      font-weight: 700;
+      align-self: flex-start;
     }
     .conta-form button:hover {
-      background: #0056b3;
+      background: #2e8c34;
     }
-    .sidebar-menu {
-      position: fixed;
-      left: 0;
-      top: 0;
-      height: 100vh;
-      width: 180px;
-      background: #007bff;
-      color: #fff;
-      padding-top: 60px;
-      box-shadow: 2px 0 8px rgba(0,0,0,0.08);
-      z-index: 100;
-    }
-    .sidebar-menu ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .sidebar-menu li {
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding-left: 18px;
-    }
-    .sidebar-menu a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 1em;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .sidebar-icon {
-      max-width: 28px;
-      vertical-align: middle;
-    }
+    /* Menu lateral (português) */
+    .menu-lateral { position: fixed; left: 0; top: 0; height: 100vh; width: 260px; background: #2f2f2f; color: #fff; padding-top: 28px; box-shadow: 2px 0 12px rgba(0,0,0,0.3); transform: translateX(-110%); transition: transform 0.28s ease; z-index: 1000; }
+    .menu-lateral.ativo { transform: translateX(0); }
+    .sobreposicao-menu { position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); opacity: 0; visibility: hidden; transition: opacity 0.2s ease; z-index: 900; }
+    .sobreposicao-menu.ativo { opacity: 1; visibility: visible; }
+    .lista-itens { list-style: none; padding: 0 12px; margin: 0; }
+    .item-menu { display:flex; align-items:center; gap:12px; padding:14px 8px; border-radius:8px; color:#fff; cursor:pointer; margin-bottom:8px; }
+    .item-menu:hover { background: rgba(255,255,255,0.04); }
+    .item-menu a { color: inherit; text-decoration: none; display:flex; align-items:center; gap:12px; width:100%; }
+    .icone-item { width:36px; height:36px; display:block; }
+    .texto-item { font-weight:700; font-size:0.95em; }
     @media (max-width: 900px) {
       .sidebar-menu {
         width: 120px;
@@ -153,6 +156,11 @@
 </head>
 <body>
   <header class="conta-header">
+    <button class="menu-btn" aria-label="Abrir menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
     <a href="dashboard.php">
       <img src="../assets/logo.PNG" alt="Viafacil" class="logo" />
     </a>
@@ -170,29 +178,51 @@
       <button type="submit">Mudar informações</button>
     </form>
   </main>
-  <nav class="sidebar-menu">
-    <ul>
-      <li>
-        <a href="dashboard.php">
-          <img src="../assets/dashboard.png" alt="Dashboard" class="sidebar-icon dashboard-icon" />
-          <span>DASHBOARD</span>
-        </a>
-      </li>
-      <li>
-        <a href="conta.php">
-          <img src="../assets/logo usuario menu.png" alt="Conta" class="sidebar-icon conta-icon" />
-          <span>CONTA</span>
-        </a>
-      </li>
-      <li>
-        <img src="../assets/configurações.png" alt="Configurações" class="sidebar-icon" />
-        <span>CONFIGURAÇÕES</span>
-      </li>
-      <li>
-        <img src="../assets/sair.png" alt="Sair" class="sidebar-icon" />
-        <span>SAIR</span>
-      </li>
+  <!-- Menu lateral em português (slide-in) -->
+  <nav class="menu-lateral" id="menuLateral">
+    <ul class="lista-itens">
+      <li class="item-menu"><a href="dashboard.php"><img src="../assets/dashboard.png" class="icone-item" alt="Dashboard"/><span class="texto-item">DASHBOARD</span></a></li>
+      <li class="item-menu"><a href="conta.php"><img src="../assets/logo usuario menu.png" class="icone-item" alt="Conta"/><span class="texto-item">CONTA</span></a></li>
+      <li class="item-menu"><a href="configs.php"><img src="../assets/configurações.png" class="icone-item" alt="Configurações"/><span class="texto-item">CONFIGURAÇÕES</span></a></li>
+      <li class="item-menu"><a href="login.php"><img src="../assets/sair.png" class="icone-item" alt="Sair"/><span class="texto-item">SAIR</span></a></li>
     </ul>
   </nav>
+  <div class="sobreposicao-menu" id="sobreposicaoMenu"></div>
+
+  <script>
+    (function(){
+      const botaoMenu = document.querySelector('.menu-btn');
+      const menuLateral = document.getElementById('menuLateral');
+      const sobreposicao = document.getElementById('sobreposicaoMenu');
+
+      function abrirMenu(){
+        menuLateral.classList.add('ativo');
+        sobreposicao.classList.add('ativo');
+        menuLateral.setAttribute('aria-hidden','false');
+      }
+      function fecharMenu(){
+        menuLateral.classList.remove('ativo');
+        sobreposicao.classList.remove('ativo');
+        menuLateral.setAttribute('aria-hidden','true');
+      }
+
+      botaoMenu.addEventListener('click', function(){
+        if(menuLateral.classList.contains('ativo')) fecharMenu(); else abrirMenu();
+      });
+
+      sobreposicao.addEventListener('click', fecharMenu);
+
+      // fechar com Esc
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fecharMenu(); });
+
+      // fechar menu ao clicar em um link (melhora UX antes da navegação)
+      Array.from(menuLateral.querySelectorAll('a')).forEach(function(link){
+        link.addEventListener('click', function(){
+          // pequena espera para animar o fechamento antes da navegação
+          fecharMenu();
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
