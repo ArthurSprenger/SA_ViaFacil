@@ -149,7 +149,7 @@ $conn->close();
       padding: 10px 18px;
       border-radius: 20px;
       border: none;
-      background: #43b649; /* botão verde */
+      background: #43b649; 
       color: #fff;
       font-size: 1em;
       cursor: pointer;
