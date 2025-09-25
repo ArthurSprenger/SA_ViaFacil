@@ -1,4 +1,60 @@
 <?php
+session_start();
+require_once __DIR__ . '/../config/db.php';
+$conn = db_connect();
+
+if(!isset($_SESSION['usuario_id'])){
+  header('Location: login.php');
+  exit;
+}
+
+$userId = (int)$_SESSION['usuario_id'];
+$msg = '';
+
+// Processa atualização
+if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['__acao']) && $_POST['__acao']==='atualizar_perfil'){
+  $nome = trim($_POST['nome'] ?? '');
+  $email = trim($_POST['email'] ?? '');
+  $senha = trim($_POST['senha'] ?? '');
+  $erros = [];
+  if($nome==='') $erros[] = 'Nome obrigatório';
+  if($email==='') $erros[] = 'E-mail obrigatório';
+  elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) $erros[] = 'E-mail inválido';
+  // Checar duplicidade de e-mail
+  if(!$erros){
+    $stmt = $conn->prepare('SELECT id FROM usuarios WHERE email=? AND id<>? LIMIT 1');
+    $stmt->bind_param('si',$email,$userId);
+    $stmt->execute();
+    $stmt->store_result();
+    if($stmt->num_rows>0){ $erros[]='E-mail já em uso por outro usuário'; }
+    $stmt->close();
+  }
+  if(!$erros){
+    if($senha!==''){
+      $stmtUp = $conn->prepare('UPDATE usuarios SET nome=?, email=?, senha=MD5(?) WHERE id=?');
+      $stmtUp->bind_param('sssi',$nome,$email,$senha,$userId);
+    } else {
+      $stmtUp = $conn->prepare('UPDATE usuarios SET nome=?, email=? WHERE id=?');
+      $stmtUp->bind_param('ssi',$nome,$email,$userId);
+    }
+    if($stmtUp->execute()){
+      $msg = '<div class="msg-sucesso">Dados atualizados'.($senha!==''?' (senha alterada)':'').'.</div>';
+    } else {
+      $msg = '<div class="msg-erro">Falha ao atualizar.</div>';
+    }
+    $stmtUp->close();
+  } else {
+    $msg = '<div class="msg-erro">'.implode('<br>', array_map('htmlspecialchars',$erros)).'</div>';
+  }
+}
+
+// Carregar dados atuais
+$stmtUser = $conn->prepare('SELECT nome,email,tipo FROM usuarios WHERE id=? LIMIT 1');
+$stmtUser->bind_param('i',$userId);
+$stmtUser->execute();
+$dados = $stmtUser->get_result()->fetch_assoc();
+$stmtUser->close();
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -7,7 +63,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Conta | Viafácil</title>
   <style>
-    body {
+  body {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
@@ -104,6 +160,8 @@
     .conta-form button:hover {
       background: #2e8c34;
     }
+    .msg-sucesso{background:#e6ffed;color:#216e39;padding:8px 10px;border-radius:6px;font-size:0.85rem;margin:0 0 12px;}
+    .msg-erro{background:#ffefef;color:#8b1d1d;padding:8px 10px;border-radius:6px;font-size:0.85rem;margin:0 0 12px;}
     /* Menu lateral (português) */
     .menu-lateral { position: fixed; left: 0; top: 0; height: 100vh; width: 260px; background: #2f2f2f; color: #fff; padding-top: 28px; box-shadow: 2px 0 12px rgba(0,0,0,0.3); transform: translateX(-110%); transition: transform 0.28s ease; z-index: 1000; }
     .menu-lateral.ativo { transform: translateX(0); }
@@ -168,14 +226,17 @@
   </header>
   <main class="conta-container">
     <div class="perfil-title">Perfil</div>
-    <form class="conta-form">
+    <?= $msg ?>
+    <form class="conta-form" method="POST" action="">
+      <input type="hidden" name="__acao" value="atualizar_perfil" />
       <label for="nome">Nome</label>
-      <input type="text" id="nome" placeholder="Seu nome" />
-      <label for="email">Email</label>
-      <input type="email" id="email" placeholder="Email" />
-      <label for="telefone">Telefone</label>
-      <input type="tel" id="telefone" placeholder="Telefone" />
-      <button type="submit">Mudar informações</button>
+      <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($dados['nome'] ?? '') ?>" required />
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" value="<?= htmlspecialchars($dados['email'] ?? '') ?>" required />
+      <label for="senha">Nova Senha (opcional)</label>
+      <input type="password" id="senha" name="senha" placeholder="Deixe em branco para manter" />
+      <button type="submit">Salvar alterações</button>
+      <p style="font-size:0.7rem;color:#555;margin:4px 0 0;">Senhas armazenadas temporariamente com MD5 (modo protótipo).</p>
     </form>
   </main>
   <nav class="menu-lateral" id="menuLateral">

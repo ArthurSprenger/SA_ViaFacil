@@ -12,8 +12,166 @@ if (!isset($_SESSION['usuario_id'])) {
 
 // Carregar usuários para listagem (nome/email)
 $usuarios = [];
-$resUsers = $conn->query("SELECT nome, email, tipo FROM usuarios ORDER BY id ASC LIMIT 50");
+$resUsers = $conn->query("SELECT id, nome, email, tipo FROM usuarios ORDER BY id ASC LIMIT 200");
 if ($resUsers) { while($r = $resUsers->fetch_assoc()) { $usuarios[] = $r; } }
+
+// Mensagens para criação de usuário
+$msgUserAdd = '';$msgUserEdit='';
+foreach(['flash_user_add'=>'msgUserAdd','flash_user_edit'=>'msgUserEdit'] as $flash=>$var){
+  if(isset($_SESSION[$flash])){ ${$var} = $_SESSION[$flash]; unset($_SESSION[$flash]); }
+}
+
+// Utilitários de segurança
+function isAdmin(){ return isset($_SESSION['tipo']) && $_SESSION['tipo']==='admin'; }
+function flash($key,$html){ $_SESSION[$key]=$html; }
+
+// Ações de gerenciamento de usuários (apenas admin)
+if(isAdmin()){
+  // Criação
+  if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['__acao']) && $_POST['__acao']==='criar_usuario'){
+    $nomeNovo = trim($_POST['novo_nome'] ?? '');
+    $emailNovo = trim($_POST['novo_email'] ?? '');
+    $senhaNova = trim($_POST['novo_senha'] ?? '');
+    $tipoNovo  = ($_POST['novo_tipo'] ?? 'normal') === 'admin' ? 'admin':'normal';
+    if(!$nomeNovo || !$emailNovo || !$senhaNova){
+      flash('flash_user_add','<div class="msg-erro">Preencha todos os campos para criar o usuário.</div>');
+    } else if(!filter_var($emailNovo, FILTER_VALIDATE_EMAIL)) {
+      flash('flash_user_add','<div class="msg-erro">E-mail inválido.</div>');
+    } else {
+      $stmt = $conn->prepare('SELECT id FROM usuarios WHERE email=? LIMIT 1');
+      $stmt->bind_param('s',$emailNovo);$stmt->execute();$stmt->store_result();
+      if($stmt->num_rows>0){
+        flash('flash_user_add','<div class="msg-alerta">Já existe usuário com esse e-mail.</div>');
+      } else {
+        $stmtIns = $conn->prepare('INSERT INTO usuarios (nome,email,senha,tipo) VALUES (?,?,MD5(?),?)');
+        $stmtIns->bind_param('ssss',$nomeNovo,$emailNovo,$senhaNova,$tipoNovo);
+        if($stmtIns->execute()) flash('flash_user_add','<div class="msg-sucesso">Usuário criado com sucesso.</div>');
+        else flash('flash_user_add','<div class="msg-erro">Erro ao criar usuário.</div>');
+        $stmtIns->close();
+      }
+      $stmt->close();
+    }
+    header('Location: dashboard.php#usuarios-listagem');exit;
+  }
+
+  // Atualização
+  if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['__acao']) && $_POST['__acao']==='atualizar_usuario'){
+    $idEdit = (int)($_POST['edit_id'] ?? 0);
+    $nome = trim($_POST['edit_nome'] ?? '');
+    $email = trim($_POST['edit_email'] ?? '');
+    $tipo = ($_POST['edit_tipo'] ?? 'normal') === 'admin' ? 'admin':'normal';
+    $senhaNova = trim($_POST['edit_senha'] ?? '');
+    if(!$idEdit || !$nome || !$email){
+      flash('flash_user_edit','<div class="msg-erro">Campos obrigatórios não preenchidos.</div>');
+    } elseif(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+      flash('flash_user_edit','<div class="msg-erro">E-mail inválido.</div>');
+    } else {
+      // impedir remover último admin ao mudar tipo
+      if($tipo==='normal'){
+        $resAdm = $conn->query("SELECT COUNT(*) c FROM usuarios WHERE tipo='admin' AND id<>".$idEdit);
+        $c = $resAdm? $resAdm->fetch_assoc()['c']:1;
+        $resAdm && $resAdm->close();
+        if($c==0){
+          flash('flash_user_edit','<div class="msg-alerta">Não é possível rebaixar o único admin.</div>');
+          header('Location: dashboard.php?edit_user='.$idEdit.'#usuarios-listagem');exit;
+        }
+      }
+      // Verificar e-mail duplicado
+      $stmt = $conn->prepare('SELECT id FROM usuarios WHERE email=? AND id<>? LIMIT 1');
+      $stmt->bind_param('si',$email,$idEdit);$stmt->execute();$stmt->store_result();
+      if($stmt->num_rows>0){
+        flash('flash_user_edit','<div class="msg-alerta">Outro usuário já usa este e-mail.</div>');
+      } else {
+        if($senhaNova!==''){
+          $stmtUp = $conn->prepare('UPDATE usuarios SET nome=?, email=?, tipo=?, senha=MD5(?) WHERE id=?');
+          $stmtUp->bind_param('ssssi',$nome,$email,$tipo,$senhaNova,$idEdit);
+        } else {
+          $stmtUp = $conn->prepare('UPDATE usuarios SET nome=?, email=?, tipo=? WHERE id=?');
+          $stmtUp->bind_param('sssi',$nome,$email,$tipo,$idEdit);
+        }
+        if($stmtUp->execute()){
+          if($idEdit===$_SESSION['usuario_id']) $_SESSION['tipo']=$tipo; // atualizar sessão se alterou próprio tipo
+          flash('flash_user_edit','<div class="msg-sucesso">Usuário atualizado.</div>');
+        } else flash('flash_user_edit','<div class="msg-erro">Erro ao atualizar.</div>');
+        $stmtUp->close();
+      }
+      $stmt->close();
+    }
+    header('Location: dashboard.php?edit_user='.$idEdit.'#usuarios-listagem');exit;
+  }
+
+  // Exclusão
+  if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['__acao']) && $_POST['__acao']==='excluir_usuario'){
+    $idDel = (int)($_POST['del_id'] ?? 0);
+    if($idDel && $idDel !== $_SESSION['usuario_id']){
+      // Checar se é admin e se é o último
+      $resInfo = $conn->query("SELECT tipo FROM usuarios WHERE id=".$idDel);
+      if($resInfo && $rowInfo=$resInfo->fetch_assoc()){
+        if($rowInfo['tipo']==='admin'){
+          $resCount = $conn->query("SELECT COUNT(*) c FROM usuarios WHERE tipo='admin' AND id<>".$idDel);
+          $c = $resCount? $resCount->fetch_assoc()['c']:1;
+          $resCount && $resCount->close();
+          if($c==0){
+            flash('flash_user_edit','<div class="msg-alerta">Não é possível excluir o último admin.</div>');
+            header('Location: dashboard.php#usuarios-listagem');exit;
+          }
+        }
+        $conn->query("DELETE FROM usuarios WHERE id=".$idDel);
+        if($conn->affected_rows>0) flash('flash_user_edit','<div class="msg-sucesso">Usuário removido.</div>');
+        else flash('flash_user_edit','<div class="msg-erro">Falha ao remover.</div>');
+      }
+      $resInfo && $resInfo->close();
+    } else {
+      flash('flash_user_edit','<div class="msg-alerta">Ação inválida (não pode excluir a si mesmo).</div>');
+    }
+    header('Location: dashboard.php#usuarios-listagem');exit;
+  }
+}
+
+// Obter usuário para edição
+$usuarioEdicao = null;
+if(isAdmin() && isset($_GET['edit_user'])){
+  $idE = (int)$_GET['edit_user'];
+  $stmtE = $conn->prepare('SELECT id,nome,email,tipo FROM usuarios WHERE id=?');
+  $stmtE->bind_param('i',$idE);$stmtE->execute();
+  $resE = $stmtE->get_result();
+  if($resE && $resE->num_rows){ $usuarioEdicao = $resE->fetch_assoc(); }
+  $stmtE->close();
+}
+
+// Tratamento de criação de usuário (somente admin)
+if(isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin' && $_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['__acao']) && $_POST['__acao']==='criar_usuario'){
+  $nomeNovo = trim($_POST['novo_nome'] ?? '');
+  $emailNovo = trim($_POST['novo_email'] ?? '');
+  $senhaNova = trim($_POST['novo_senha'] ?? '');
+  $tipoNovo  = ($_POST['novo_tipo'] ?? 'normal') === 'admin' ? 'admin':'normal';
+  if(!$nomeNovo || !$emailNovo || !$senhaNova){
+    $_SESSION['flash_user_add'] = '<div style="background:#ffefef;color:#8b1d1d;padding:6px 10px;border-radius:6px;font-size:0.85rem;">Preencha todos os campos para criar o usuário.</div>';
+  } else if(!filter_var($emailNovo, FILTER_VALIDATE_EMAIL)) {
+    $_SESSION['flash_user_add'] = '<div style="background:#ffefef;color:#8b1d1d;padding:6px 10px;border-radius:6px;font-size:0.85rem;">E-mail inválido.</div>';
+  } else {
+    // Verificar duplicidade
+    $stmt = $conn->prepare('SELECT id FROM usuarios WHERE email=? LIMIT 1');
+    $stmt->bind_param('s',$emailNovo);
+    $stmt->execute();
+    $stmt->store_result();
+    if($stmt->num_rows>0){
+      $_SESSION['flash_user_add'] = '<div style="background:#fff3cd;color:#8a6d3b;padding:6px 10px;border-radius:6px;font-size:0.85rem;">Já existe usuário com esse e-mail.</div>';
+    } else {
+      $stmtIns = $conn->prepare('INSERT INTO usuarios (nome,email,senha,tipo) VALUES (?,?,MD5(?),?)');
+      $stmtIns->bind_param('ssss',$nomeNovo,$emailNovo,$senhaNova,$tipoNovo);
+      if($stmtIns->execute()){
+        $_SESSION['flash_user_add'] = '<div style="background:#e6ffed;color:#216e39;padding:6px 10px;border-radius:6px;font-size:0.85rem;">Usuário criado com sucesso.</div>';
+      } else {
+        $_SESSION['flash_user_add'] = '<div style="background:#ffefef;color:#8b1d1d;padding:6px 10px;border-radius:6px;font-size:0.85rem;">Erro ao criar usuário.</div>';
+      }
+      $stmtIns->close();
+    }
+    $stmt->close();
+  }
+  header('Location: dashboard.php#usuarios-listagem');
+  exit;
+}
 
 // Dados básicos de sensores (placeholder)
 $sensores = [];
@@ -270,7 +428,20 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
     .item-menu:hover { background: rgba(255,255,255,0.04); }
     .item-menu a { color: inherit; text-decoration: none; display: flex; align-items: center; gap: 12px; width: 100%; }
     .icone-item { width:36px; height:36px; display:block; }
-    .texto-item { font-weight:700; font-size:0.95em; }
+  .texto-item { font-weight:700; font-size:0.95em; }
+  /* mensagens */
+  .msg-sucesso{background:#e6ffed;color:#216e39;padding:6px 10px;border-radius:6px;font-size:0.85rem;margin:0 0 8px;}
+  .msg-erro{background:#ffefef;color:#8b1d1d;padding:6px 10px;border-radius:6px;font-size:0.85rem;margin:0 0 8px;}
+  .msg-alerta{background:#fff3cd;color:#8a6d3b;padding:6px 10px;border-radius:6px;font-size:0.85rem;margin:0 0 8px;}
+  .acoes-usuario form{display:inline;}
+  .acoes-usuario button{background:#d9534f;color:#fff;border:0;border-radius:4px;padding:4px 8px;font-size:0.7rem;cursor:pointer;}
+  .acoes-usuario a.edit-link{background:#007bff;color:#fff;padding:4px 8px;border-radius:4px;font-size:0.7rem;text-decoration:none;display:inline-block;margin-right:4px;}
+  .acoes-usuario a.edit-link:hover{background:#0064cc;}
+  .acoes-usuario button:hover{background:#b52f2a;}
+  .form-edicao-usuario input,.form-edicao-usuario select{padding:8px;border:1px solid #ccc;border-radius:5px;font-size:0.9rem;}
+  .form-edicao-usuario{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px;}
+  .form-edicao-usuario button{background:#007bff;color:#fff;border:0;border-radius:6px;padding:10px 16px;font-weight:600;cursor:pointer;}
+  .form-edicao-usuario button:hover{background:#0064cc;}
   </style>
 </head>
 <body>
@@ -366,19 +537,63 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
 
   <section class="form-section" id="usuarios-listagem">
     <h2>Usuários Cadastrados</h2>
+    <?php if(isAdmin()): ?>
+      <form method="POST" style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px;align-items:flex-end;">
+        <input type="hidden" name="__acao" value="criar_usuario" />
+        <input name="novo_nome" type="text" placeholder="Nome" required style="flex:1 1 140px;min-width:140px;" />
+        <input name="novo_email" type="email" placeholder="E-mail" required style="flex:1 1 180px;min-width:180px;" />
+        <input name="novo_senha" type="password" placeholder="Senha" required style="flex:1 1 140px;min-width:140px;" />
+        <select name="novo_tipo" style="flex:0 0 130px;">
+          <option value="normal">normal</option>
+          <option value="admin">admin</option>
+        </select>
+        <button type="submit" style="background:#007bff;color:#fff;border:0;border-radius:6px;padding:8px 14px;font-weight:600;cursor:pointer;">Adicionar</button>
+      </form>
+      <?php if($msgUserAdd){ echo $msgUserAdd; } ?>
+      <?php if($usuarioEdicao): ?>
+        <h3 style="margin:8px 0 4px;font-size:1.05rem;">Editar Usuário (ID <?= (int)$usuarioEdicao['id']?>)</h3>
+        <?php if($msgUserEdit){ echo $msgUserEdit; } ?>
+        <form method="POST" class="form-edicao-usuario">
+          <input type="hidden" name="__acao" value="atualizar_usuario" />
+          <input type="hidden" name="edit_id" value="<?= (int)$usuarioEdicao['id'] ?>" />
+          <input name="edit_nome" type="text" value="<?= htmlspecialchars($usuarioEdicao['nome']) ?>" placeholder="Nome" required style="flex:1 1 160px;" />
+          <input name="edit_email" type="email" value="<?= htmlspecialchars($usuarioEdicao['email']) ?>" placeholder="E-mail" required style="flex:1 1 200px;" />
+          <select name="edit_tipo" style="flex:0 0 140px;">
+            <option value="normal" <?= $usuarioEdicao['tipo']==='normal'?'selected':''; ?>>normal</option>
+            <option value="admin" <?= $usuarioEdicao['tipo']==='admin'?'selected':''; ?>>admin</option>
+          </select>
+          <input name="edit_senha" type="password" placeholder="Nova senha (opcional)" style="flex:1 1 180px;" />
+          <button type="submit">Salvar Alterações</button>
+          <a href="dashboard.php#usuarios-listagem" style="color:#555;font-size:0.8rem;text-decoration:none;align-self:center;">Cancelar</a>
+        </form>
+      <?php else: if($msgUserEdit){ echo $msgUserEdit; } endif; ?>
+      <p style="margin:4px 0 14px;font-size:0.75rem;color:#555;">(Senhas armazenadas com MD5 temporariamente. Recomendado migrar para password_hash.)</p>
+    <?php endif; ?>
     <div class="table-wrap">
       <table class="table-section">
         <thead>
-          <tr><th>Nome</th><th>E-mail</th><th>Tipo</th></tr>
+          <tr><th>Nome</th><th>E-mail</th><th>Tipo</th><?php if(isAdmin()): ?><th>Ações</th><?php endif; ?></tr>
         </thead>
         <tbody>
           <?php if(!$usuarios): ?>
-            <tr><td colspan="3">Nenhum usuário encontrado.</td></tr>
+            <tr><td colspan="<?= isAdmin()?4:3 ?>">Nenhum usuário encontrado.</td></tr>
           <?php else: foreach($usuarios as $u): ?>
             <tr>
-              <td><?= htmlspecialchars($u['nome']) ?></td>
+              <td><?= htmlspecialchars($u['nome']) ?><?= $u['id']===$_SESSION['usuario_id'] ? ' <span style="color:#007bff;font-size:0.7rem;font-weight:600;">(eu)</span>' : '' ?></td>
               <td><?= htmlspecialchars($u['email']) ?></td>
               <td><?= htmlspecialchars($u['tipo']) ?></td>
+              <?php if(isAdmin()): ?>
+              <td class="acoes-usuario">
+                <a class="edit-link" href="dashboard.php?edit_user=<?= (int)$u['id'] ?>#usuarios-listagem">Editar</a>
+                <?php if($u['id'] !== $_SESSION['usuario_id']): ?>
+                  <form method="POST" onsubmit="return confirm('Deseja realmente excluir este usuário?');" style="display:inline;">
+                    <input type="hidden" name="__acao" value="excluir_usuario" />
+                    <input type="hidden" name="del_id" value="<?= (int)$u['id'] ?>" />
+                    <button type="submit">Excluir</button>
+                  </form>
+                <?php endif; ?>
+              </td>
+              <?php endif; ?>
             </tr>
           <?php endforeach; endif; ?>
         </tbody>
