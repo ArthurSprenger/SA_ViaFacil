@@ -90,14 +90,24 @@ if(isAdmin()){
           $stmtUp->bind_param('sssi',$nome,$email,$tipo,$idEdit);
         }
         if($stmtUp->execute()){
-          if($idEdit===$_SESSION['usuario_id']) $_SESSION['tipo']=$tipo; // atualizar sessão se alterou próprio tipo
-          flash('flash_user_edit','<div class="msg-sucesso">Usuário atualizado.</div>');
+          if($idEdit===$_SESSION['usuario_id']) {
+            $tipoAnterior = $_SESSION['tipo'];
+            $_SESSION['tipo']=$tipo; // atualizar sessão se alterou próprio tipo
+            flash('flash_user_edit','<div class="msg-sucesso">Usuário atualizado.</div>');
+            // Se o próprio admin foi rebaixado para normal, mandar para dashboard_funcionario
+            if($tipoAnterior==='admin' && $tipo==='normal'){
+              header('Location: dashboard_funcionario.php');
+              exit;
+            }
+          } else {
+            flash('flash_user_edit','<div class="msg-sucesso">Usuário atualizado.</div>');
+          }
         } else flash('flash_user_edit','<div class="msg-erro">Erro ao atualizar.</div>');
         $stmtUp->close();
       }
       $stmt->close();
     }
-    header('Location: dashboard.php?edit_user='.$idEdit.'#usuarios-listagem');exit;
+    header('Location: dashboard.php#usuarios-listagem');exit;
   }
 
   // Exclusão
@@ -128,16 +138,7 @@ if(isAdmin()){
   }
 }
 
-// Obter usuário para edição
-$usuarioEdicao = null;
-if(isAdmin() && isset($_GET['edit_user'])){
-  $idE = (int)$_GET['edit_user'];
-  $stmtE = $conn->prepare('SELECT id,nome,email,tipo FROM usuarios WHERE id=?');
-  $stmtE->bind_param('i',$idE);$stmtE->execute();
-  $resE = $stmtE->get_result();
-  if($resE && $resE->num_rows){ $usuarioEdicao = $resE->fetch_assoc(); }
-  $stmtE->close();
-}
+// Edição inline agora via JS; remoção do fluxo baseado em GET
 
 // Tratamento de criação de usuário (somente admin)
 if(isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin' && $_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['__acao']) && $_POST['__acao']==='criar_usuario'){
@@ -442,6 +443,8 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
   .form-edicao-usuario{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px;}
   .form-edicao-usuario button{background:#007bff;color:#fff;border:0;border-radius:6px;padding:10px 16px;font-weight:600;cursor:pointer;}
   .form-edicao-usuario button:hover{background:#0064cc;}
+  #formEdicaoWrapper{display:none;border:1px dashed #ccc;padding:10px 10px 6px;border-radius:8px;margin-bottom:16px;background:#fafafa;}
+  #formEdicaoWrapper.mostrar{display:block;}
   </style>
 </head>
 <body>
@@ -550,23 +553,23 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
         <button type="submit" style="background:#007bff;color:#fff;border:0;border-radius:6px;padding:8px 14px;font-weight:600;cursor:pointer;">Adicionar</button>
       </form>
       <?php if($msgUserAdd){ echo $msgUserAdd; } ?>
-      <?php if($usuarioEdicao): ?>
-        <h3 style="margin:8px 0 4px;font-size:1.05rem;">Editar Usuário (ID <?= (int)$usuarioEdicao['id']?>)</h3>
-        <?php if($msgUserEdit){ echo $msgUserEdit; } ?>
-        <form method="POST" class="form-edicao-usuario">
+      <?php if($msgUserEdit){ echo $msgUserEdit; } ?>
+      <div id="formEdicaoWrapper">
+        <h3 style="margin:4px 0 8px;font-size:1.05rem;">Editar Usuário <span id="editUserLabel" style="font-size:0.75rem;color:#555;"></span></h3>
+        <form method="POST" class="form-edicao-usuario" id="formEditar">
           <input type="hidden" name="__acao" value="atualizar_usuario" />
-          <input type="hidden" name="edit_id" value="<?= (int)$usuarioEdicao['id'] ?>" />
-          <input name="edit_nome" type="text" value="<?= htmlspecialchars($usuarioEdicao['nome']) ?>" placeholder="Nome" required style="flex:1 1 160px;" />
-          <input name="edit_email" type="email" value="<?= htmlspecialchars($usuarioEdicao['email']) ?>" placeholder="E-mail" required style="flex:1 1 200px;" />
-          <select name="edit_tipo" style="flex:0 0 140px;">
-            <option value="normal" <?= $usuarioEdicao['tipo']==='normal'?'selected':''; ?>>normal</option>
-            <option value="admin" <?= $usuarioEdicao['tipo']==='admin'?'selected':''; ?>>admin</option>
+          <input type="hidden" name="edit_id" id="edit_id" />
+          <input name="edit_nome" id="edit_nome" type="text" placeholder="Nome" required style="flex:1 1 160px;" />
+          <input name="edit_email" id="edit_email" type="email" placeholder="E-mail" required style="flex:1 1 200px;" />
+          <select name="edit_tipo" id="edit_tipo" style="flex:0 0 140px;">
+            <option value="normal">normal</option>
+            <option value="admin">admin</option>
           </select>
-          <input name="edit_senha" type="password" placeholder="Nova senha (opcional)" style="flex:1 1 180px;" />
+          <input name="edit_senha" id="edit_senha" type="password" placeholder="Nova senha (opcional)" style="flex:1 1 180px;" />
           <button type="submit">Salvar Alterações</button>
-          <a href="dashboard.php#usuarios-listagem" style="color:#555;font-size:0.8rem;text-decoration:none;align-self:center;">Cancelar</a>
+          <button type="button" id="btnCancelarEdicao" style="background:#6c757d;">Cancelar</button>
         </form>
-      <?php else: if($msgUserEdit){ echo $msgUserEdit; } endif; ?>
+      </div>
       <p style="margin:4px 0 14px;font-size:0.75rem;color:#555;">(Senhas armazenadas com MD5 temporariamente. Recomendado migrar para password_hash.)</p>
     <?php endif; ?>
     <div class="table-wrap">
@@ -584,7 +587,7 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
               <td><?= htmlspecialchars($u['tipo']) ?></td>
               <?php if(isAdmin()): ?>
               <td class="acoes-usuario">
-                <a class="edit-link" href="dashboard.php?edit_user=<?= (int)$u['id'] ?>#usuarios-listagem">Editar</a>
+                <a class="edit-link" href="#" data-id="<?= (int)$u['id'] ?>" data-nome="<?= htmlspecialchars($u['nome'],ENT_QUOTES) ?>" data-email="<?= htmlspecialchars($u['email'],ENT_QUOTES) ?>" data-tipo="<?= htmlspecialchars($u['tipo'],ENT_QUOTES) ?>">Editar</a>
                 <?php if($u['id'] !== $_SESSION['usuario_id']): ?>
                   <form method="POST" onsubmit="return confirm('Deseja realmente excluir este usuário?');" style="display:inline;">
                     <input type="hidden" name="__acao" value="excluir_usuario" />
@@ -668,6 +671,36 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
       });
     })();
   </script>
+  <?php if(isset($_SESSION['tipo']) && $_SESSION['tipo']==='admin'): ?>
+  <script>
+    (function(){
+      const links = document.querySelectorAll('.edit-link');
+      const wrap = document.getElementById('formEdicaoWrapper');
+      const idF = document.getElementById('edit_id');
+      const nomeF = document.getElementById('edit_nome');
+      const emailF = document.getElementById('edit_email');
+      const tipoF = document.getElementById('edit_tipo');
+      const label = document.getElementById('editUserLabel');
+      const cancelar = document.getElementById('btnCancelarEdicao');
+      links.forEach(l=>{
+        l.addEventListener('click', e=>{
+          e.preventDefault();
+          idF.value = l.dataset.id;
+          nomeF.value = l.dataset.nome;
+          emailF.value = l.dataset.email;
+            Array.from(tipoF.options).forEach(o=>{ o.selected = (o.value===l.dataset.tipo); });
+          label.textContent = '(ID '+l.dataset.id+')';
+          wrap.classList.add('mostrar');
+          wrap.scrollIntoView({behavior:'smooth', block:'center'});
+        });
+      });
+      cancelar && cancelar.addEventListener('click', ()=>{
+        wrap.classList.remove('mostrar');
+        idF.value='';nomeF.value='';emailF.value='';tipoF.value='normal';
+      });
+    })();
+  </script>
+  <?php endif; ?>
 
 </body>
 </html>

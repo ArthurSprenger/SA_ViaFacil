@@ -16,11 +16,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param('ss', $email, $senha);
         $stmt->execute();
         $result = $stmt->get_result();
-        if ($row = $result->fetch_assoc()) {
-            $_SESSION['usuario_id'] = $row['id'];
-            $_SESSION['tipo'] = $row['tipo'];
-            header('Location: dashboard.php');
-            exit;
+    if ($row = $result->fetch_assoc()) {
+      $_SESSION['usuario_id'] = $row['id'];
+      $_SESSION['tipo'] = $row['tipo'];
+      // Redireciona conforme tipo de usuário
+      if ($row['tipo'] === 'admin') {
+        header('Location: dashboard.php');
+      } else {
+        header('Location: dashboard_funcionario.php');
+      }
+      exit;
         } else {
             $erro = "Usuário ou senha inválidos.";
         }

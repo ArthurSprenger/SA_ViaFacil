@@ -1,3 +1,11 @@
+<?php
+session_start();
+// Segurança: precisa estar logado e ser usuário normal
+if(!isset($_SESSION['usuario_id'])) { header('Location: login.php'); exit; }
+if(isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin') { header('Location: dashboard.php'); exit; }
+// Permitir logout rápido por query (opcional)
+if(isset($_GET['logout'])){ session_destroy(); header('Location: login.php'); exit; }
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -73,7 +81,7 @@
         <li class="item-menu"><a href="trenserotas.php"><img src="../assets/trens.png" class="icone-item" alt="Trens e Rotas"/><span class="texto-item">TRENS E ROTAS</span></a></li>
         <li class="item-menu"><a href="aviso.php"><img src="../assets/aviso.png" class="icone-item" alt="Aviso"/><span class="texto-item">AVISO</span></a></li>
         <li class="item-menu"><a href="solicitacoes.php"><img src="../assets/solicitacao.png" class="icone-item" alt="Solicitação"/><span class="texto-item">SOLICITAÇÃO</span></a></li>
-        <li class="item-menu"><a href="login.php"><img src="../assets/sair.png" class="icone-item" alt="Sair"/><span class="texto-item">SAIR</span></a></li>
+  <li class="item-menu"><a href="dashboard_funcionario.php?logout=1"><img src="../assets/sair.png" class="icone-item" alt="Sair"/><span class="texto-item">SAIR</span></a></li>
       </ul>
     </nav>
     <div class="sobreposicao-menu" id="sobreposicaoMenu"></div>
