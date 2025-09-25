@@ -38,6 +38,14 @@
     .item-menu a { color:inherit; text-decoration:none; display:flex; align-items:center; gap:12px; width:100%; }
     .icone-item { width:36px; height:36px; display:block; }
     .texto-item { font-weight:700; font-size:0.95em; }
+  /* Tabela resumo com fade indicando continuação */
+  .viagens-resumo { position:relative; }
+  .viagens-resumo tbody { display:block; max-height:220px; overflow:hidden; position:relative; }
+  .viagens-resumo thead, .viagens-resumo tbody tr { display:table; width:100%; table-layout:fixed; }
+  .viagens-resumo tbody::after { content:""; position:absolute; left:0; right:0; bottom:0; height:46px; background:linear-gradient(to bottom, rgba(255,255,255,0), #ffffff 65%); pointer-events:none; }
+  .ver-mais-wrapper { margin-top:4px; display:flex; justify-content:center; }
+  .ver-mais-seta { background:#003366; color:#fff; width:60px; height:42px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:28px; text-decoration:none; font-weight:bold; box-shadow:0 2px 6px rgba(0,0,0,0.25); transition:background .2s; }
+  .ver-mais-seta:hover { background:#005199; }
   @media (max-width: 900px) { .cards{ gap:10px; padding:0 8px 12px; margin-top:-64px; } }
     @media (max-width: 600px) { 
       .cards{ grid-template-columns:1fr 1fr; gap:8px; padding:0 8px 12px; margin-top:-56px; } 
@@ -60,7 +68,7 @@
     </header>
     <nav class="menu-lateral" id="menuLateral">
       <ul class="lista-itens">
-        <li class="item-menu"><a href="dashboard_funcionario.php"><img src="../assets/dashboard.png" class="icone-item" alt="Dashboard"/><span class="texto-item">DASHBOARD</span></a></li>
+  <li class="item-menu"><a href="dashboard_funcionario.php"><img src="../assets/dashboard.png" class="icone-item" alt="Dashboard"/><span class="texto-item">DASHBOARD</span></a></li>
         <li class="item-menu"><a href="passageiros.php"><img src="../assets/passageiros.png" class="icone-item" alt="Passageiros"/><span class="texto-item">PASSAGEIROS</span></a></li>
         <li class="item-menu"><a href="trenserotas.php"><img src="../assets/trens.png" class="icone-item" alt="Trens e Rotas"/><span class="texto-item">TRENS E ROTAS</span></a></li>
         <li class="item-menu"><a href="aviso.php"><img src="../assets/aviso.png" class="icone-item" alt="Aviso"/><span class="texto-item">AVISO</span></a></li>
@@ -99,7 +107,7 @@
 
   <section class="section">
     <h2>Próximas Viagens</h2>
-    <div class="table-wrap">
+    <div class="table-wrap viagens-resumo">
       <table>
         <thead>
           <tr>
@@ -111,85 +119,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>08:00</td>
-            <td>Central</td>
-            <td>Jardim</td>
-            <td>Embarque</td>
-            <td>(11) 99999-0001</td>
-          </tr>
-          <tr>
-            <td>09:30</td>
-            <td>Jardim</td>
-            <td>Vila Nova</td>
-            <td>Em rota</td>
-            <td>(11) 99999-0002</td>
-          </tr>
-          <tr>
-            <td>10:15</td>
-            <td>Vila Nova</td>
-            <td>Central</td>
-            <td>Aguardando</td>
-            <td>(11) 99999-0003</td>
-          </tr>
-          <tr>
-            <td>11:00</td>
-            <td>Central</td>
-            <td>Vila Nova</td>
-            <td>Embarque</td>
-            <td>(11) 99999-0004</td>
-          </tr>
-          <tr>
-            <td>11:45</td>
-            <td>Jardim</td>
-            <td>Central</td>
-            <td>Em rota</td>
-            <td>(11) 99999-0005</td>
-          </tr>
-          <tr>
-            <td>12:20</td>
-            <td>Vila Nova</td>
-            <td>Jardim</td>
-            <td>Aguardando</td>
-            <td>(11) 99999-0006</td>
-          </tr>
-          <tr>
-            <td>13:05</td>
-            <td>Central</td>
-            <td>Jardim</td>
-            <td>Em rota</td>
-            <td>(11) 99999-0007</td>
-          </tr>
-          <tr>
-            <td>13:50</td>
-            <td>Jardim</td>
-            <td>Vila Nova</td>
-            <td>Aguardando</td>
-            <td>(11) 99999-0008</td>
-          </tr>
-          <tr>
-            <td>14:30</td>
-            <td>Vila Nova</td>
-            <td>Central</td>
-            <td>Embarque</td>
-            <td>(11) 99999-0009</td>
-          </tr>
-          <tr>
-            <td>15:10</td>
-            <td>Central</td>
-            <td>Jardim</td>
-            <td>Em rota</td>
-            <td>(11) 99999-0010</td>
-          </tr>
-          <tr>
-            <td>16:00</td>
-            <td>Jardim</td>
-            <td>Vila Nova</td>
-            <td>Aguardando</td>
-            <td>(11) 99999-0011</td>
-          </tr>
+          <tr><td>08:00</td><td>Central</td><td>Jardim</td><td>Embarque</td><td>(11) 99999-0001</td></tr>
+          <tr><td>09:30</td><td>Jardim</td><td>Vila Nova</td><td>Em rota</td><td>(11) 99999-0002</td></tr>
+          <tr><td>10:15</td><td>Vila Nova</td><td>Central</td><td>Aguardando</td><td>(11) 99999-0003</td></tr>
+          <tr><td>11:00</td><td>Central</td><td>Vila Nova</td><td>Embarque</td><td>(11) 99999-0004</td></tr>
+          <tr><td>11:45</td><td>Jardim</td><td>Central</td><td>Em rota</td><td>(11) 99999-0005</td></tr>
+          <tr><td>12:20</td><td>Vila Nova</td><td>Jardim</td><td>Aguardando</td><td>(11) 99999-0006</td></tr>
+          <tr><td>13:05</td><td>Central</td><td>Jardim</td><td>Em rota</td><td>(11) 99999-0007</td></tr>
+          <tr><td>13:50</td><td>Jardim</td><td>Vila Nova</td><td>Aguardando</td><td>(11) 99999-0008</td></tr>
         </tbody>
       </table>
+    </div>
+    <div class="ver-mais-wrapper">
+      <a href="viagens_completa.php" class="ver-mais-seta" title="Ver tabela completa" aria-label="Ver tabela completa">&#x25BC;</a>
     </div>
   </section>
 
@@ -210,6 +152,7 @@
       document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fecharMenu(); });
       Array.from(menuLateral.querySelectorAll('a')).forEach(function(link){ link.addEventListener('click', function(){ fecharMenu(); }); });
     })();
+    // (Resumo) Seta leva para página completa de viagens
   </script>
 </body>
 </html>

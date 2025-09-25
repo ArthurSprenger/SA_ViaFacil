@@ -1,4 +1,31 @@
 
+<?php
+session_start();
+require_once __DIR__.'/../config/db.php';
+$conn = db_connect();
+
+// Segurança básica: redireciona para login se não autenticado
+if (!isset($_SESSION['usuario_id'])) {
+  header('Location: login.php');
+  exit;
+}
+
+// Carregar usuários para listagem (nome/email)
+$usuarios = [];
+$resUsers = $conn->query("SELECT nome, email, tipo FROM usuarios ORDER BY id ASC LIMIT 50");
+if ($resUsers) { while($r = $resUsers->fetch_assoc()) { $usuarios[] = $r; } }
+
+// Dados básicos de sensores (placeholder)
+$sensores = [];
+if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
+  $resSens = $conn->query("SELECT s.id, s.tipo, s.status, COALESCE(MAX(d.data_hora),'--') AS ultima_leitura, COUNT(d.id) AS total_leituras
+                            FROM sensor s
+                            LEFT JOIN sensor_data d ON d.id_sensor = s.id
+                            GROUP BY s.id, s.tipo, s.status
+                            ORDER BY s.id ASC");
+  if($resSens){ while($s = $resSens->fetch_assoc()) { $sensores[] = $s; } }
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,7 +33,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Administrador | Viafácil</title>
   <style>
-    body {
+  body {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
@@ -336,6 +363,58 @@
       </table>
     </div>
   </section>
+
+  <section class="form-section" id="usuarios-listagem">
+    <h2>Usuários Cadastrados</h2>
+    <div class="table-wrap">
+      <table class="table-section">
+        <thead>
+          <tr><th>Nome</th><th>E-mail</th><th>Tipo</th></tr>
+        </thead>
+        <tbody>
+          <?php if(!$usuarios): ?>
+            <tr><td colspan="3">Nenhum usuário encontrado.</td></tr>
+          <?php else: foreach($usuarios as $u): ?>
+            <tr>
+              <td><?= htmlspecialchars($u['nome']) ?></td>
+              <td><?= htmlspecialchars($u['email']) ?></td>
+              <td><?= htmlspecialchars($u['tipo']) ?></td>
+            </tr>
+          <?php endforeach; endif; ?>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="form-section" id="sensores-placeholder">
+    <h2>Monitoramento de Sensores</h2>
+    <?php if(empty($sensores)): ?>
+      <p style="margin:0 0 8px;">Integração de sensores em desenvolvimento.</p>
+      <p style="margin:0; font-size:0.9rem; color:#555;">As tabelas sensor e sensor_data já estão preparadas e populadas no script SQL.</p>
+    <?php else: ?>
+      <div class="table-wrap">
+        <table class="table-section">
+          <thead>
+            <tr><th>ID</th><th>Tipo</th><th>Status</th><th>Última leitura</th><th>Total Leituras</th></tr>
+          </thead>
+          <tbody>
+          <?php foreach($sensores as $s): ?>
+            <tr>
+              <td><?= (int)$s['id'] ?></td>
+              <td><?= htmlspecialchars($s['tipo']) ?></td>
+              <td><?= htmlspecialchars($s['status']) ?></td>
+              <td><?= htmlspecialchars($s['ultima_leitura']) ?></td>
+              <td><?= (int)$s['total_leituras'] ?></td>
+            </tr>
+          <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin:10px 0 0; font-size:0.85rem; color:#444;">* Exibindo dados de teste. Visualização em tempo real será implementada.</p>
+    <?php endif; ?>
+  </section>
+
+  <?php $conn->close(); ?>
 
   <script>
     (function() {

@@ -40,10 +40,42 @@ Este repositório contém os protótipos das telas principais do aplicativo **Vi
 - Interface pensada para dispositivos móveis.
 
 ## Funcionalidades Previstas
-- Autenticação de usuários.
-- Recuperação de senha por e-mail.
-- Dashboard com atalhos para ações rápidas.
-- Envio e visualização de notificações e avisos.
+
+## Atualização: Integração Inicial de Usuários e Sensores
+
+Esta etapa inclui:
+
+1. Tabela `usuarios` populada com 3 usuários de teste (senhas em MD5 apenas para prototipagem; recomenda-se migrar para `password_hash`).
+2. Criação das tabelas de monitoramento:
+  - `sensor` (cadastro de dispositivos)
+  - `sensor_data` (leituras associadas)
+3. Inserção de sensores de exemplo: `temperatura_freio`, `vibracao_motor` com leituras simuladas.
+4. Dashboard agora exibe:
+  - Listagem de usuários (nome, e-mail, tipo)
+  - Seção “Monitoramento de Sensores” com placeholder ou dados agregados (última leitura / total de registros) quando as tabelas existem.
+
+### Script SQL
+Arquivo: `sa_viafacil_db.sql` contém criação e inserts das tabelas:
+
+```sql
+CREATE TABLE sensor (...);
+CREATE TABLE sensor_data (...);
+```
+
+Para aplicar:
+1. Executar o script no MySQL / MariaDB.
+2. Confirmar credenciais em `config/db.php`.
+
+### Próximos Passos (Sugeridos)
+- Implementar visualização em tempo real (Ajax ou WebSocket) das leituras mais recentes.
+- Gráfico simples (ex: Chart.js) para evolução de temperatura / vibração.
+- Filtro por tipo de sensor no dashboard.
+- Alertas quando valores excederem limites (ex: temperatura > 120°C).
+
+### Segurança (Futuro)
+- Migrar MD5 para `password_hash()`.
+- Adicionar controle de sessão e expiração.
+- Criar níveis de permissão mais granulares.
 
 ## Suporte
 Há links nas telas para entrar em contato com o **Suporte Técnico** diretamente a partir da interface.
