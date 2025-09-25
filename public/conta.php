@@ -93,7 +93,7 @@
       padding: 10px 18px;
       border-radius: 20px;
       border: none;
-      background: #43b649; /* botão verde */
+      background: #43b649; 
       color: #fff;
       font-size: 1em;
       cursor: pointer;
@@ -104,7 +104,7 @@
     .conta-form button:hover {
       background: #2e8c34;
     }
-    /* Menu lateral (português) */
+    
     .menu-lateral { position: fixed; left: 0; top: 0; height: 100vh; width: 260px; background: #2f2f2f; color: #fff; padding-top: 28px; box-shadow: 2px 0 12px rgba(0,0,0,0.3); transform: translateX(-110%); transition: transform 0.28s ease; z-index: 1000; }
     .menu-lateral.ativo { transform: translateX(0); }
     .sobreposicao-menu { position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); opacity: 0; visibility: hidden; transition: opacity 0.2s ease; z-index: 900; }
