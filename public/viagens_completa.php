@@ -1,4 +1,4 @@
-<?php // Visão completa das viagens (layout padronizado com menu lateral) ?>
+<?php ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
