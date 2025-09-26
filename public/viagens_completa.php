@@ -97,7 +97,7 @@
       function calcularPorPagina(){
         if(linhas.length === 0) return 1;
         linhas.forEach(tr=> tr.style.display='table-row');
-        const tableEl = tbody.parentElement; // table
+        const tableEl = tbody.parentElement; 
         const thead = tableEl.querySelector('thead');
         const headH = thead ? thead.getBoundingClientRect().height : 0;
         const topTabela = tableEl.getBoundingClientRect().top;
