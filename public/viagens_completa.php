@@ -131,7 +131,7 @@
         const novo = calcularPorPagina();
         if(novo !== porPagina){
           porPagina = novo;
-          paginaAtual = 1; // volta para primeira
+          paginaAtual = 1; 
         }
         render();
       }
