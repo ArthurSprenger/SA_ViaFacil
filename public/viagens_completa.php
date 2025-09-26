@@ -96,7 +96,6 @@
 
       function calcularPorPagina(){
         if(linhas.length === 0) return 1;
-        // Exibe todas temporariamente para medições
         linhas.forEach(tr=> tr.style.display='table-row');
         const tableEl = tbody.parentElement; // table
         const thead = tableEl.querySelector('thead');
