@@ -87,7 +87,7 @@
       const tbody = document.querySelector('table tbody');
       if(!tbody) return;
       const linhas = Array.from(tbody.querySelectorAll('tr'));
-      let porPagina = 6; // valor inicial; será recalculado
+      let porPagina = 6; 
       let paginaAtual = 1;
       const prev = document.getElementById('prevPage');
       const next = document.getElementById('nextPage');
