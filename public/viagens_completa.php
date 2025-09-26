@@ -66,7 +66,7 @@
       <span id="pageIndicator" aria-live="polite">01</span>
       <button type="button" class="nav-btn" id="nextPage" aria-label="Próxima página" title="Próxima página">&#8594;</button>
     </div>
-    </div><!-- fim tabela-area -->
+    </div>
   </div>
 
   <script>
