@@ -143,7 +143,6 @@
 
       window.addEventListener('resize', ()=>{ clearTimeout(window.__pgTO); window.__pgTO = setTimeout(recalcular,150); });
 
-      // inicial
       recalcular();
     })();
   </script>
