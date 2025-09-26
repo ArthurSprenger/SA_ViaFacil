@@ -8,36 +8,7 @@ $conn = db_connect();
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Configurações | Viafácil</title>
-  <style>
-    body{ margin:0; padding:0; font-family: Arial, sans-serif; background:#fff; min-height:100vh; }
-  .config-header{ position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:14px 16px 18px; background:#003366; color:#fff; border-radius:0 0 16px 16px; min-height:120px; }
-  .menu-btn{ background:none; border:0; display:flex; flex-direction:column; gap:4px; position:absolute; left:12px; top:12px; cursor:pointer; }
-  .menu-btn .bar{ width:28px; height:4px; background:#fff; border-radius:2px; }
-  .logo-trens{ width:96px; height:auto; display:block; margin:6px auto 4px; }
-  .config-title{ font-size:1.9em; font-weight:800; color:#fff; text-align:center; margin:0; }
-    .config-container{ padding:18px; }
-    .config-list{ max-width:420px; margin:8px auto 40px; }
-    .config-item{ display:flex; align-items:center; justify-content:space-between; padding:12px 8px; border-bottom:1px solid rgba(0,0,0,0.06); }
-    .config-item label{ font-weight:700; color:#111; }
-    .config-icon{ display:flex; align-items:center; gap:10px; }
-    .switch{ position:relative; display:inline-block; width:46px; height:26px; }
-    .switch input{ opacity:0; width:0; height:0; }
-    .slider{ position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background:#ccc; transition:.2s; border-radius:26px; }
-    .slider:before{ position:absolute; content:''; height:20px; width:20px; left:3px; top:3px; background:white; transition:.2s; border-radius:50%; }
-    .switch input:checked + .slider{ background:#43b649; }
-    .switch input:checked + .slider:before{ transform:translateX(20px); }
-    .menu-lateral{ position:fixed; left:0; top:0; height:100vh; width:260px; background:#2f2f2f; color:#fff; padding-top:28px; box-shadow:2px 0 12px rgba(0,0,0,0.3); transform:translateX(-110%); transition:transform .28s ease; z-index:1000; }
-    .menu-lateral.ativo{ transform:translateX(0); }
-    .sobreposicao-menu{ position:fixed; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); opacity:0; visibility:hidden; transition:opacity .2s ease; z-index:900; }
-    .sobreposicao-menu.ativo{ opacity:1; visibility:visible; }
-    .lista-itens{ list-style:none; padding:0 12px; margin:0; }
-    .item-menu{ display:flex; align-items:center; gap:12px; padding:14px 8px; border-radius:8px; color:#fff; cursor:pointer; margin-bottom:8px; }
-    .item-menu:hover{ background:rgba(255,255,255,0.04); }
-    .item-menu a{ color:inherit; text-decoration:none; display:flex; align-items:center; gap:12px; width:100%; }
-    .icone-item{ width:36px; height:36px; display:block; }
-    .texto-item{ font-weight:700; font-size:0.95em; }
-    @media(max-width:600px){ .logo-trens{ width:80px; } .config-title{ font-size:1.6em; } }
-  </style>
+  <link rel="stylesheet" href="../styles/configs.css" />
 </head>
 <body>
   <header class="config-header">

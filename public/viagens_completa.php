@@ -5,47 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Próximas Viagens - Completo | Viafácil</title>
-  <style>
-    *,*::before,*::after{box-sizing:border-box;}
-  html,body{margin:0;padding:0;font-family:Arial,sans-serif;background:#f5f7fa;height:100%;}
-  body{display:flex;flex-direction:column;}
-  .topo-bg{background:#003366; box-shadow:0 1px 3px rgba(0,0,0,0.08);} /* mantém enxuto */
-  .header{position:relative;display:flex;align-items:center;justify-content:center;padding:4px 8px;height:62px;} /* um pouco mais alto */
-  .logo{width:80px;height:auto;display:block;} /* ligeiro aumento */
-    .menu-btn{background:none;border:none;display:flex;flex-direction:column;gap:4px;cursor:pointer;position:absolute;left:16px;top:50%;transform:translateY(-50%);z-index:10;}
-    .menu-btn .bar{width:28px;height:4px;background:#fff;border-radius:2px;}
-    .menu-lateral{position:fixed;left:0;top:0;height:100vh;width:260px;background:#2f2f2f;color:#fff;padding-top:28px;box-shadow:2px 0 12px rgba(0,0,0,0.3);transform:translateX(-110%);transition:transform .28s ease;z-index:1000;}
-    .menu-lateral.ativo{transform:translateX(0);}
-    .sobreposicao-menu{position:fixed;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);opacity:0;visibility:hidden;transition:opacity .2s ease;z-index:900;}
-    .sobreposicao-menu.ativo{opacity:1;visibility:visible;}
-    .lista-itens{list-style:none;margin:0;padding:0 14px;}
-    .item-menu{display:flex;align-items:center;gap:12px;padding:14px 8px;border-radius:8px;color:#fff;cursor:pointer;margin-bottom:8px;}
-    .item-menu:hover{background:rgba(255,255,255,0.05);} 
-    .item-menu a{color:inherit;text-decoration:none;display:flex;align-items:center;gap:12px;width:100%;}
-    .icone-item{width:34px;height:34px;display:block;}
-    .texto-item{font-weight:700;font-size:0.95em;}
-  .conteudo{max-width:1400px;width:100%;margin:10px auto 12px;padding:0 10px;display:flex;flex-direction:column;flex:1;} /* área flex para esticar */
-  .tabela-area{flex:1;display:flex;flex-direction:column;min-height:0;} /* permite que a tabela ocupe o restante */
-    .table-wrap{overflow:auto;border-radius:8px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.08);flex:1;min-height:0;}
-    table{width:100%;border-collapse:collapse;min-width:700px;}
-    th,td{padding:6px 6px;border:1px solid #ddd;text-align:center;font-size:0.85rem;} /* um pouco mais de legibilidade */
-    th{background:#f1f1f1;color:#003366;}
-    tbody tr:nth-child(even){background:#fafafa;}
-  h1{margin:8px 0 10px;color:#003366;font-size:1.18rem;text-align:center;line-height:1.1;} /* mais afastado da logo */
-  .info{display:none;}
-  .paginacao{margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;max-width:520px;background:#003366;color:#fff;font-weight:700;padding:6px 32px;border-radius:4px;font-size:0.95rem;align-self:center;margin-bottom:4px;}
-  .paginacao .nav-btn{background:transparent;border:none;color:#fff;font-size:26px;cursor:pointer;line-height:1;font-weight:700;display:flex;align-items:center;justify-content:center;padding:4px 18px;}
-  .paginacao .nav-btn:disabled{opacity:.25;cursor:default;}
-  .paginacao #pageIndicator{min-width:40px;text-align:center;letter-spacing:1px;font-size:1.05rem;}
-    .status-Embarque{color:#007bff;font-weight:bold;}
-    .status-EmRota{color:#2e8c34;font-weight:bold;}
-    .status-Aguardando{color:#b36b00;font-weight:bold;}
-    @media (max-width:600px){
-      .logo{width:120px;}
-      th,td{font-size:0.8rem;padding:8px 6px;}
-      h1{font-size:1.1rem;}
-    }
-  </style>
+  <link rel="stylesheet" href="../styles/viagens_completa.css">
 </head>
 <body>
   <div class="topo-bg">

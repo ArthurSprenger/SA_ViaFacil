@@ -6,7 +6,9 @@ html, body {
     overflow-x: hidden;
 }
 
-.sidebar-menu { display: none !important; }
+.sidebar-menu {
+    display: none !important;
+}
 
 body {
     min-height: 100vh;
@@ -120,34 +122,7 @@ main {
     font-size: 0.98em;
 }
 
-.rodape-passageiros {
-    background: #003366;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 44px;
-    margin-top: 0;
-    width: 100%;
-    position: sticky;
-    bottom: 0;
-    padding: 10px 0;
-}
-
-.seta-passageiros {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.7em;
-    cursor: pointer;
-    margin: 0 18px;
-}
-
-.numero-pagina-passageiros {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin: 0 8px;
-}
+/* Footer styles moved to passageiros.css: .rodape-passageiros, .seta-passageiros, .numero-pagina-passageiros */
 
 @media (max-width: 400px) {
     .tabela-passageiros th, .tabela-passageiros td {
@@ -210,9 +185,15 @@ main {
         font-size: 1em;
         flex-shrink: 0;
     }
-    .tabela-passageiros td:nth-child(1)::before { content: "Nome:"; }
-    .tabela-passageiros td:nth-child(2)::before { content: "Rota:"; }
-    .tabela-passageiros td:nth-child(3)::before { content: "Horário:"; }
+        .tabela-passageiros td:nth-child(1)::before {
+            content: "Nome:";
+        }
+        .tabela-passageiros td:nth-child(2)::before {
+            content: "Rota:";
+        }
+        .tabela-passageiros td:nth-child(3)::before {
+            content: "Horário:";
+        }
 }
 
 .painel-informacoes {
@@ -501,86 +482,6 @@ main {
     opacity: 0.9;
 }
 
-.solicitacoes-container {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.titulo-solicitacoes {
-    text-align: center;
-    color: #003366;
-    margin: 16px 0;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-.tabela-container {
-    margin-bottom: 20px;
-}
-
-.tabela-solicitacoes {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    background: #fff;
-    border: 2px solid #003366;
-}
-
-.tabela-solicitacoes th,
-.tabela-solicitacoes td {
-    padding: 12px;
-    text-align: left;
-    border: 1px solid #003366;
-}
-
-.tabela-solicitacoes th {
-    background-color: #003366;
-    color: white;
-    font-weight: bold;
-}
-
-.tabela-solicitacoes input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.botao-enviar {
-    display: block;
-    width: 100%;
-    max-width: 300px;
-    margin: 20px auto;
-    padding: 12px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    text-transform: uppercase;
-}
-
-.botao-enviar:hover {
-    background-color: #45a049;
-}
-
-@media (max-width: 600px) {
-    .solicitacoes-container {
-        padding: 10px;
-    }
-
-    .tabela-solicitacoes th,
-    .tabela-solicitacoes td {
-        padding: 8px;
-        font-size: 0.9em;
-    }
-
-    .titulo-solicitacoes {
-        font-size: 1.2em;
-    }
-}
+/* Table and button styles for solicitações/aviso moved to page-specific CSS to avoid duplication */
 
 

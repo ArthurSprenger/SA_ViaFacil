@@ -1,0 +1,36 @@
+@import url('./base.css');
+
+.tabela-aviso input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 0.95em;
+    display: block;
+    background: #fff;
+}
+.tabela-container {
+    display: grid;
+    gap: 18px;
+}
+.menu-btn {
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 36px !important;
+    height: 36px !important;
+    cursor: pointer;
+}
+.menu-btn div {
+    width: 28px !important;
+    height: 4px !important;
+    background: #fff !important;
+    border-radius: 2px !important;
+    margin: 2px 0 !important;
+    display: block !important;
+}

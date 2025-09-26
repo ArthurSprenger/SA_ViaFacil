@@ -17,67 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Recuperar Senha</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .container-recuperar {
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      padding: 32px 24px;
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-    }
-    .container-recuperar h2 {
-      color: #007bff;
-      margin-bottom: 18px;
-    }
-    .container-recuperar form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .container-recuperar input {
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size: 1em;
-    }
-    .container-recuperar button {
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
-      background: #007bff;
-      color: #fff;
-      font-size: 1em;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .container-recuperar button:hover {
-      background: #0056b3;
-    }
-    .erro-recuperar {
-      color: #d00;
-      margin-top: 8px;
-      font-size: 0.95em;
-    }
-    @media (max-width: 600px) {
-      .container-recuperar {
-        padding: 18px 8px;
-        font-size: 1em;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="../styles/recuperar.css">
 </head>
 <body>
   <div class="container-recuperar">
