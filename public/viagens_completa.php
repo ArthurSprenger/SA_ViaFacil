@@ -102,11 +102,11 @@
         const headH = thead ? thead.getBoundingClientRect().height : 0;
         const topTabela = tableEl.getBoundingClientRect().top;
         const pagH = pagBar ? pagBar.getBoundingClientRect().height : 0;
-        const margemExtra = 16; // folga inferior
+        const margemExtra = 16; 
         const disponivel = window.innerHeight - topTabela - pagH - margemExtra;
         const primeiraLinha = linhas[0];
         const rowH = primeiraLinha.getBoundingClientRect().height || 28;
-        const cabecalhoESobra = headH + 4; // pequena folga
+        const cabecalhoESobra = headH + 4; 
         const calculado = Math.floor((disponivel - cabecalhoESobra) / rowH);
         return Math.max(1, Math.min(calculado, linhas.length));
       }
