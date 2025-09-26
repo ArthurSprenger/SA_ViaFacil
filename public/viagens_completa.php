@@ -82,7 +82,7 @@
       Array.from(menu.querySelectorAll('a')).forEach(a=> a.addEventListener('click', fechar));
     })();
 
-    // Paginação da tabela com cálculo dinâmico para ocupar altura até o final da página
+    
     (function(){
       const tbody = document.querySelector('table tbody');
       if(!tbody) return;
