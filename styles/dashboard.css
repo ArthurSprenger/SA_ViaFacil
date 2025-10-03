@@ -338,3 +338,60 @@ body {
 #formEdicaoWrapper.mostrar {
   display: block;
 }
+
+.user-chip {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+}
+.user-chip__name {
+  font-weight: 700;
+  max-width: 40vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.user-chip__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+}
+
+.form-users-add {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 14px;
+  align-items: flex-end;
+}
+.form-users-add input[name="novo_nome"] { flex: 1 1 140px; min-width: 140px; }
+.form-users-add input[name="novo_email"] { flex: 1 1 180px; min-width: 180px; }
+.form-users-add input[name="novo_senha"] { flex: 1 1 140px; min-width: 140px; }
+.form-users-add select[name="novo_tipo"] { flex: 0 0 130px; }
+.btn-user-add {
+  background: #007bff;
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form-edicao-title { margin: 4px 0 8px; font-size: 1.05rem; }
+.form-edicao-sub { font-size: 0.75rem; color: #555; }
+.form-edicao-usuario input#edit_nome { flex: 1 1 160px; }
+.form-edicao-usuario input#edit_email { flex: 1 1 200px; }
+.form-edicao-usuario select#edit_tipo { flex: 0 0 140px; }
+.form-edicao-usuario input#edit_senha { flex: 1 1 180px; }
+.btn-cancelar { background: #6c757d; color: #fff; }
+.eu-tag { color: #007bff; font-size: 0.7rem; font-weight: 600; }
+
+.sensors-note { margin: 0 0 8px; }
+.sensors-subnote { margin: 0; font-size: 0.9rem; color: #555; }

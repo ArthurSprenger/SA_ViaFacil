@@ -204,13 +204,28 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
       <a href="dashboard.php">
         <img src="../assets/logo.PNG" alt="Viafacil" class="logo" />
       </a>
+      <?php
+        require_once __DIR__.'/../includes/db_connect.php';
+        $foto = 'default.jpg';
+        try{
+          $st = $pdo->prepare('SELECT foto_perfil FROM usuarios WHERE id=:id');
+          $st->bindParam(':id', $_SESSION['usuario_id']);
+          $st->execute();
+          $row = $st->fetch();
+          if($row && !empty($row['foto_perfil'])) $foto = $row['foto_perfil'];
+        }catch(Throwable $e){}
+      ?>
+      <div class="user-chip">
+        <span class="user-chip__name"><?= htmlspecialchars($_SESSION['username'] ?? '') ?></span>
+        <img class="user-chip__avatar" src="../uploads/<?= htmlspecialchars($foto) ?>" alt="Foto" />
+      </div>
     </header>
     <nav class="menu-lateral" id="menuLateral">
       <ul class="lista-itens">
         <li class="item-menu"><a href="dashboard.php"><img src="../assets/dashboard.png" class="icone-item" alt="Dashboard"/><span class="texto-item">DASHBOARD</span></a></li>
         <li class="item-menu"><a href="conta.php"><img src="../assets/logo usuario menu.png" class="icone-item" alt="Conta"/><span class="texto-item">CONTA</span></a></li>
         <li class="item-menu"><a href="configs.php"><img src="../assets/configurações.png" class="icone-item" alt="Configurações"/><span class="texto-item">CONFIGURAÇÕES</span></a></li>
-        <li class="item-menu"><a href="login.php"><img src="../assets/sair.png" class="icone-item" alt="Sair"/><span class="texto-item">SAIR</span></a></li>
+  <li class="item-menu"><a href="logout.php"><img src="../assets/sair.png" class="icone-item" alt="Sair"/><span class="texto-item">SAIR</span></a></li>
       </ul>
     </nav>
     <div class="sobreposicao-menu" id="sobreposicaoMenu"></div>
@@ -287,36 +302,36 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
   <section class="form-section" id="usuarios-listagem">
     <h2>Usuários Cadastrados</h2>
     <?php if(isAdmin()): ?>
-      <form method="POST" style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px;align-items:flex-end;">
+      <form method="POST" class="form-users-add">
         <input type="hidden" name="__acao" value="criar_usuario" />
-        <input name="novo_nome" type="text" placeholder="Nome" required style="flex:1 1 140px;min-width:140px;" />
-        <input name="novo_email" type="email" placeholder="E-mail" required style="flex:1 1 180px;min-width:180px;" />
-        <input name="novo_senha" type="password" placeholder="Senha" required style="flex:1 1 140px;min-width:140px;" />
-        <select name="novo_tipo" style="flex:0 0 130px;">
+        <input name="novo_nome" type="text" placeholder="Nome" required />
+        <input name="novo_email" type="email" placeholder="E-mail" required />
+        <input name="novo_senha" type="password" placeholder="Senha" required />
+        <select name="novo_tipo">
           <option value="normal">normal</option>
           <option value="admin">admin</option>
         </select>
-        <button type="submit" style="background:#007bff;color:#fff;border:0;border-radius:6px;padding:8px 14px;font-weight:600;cursor:pointer;">Adicionar</button>
+        <button type="submit" class="btn-user-add">Adicionar</button>
       </form>
       <?php if($msgUserAdd){ echo $msgUserAdd; } ?>
       <?php if($msgUserEdit){ echo $msgUserEdit; } ?>
       <div id="formEdicaoWrapper">
-        <h3 style="margin:4px 0 8px;font-size:1.05rem;">Editar Usuário <span id="editUserLabel" style="font-size:0.75rem;color:#555;"></span></h3>
+        <h3 class="form-edicao-title">Editar Usuário <span id="editUserLabel" class="form-edicao-sub"></span></h3>
         <form method="POST" class="form-edicao-usuario" id="formEditar">
           <input type="hidden" name="__acao" value="atualizar_usuario" />
           <input type="hidden" name="edit_id" id="edit_id" />
-          <input name="edit_nome" id="edit_nome" type="text" placeholder="Nome" required style="flex:1 1 160px;" />
-          <input name="edit_email" id="edit_email" type="email" placeholder="E-mail" required style="flex:1 1 200px;" />
-          <select name="edit_tipo" id="edit_tipo" style="flex:0 0 140px;">
+          <input name="edit_nome" id="edit_nome" type="text" placeholder="Nome" required />
+          <input name="edit_email" id="edit_email" type="email" placeholder="E-mail" required />
+          <select name="edit_tipo" id="edit_tipo">
             <option value="normal">normal</option>
             <option value="admin">admin</option>
           </select>
-          <input name="edit_senha" id="edit_senha" type="password" placeholder="Nova senha (opcional)" style="flex:1 1 180px;" />
+          <input name="edit_senha" id="edit_senha" type="password" placeholder="Nova senha (opcional)" />
           <button type="submit">Salvar Alterações</button>
-          <button type="button" id="btnCancelarEdicao" style="background:#6c757d;">Cancelar</button>
+          <button type="button" id="btnCancelarEdicao" class="btn-cancelar">Cancelar</button>
         </form>
       </div>
-      <p style="margin:4px 0 14px;font-size:0.75rem;color:#555;">(Senhas armazenadas com MD5 temporariamente. Recomendado migrar para password_hash.)</p>
+      <p class="note-md5">(Senhas armazenadas com MD5 temporariamente. Recomendado migrar para password_hash.)</p>
     <?php endif; ?>
     <div class="table-wrap">
       <table class="table-section">
@@ -328,14 +343,14 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
             <tr><td colspan="<?= isAdmin()?4:3 ?>">Nenhum usuário encontrado.</td></tr>
           <?php else: foreach($usuarios as $u): ?>
             <tr>
-              <td><?= htmlspecialchars($u['nome']) ?><?= $u['id']===$_SESSION['usuario_id'] ? ' <span style="color:#007bff;font-size:0.7rem;font-weight:600;">(eu)</span>' : '' ?></td>
+              <td><?= htmlspecialchars($u['nome']) ?><?= $u['id']===$_SESSION['usuario_id'] ? ' <span class="eu-tag">(eu)</span>' : '' ?></td>
               <td><?= htmlspecialchars($u['email']) ?></td>
               <td><?= htmlspecialchars($u['tipo']) ?></td>
               <?php if(isAdmin()): ?>
               <td class="acoes-usuario">
                 <a class="edit-link" href="#" data-id="<?= (int)$u['id'] ?>" data-nome="<?= htmlspecialchars($u['nome'],ENT_QUOTES) ?>" data-email="<?= htmlspecialchars($u['email'],ENT_QUOTES) ?>" data-tipo="<?= htmlspecialchars($u['tipo'],ENT_QUOTES) ?>">Editar</a>
                 <?php if($u['id'] !== $_SESSION['usuario_id']): ?>
-                  <form method="POST" onsubmit="return confirm('Deseja realmente excluir este usuário?');" style="display:inline;">
+                  <form method="POST" onsubmit="return confirm('Deseja realmente excluir este usuário?');">
                     <input type="hidden" name="__acao" value="excluir_usuario" />
                     <input type="hidden" name="del_id" value="<?= (int)$u['id'] ?>" />
                     <button type="submit">Excluir</button>
@@ -353,8 +368,8 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
   <section class="form-section" id="sensores-placeholder">
     <h2>Monitoramento de Sensores</h2>
     <?php if(empty($sensores)): ?>
-      <p style="margin:0 0 8px;">Integração de sensores em desenvolvimento.</p>
-      <p style="margin:0; font-size:0.9rem; color:#555;">As tabelas sensor e sensor_data já estão preparadas e populadas no script SQL.</p>
+      <p class="sensors-note">Integração de sensores em desenvolvimento.</p>
+      <p class="sensors-subnote">As tabelas sensor e sensor_data já estão preparadas e populadas no script SQL.</p>
     <?php else: ?>
       <div class="table-wrap">
         <table class="table-section">

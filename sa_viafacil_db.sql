@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
     tipo ENUM('normal','admin') NOT NULL DEFAULT 'normal',
-    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP
+    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+    foto_perfil VARCHAR(255) DEFAULT 'default.jpg'
 );
 
 -- Popular mínimo de 3 usuários para autenticação real (senhas em MD5 apenas para protótipo)

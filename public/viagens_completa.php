@@ -27,7 +27,7 @@
       <li class="item-menu"><a href="trenserotas.php"><img src="../assets/trens.png" class="icone-item" alt="Trens e Rotas"/><span class="texto-item">TRENS E ROTAS</span></a></li>
       <li class="item-menu"><a href="aviso.php"><img src="../assets/aviso.png" class="icone-item" alt="Avisos"/><span class="texto-item">AVISOS</span></a></li>
       <li class="item-menu"><a href="solicitacoes.php"><img src="../assets/solicitacao.png" class="icone-item" alt="Solicitações"/><span class="texto-item">SOLICITAÇÕES</span></a></li>
-      <li class="item-menu"><a href="login.php"><img src="../assets/sair.png" class="icone-item" alt="Sair"/><span class="texto-item">SAIR</span></a></li>
+  <li class="item-menu"><a href="logout.php"><img src="../assets/sair.png" class="icone-item" alt="Sair"/><span class="texto-item">SAIR</span></a></li>
     </ul>
   </nav>
   <div class="sobreposicao-menu" id="sobreposicaoFull"></div>

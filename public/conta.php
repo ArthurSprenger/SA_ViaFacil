@@ -2,6 +2,7 @@
 session_start();
 require_once __DIR__ . '/../config/db.php';
 $conn = db_connect();
+require_once __DIR__ . '/../includes/db_connect.php'; // $pdo for fetching foto_perfil
 
 if(!isset($_SESSION['usuario_id'])){
   header('Location: login.php');
@@ -77,6 +78,21 @@ $conn->close();
     <h1>Conta</h1>
   </header>
   <main class="conta-container">
+    <?php
+      // Carregar foto_perfil via PDO (mais simples)
+      $foto = null;
+      try{
+        $stmt = $pdo->prepare('SELECT foto_perfil FROM usuarios WHERE id = :id');
+        $stmt->bindParam(':id', $_SESSION['usuario_id']);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        $foto = $row['foto_perfil'] ?? 'default.jpg';
+      } catch(Throwable $e) { $foto = 'default.jpg'; }
+    ?>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <img src="../uploads/<?= htmlspecialchars($foto) ?>" alt="Foto de Perfil" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid #003366;"/>
+      <a href="upload_foto.php" style="font-weight:700;color:#003366;">Trocar foto</a>
+    </div>
     <div class="perfil-title">Perfil</div>
     <?= $msg ?>
     <form class="conta-form" method="POST" action="">
@@ -96,7 +112,7 @@ $conn->close();
       <li class="item-menu"><a href="dashboard.php"><img src="../assets/dashboard.png" class="icone-item" alt="Dashboard"/><span class="texto-item">DASHBOARD</span></a></li>
       <li class="item-menu"><a href="conta.php"><img src="../assets/logo usuario menu.png" class="icone-item" alt="Conta"/><span class="texto-item">CONTA</span></a></li>
       <li class="item-menu"><a href="configs.php"><img src="../assets/configurações.png" class="icone-item" alt="Configurações"/><span class="texto-item">CONFIGURAÇÕES</span></a></li>
-      <li class="item-menu"><a href="login.php"><img src="../assets/sair.png" class="icone-item" alt="Sair"/><span class="texto-item">SAIR</span></a></li>
+  <li class="item-menu"><a href="logout.php"><img src="../assets/sair.png" class="icone-item" alt="Sair"/><span class="texto-item">SAIR</span></a></li>
     </ul>
   </nav>
   <div class="sobreposicao-menu" id="sobreposicaoMenu"></div>
