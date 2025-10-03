@@ -1,7 +1,7 @@
 <?php
-	// Redireciona via PHP após ~2.8 segundos sem depender de JavaScript
+	
 	header('Refresh: 2.8; url=login.php');
-	// Evita cache para garantir carregamento do CSS mais recente
+	
 	header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 	header('Cache-Control: post-check=0, pre-check=0', false);
 	header('Pragma: no-cache');
