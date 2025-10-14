@@ -117,6 +117,16 @@ html,body {
   color:#9ed9ff;
   text-decoration:none;
 }
+.link-cadastro {
+  margin-top: 8px;
+  text-align: center;
+}
+.link-cadastro a {
+  font-size: 0.9rem;
+}
+.upload-foto-card {
+  max-width: 520px;
+}
 
 @media (max-width:420px) {
   .login-card {

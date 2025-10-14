@@ -147,9 +147,9 @@ if(isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin' && $_SERVER['REQUES
   $senhaNova = trim($_POST['novo_senha'] ?? '');
   $tipoNovo  = ($_POST['novo_tipo'] ?? 'normal') === 'admin' ? 'admin':'normal';
   if(!$nomeNovo || !$emailNovo || !$senhaNova){
-    $_SESSION['flash_user_add'] = '<div style="background:#ffefef;color:#8b1d1d;padding:6px 10px;border-radius:6px;font-size:0.85rem;">Preencha todos os campos para criar o usuário.</div>';
+    $_SESSION['flash_user_add'] = '<div class="msg-erro">Preencha todos os campos para criar o usuário.</div>';
   } else if(!filter_var($emailNovo, FILTER_VALIDATE_EMAIL)) {
-    $_SESSION['flash_user_add'] = '<div style="background:#ffefef;color:#8b1d1d;padding:6px 10px;border-radius:6px;font-size:0.85rem;">E-mail inválido.</div>';
+    $_SESSION['flash_user_add'] = '<div class="msg-erro">E-mail inválido.</div>';
   } else {
     // Verificar duplicidade
     $stmt = $conn->prepare('SELECT id FROM usuarios WHERE email=? LIMIT 1');
@@ -157,14 +157,14 @@ if(isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin' && $_SERVER['REQUES
     $stmt->execute();
     $stmt->store_result();
     if($stmt->num_rows>0){
-      $_SESSION['flash_user_add'] = '<div style="background:#fff3cd;color:#8a6d3b;padding:6px 10px;border-radius:6px;font-size:0.85rem;">Já existe usuário com esse e-mail.</div>';
+      $_SESSION['flash_user_add'] = '<div class="msg-alerta">Já existe usuário com esse e-mail.</div>';
     } else {
       $stmtIns = $conn->prepare('INSERT INTO usuarios (nome,email,senha,tipo) VALUES (?,?,MD5(?),?)');
       $stmtIns->bind_param('ssss',$nomeNovo,$emailNovo,$senhaNova,$tipoNovo);
       if($stmtIns->execute()){
-        $_SESSION['flash_user_add'] = '<div style="background:#e6ffed;color:#216e39;padding:6px 10px;border-radius:6px;font-size:0.85rem;">Usuário criado com sucesso.</div>';
+        $_SESSION['flash_user_add'] = '<div class="msg-sucesso">Usuário criado com sucesso.</div>';
       } else {
-        $_SESSION['flash_user_add'] = '<div style="background:#ffefef;color:#8b1d1d;padding:6px 10px;border-radius:6px;font-size:0.85rem;">Erro ao criar usuário.</div>';
+        $_SESSION['flash_user_add'] = '<div class="msg-erro">Erro ao criar usuário.</div>';
       }
       $stmtIns->close();
     }
@@ -389,7 +389,7 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
           </tbody>
         </table>
       </div>
-      <p style="margin:10px 0 0; font-size:0.85rem; color:#444;">* Exibindo dados de teste. Visualização em tempo real será implementada.</p>
+      <p class="test-data-note">* Exibindo dados de teste. Visualização em tempo real será implementada.</p>
     <?php endif; ?>
   </section>
 

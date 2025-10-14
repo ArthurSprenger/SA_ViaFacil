@@ -196,3 +196,59 @@ body {
     background: #e1306c;
 }
 
+.horarios-wrapper {
+  padding: 0 0 16px 0;
+}
+
+.horarios-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+.horarios-estacao-titulo {
+  font-weight: bold;
+  font-size: 1.3rem;
+  font-style: italic;
+}
+
+.horarios-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.horarios-th {
+  padding: 6px;
+  border-bottom: 1px solid #222;
+}
+
+.horarios-td {
+  text-align: center;
+  padding: 4px;
+}
+
+.horarios-agora {
+  color: #ef4444;
+  font-style: italic;
+}
+
+.horarios-interditado {
+  color: #ef4444;
+  font-weight: bold;
+}
+
+.horarios-footer {
+  text-align: center;
+  margin-top: 4px;
+}
+
+.horarios-ver-mais {
+  color: #222;
+  font-size: 0.98rem;
+  text-decoration: underline;
+}

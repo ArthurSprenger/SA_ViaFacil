@@ -122,8 +122,6 @@ main {
     font-size: 0.98em;
 }
 
-/* Footer styles moved to passageiros.css: .rodape-passageiros, .seta-passageiros, .numero-pagina-passageiros */
-
 @media (max-width: 400px) {
     .tabela-passageiros th, .tabela-passageiros td {
         padding: 5px 1px;
@@ -481,7 +479,3 @@ main {
 .cabecalho-passageiros a:hover {
     opacity: 0.9;
 }
-
-/* Table and button styles for solicitações/aviso moved to page-specific CSS to avoid duplication */
-
-

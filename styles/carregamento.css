@@ -8,10 +8,10 @@ html, body { height: 100%; width: 100%; margin: 0; padding: 0; overflow: hidden;
 body {
   font-family: Arial, sans-serif; 
   color: #fff; 
-  height: 100vh;         /* fallback */ 
-  min-height: 100vh;     /* fallback */ 
-  height: 100dvh;        /* modern viewport unit */ 
-  min-height: 100dvh;    /* modern viewport unit */ 
+  height: 100vh;
+  min-height: 100vh;
+  height: 100dvh;
+  min-height: 100dvh;
   display: grid; 
   place-items: center; 
   background: 
@@ -38,7 +38,7 @@ body {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 24px; /* fallback */
+  bottom: 24px;
   width: 34px;
   height: 34px;
   border-radius: 50%;
@@ -50,4 +50,3 @@ body {
 @keyframes spin { to { transform: translateX(-50%) rotate(360deg); } }
 
 @media (min-width: 768px) { .logo { width: min(40vw, 560px); } .spinner { width: 40px; height: 40px; border-width: 4px; } }
- /* Removed legacy styles that were overriding the splash layout */

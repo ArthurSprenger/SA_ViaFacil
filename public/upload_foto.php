@@ -48,7 +48,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['foto_perfil'])){
 </head>
 <body>
   <div class="page-center">
-    <div class="login-card" style="max-width:520px;">
+    <div class="login-card upload-foto-card">
       <img src="../assets/logo.PNG" alt="Viafacil" class="login-logo">
       <h2 class="login-title">Trocar Foto de Perfil</h2>
       <?php if($erro){ echo '<div class="erro-login">'.htmlspecialchars($erro).'</div>'; } ?>

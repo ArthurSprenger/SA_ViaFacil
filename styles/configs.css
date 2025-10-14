@@ -110,7 +110,6 @@ body{
 .switch input:checked + .slider:before{
 	transform:translateX(20px);
 }
-/* Shared menu styles moved to base.css */
 @media(max-width:600px){
 	.logo-trens{
 		width:80px;

@@ -89,9 +89,9 @@ $conn->close();
         $foto = $row['foto_perfil'] ?? 'default.jpg';
       } catch(Throwable $e) { $foto = 'default.jpg'; }
     ?>
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-      <img src="../uploads/<?= htmlspecialchars($foto) ?>" alt="Foto de Perfil" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid #003366;"/>
-      <a href="upload_foto.php" style="font-weight:700;color:#003366;">Trocar foto</a>
+    <div class="profile-photo-section">
+      <img class="profile-photo" src="../uploads/<?= htmlspecialchars($foto) ?>" alt="Foto de Perfil" />
+      <a href="upload_foto.php" class="link-change-photo">Trocar foto</a>
     </div>
     <div class="perfil-title">Perfil</div>
     <?= $msg ?>
@@ -104,7 +104,7 @@ $conn->close();
       <label for="senha">Nova Senha (opcional)</label>
       <input type="password" id="senha" name="senha" placeholder="Deixe em branco para manter" />
       <button type="submit">Salvar alterações</button>
-      <p style="font-size:0.7rem;color:#555;margin:4px 0 0;">Senhas armazenadas temporariamente com MD5 (modo protótipo).</p>
+      <p class="note-md5">Senhas armazenadas temporariamente com MD5 (modo protótipo).</p>
     </form>
   </main>
   <nav class="menu-lateral" id="menuLateral">

@@ -47,7 +47,7 @@
       </form>
       <div class="suporte-link">
         <a href="suporte.php">
-          <span style="font-size:1.2rem;vertical-align:middle;">&#9432;</span>
+          <span class="info-icon">&#9432;</span>
           Entre em contato com o Suporte Técnico.
         </a>
       </div>

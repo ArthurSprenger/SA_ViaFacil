@@ -394,3 +394,33 @@ body {
 
 .sensors-note { margin: 0 0 8px; }
 .sensors-subnote { margin: 0; font-size: 0.9rem; color: #555; }
+
+.test-data-note {
+  margin: 10px 0 0;
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.msg-erro {
+  background: #ffefef;
+  color: #8b1d1d;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.msg-alerta {
+  background: #fff3cd;
+  color: #8a6d3b;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.msg-sucesso {
+  background: #e6ffed;
+  color: #216e39;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
