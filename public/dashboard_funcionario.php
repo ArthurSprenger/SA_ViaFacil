@@ -112,7 +112,6 @@ if(isset($_GET['logout'])){ session_destroy(); header('Location: login.php'); ex
       document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fecharMenu(); });
       Array.from(menuLateral.querySelectorAll('a')).forEach(function(link){ link.addEventListener('click', function(){ fecharMenu(); }); });
     })();
-    // (Resumo) Seta leva para página completa de viagens
   </script>
 </body>
 </html>

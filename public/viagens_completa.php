@@ -1,4 +1,4 @@
-<?php // Visão completa das viagens (layout padronizado com menu lateral) ?>
+<?php ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -66,7 +66,7 @@
       <span id="pageIndicator" aria-live="polite">01</span>
       <button type="button" class="nav-btn" id="nextPage" aria-label="Próxima página" title="Próxima página">&#8594;</button>
     </div>
-    </div><!-- fim tabela-area -->
+    </div>
   </div>
 
   <script>
@@ -82,12 +82,12 @@
       Array.from(menu.querySelectorAll('a')).forEach(a=> a.addEventListener('click', fechar));
     })();
 
-    // Paginação da tabela com cálculo dinâmico para ocupar altura até o final da página
+    
     (function(){
       const tbody = document.querySelector('table tbody');
       if(!tbody) return;
       const linhas = Array.from(tbody.querySelectorAll('tr'));
-      let porPagina = 6; // valor inicial; será recalculado
+      let porPagina = 6; 
       let paginaAtual = 1;
       const prev = document.getElementById('prevPage');
       const next = document.getElementById('nextPage');
@@ -96,18 +96,17 @@
 
       function calcularPorPagina(){
         if(linhas.length === 0) return 1;
-        // Exibe todas temporariamente para medições
         linhas.forEach(tr=> tr.style.display='table-row');
-        const tableEl = tbody.parentElement; // table
+        const tableEl = tbody.parentElement; 
         const thead = tableEl.querySelector('thead');
         const headH = thead ? thead.getBoundingClientRect().height : 0;
         const topTabela = tableEl.getBoundingClientRect().top;
         const pagH = pagBar ? pagBar.getBoundingClientRect().height : 0;
-        const margemExtra = 16; // folga inferior
+        const margemExtra = 16; 
         const disponivel = window.innerHeight - topTabela - pagH - margemExtra;
         const primeiraLinha = linhas[0];
         const rowH = primeiraLinha.getBoundingClientRect().height || 28;
-        const cabecalhoESobra = headH + 4; // pequena folga
+        const cabecalhoESobra = headH + 4; 
         const calculado = Math.floor((disponivel - cabecalhoESobra) / rowH);
         return Math.max(1, Math.min(calculado, linhas.length));
       }
@@ -132,7 +131,7 @@
         const novo = calcularPorPagina();
         if(novo !== porPagina){
           porPagina = novo;
-          paginaAtual = 1; // volta para primeira
+          paginaAtual = 1; 
         }
         render();
       }
@@ -144,7 +143,6 @@
 
       window.addEventListener('resize', ()=>{ clearTimeout(window.__pgTO); window.__pgTO = setTimeout(recalcular,150); });
 
-      // inicial
       recalcular();
     })();
   </script>

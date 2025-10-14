@@ -55,6 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </form>
 
       <div class="suporte"><a href="suporte.php">&#9432;&nbsp;Entre em contato com o Suporte Técnico.</a></div>
+      <div class="suporte" style="margin-top:8px;text-align:center;">
+        <a href="cadastro.php" style="font-size:0.9rem;">Cadastrar novo usuário</a>
+      </div>
     </div>
   </div>
 </body>

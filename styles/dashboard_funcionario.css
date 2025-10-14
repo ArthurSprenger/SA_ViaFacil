@@ -163,8 +163,7 @@ th {
 .btn-primary:hover {
   background: #2e8c34;
 }
-/* Shared menu styles moved to base.css */
-/* Tabela resumo com fade indicando continuação */
+
 .viagens-resumo {
   position:relative;
 }
