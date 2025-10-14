@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . '/../includes/db_connect.php'; // $pdo
+require_once __DIR__ . '/../includes/db_connect.php';
+require_once __DIR__ . '/../includes/helpers.php';
 require_once __DIR__ . '/../src/User.php';
 
 if (!isset($_SESSION['user_id'])) {
@@ -10,6 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $userRepo = new User($pdo);
 $currentUser = $userRepo->getUserById($_SESSION['user_id']);
+$dashboardUrl = getDashboardUrl();
 $erro='';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['foto_perfil'])){
@@ -28,7 +30,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['foto_perfil'])){
         $newName = 'pfp_'.$_SESSION['user_id'].'_'.time().'.'.$ext;
         $destPath = $targetDir . $newName;
         if(move_uploaded_file($_FILES['foto_perfil']['tmp_name'], $destPath)){
-            // Salvar apenas o nome no banco para exibir via ../uploads/$nome
             $userRepo->updateProfilePic($_SESSION['user_id'], $newName);
             header('Location: dashboard.php');
             exit();
@@ -55,7 +56,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['foto_perfil'])){
       <form class="form-login" method="POST" action="" enctype="multipart/form-data">
         <input class="input-pill" type="file" name="foto_perfil" accept="image/*" required>
         <button class="btn-entrar" type="submit">Fazer upload</button>
-        <a class="link-esqueceu" href="dashboard.php">Voltar ao Dashboard</a>
+        <a class="link-esqueceu" href="<?php echo htmlspecialchars($dashboardUrl); ?>">Voltar ao Dashboard</a>
       </form>
     </div>
   </div>

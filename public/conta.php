@@ -2,7 +2,8 @@
 session_start();
 require_once __DIR__ . '/../config/db.php';
 $conn = db_connect();
-require_once __DIR__ . '/../includes/db_connect.php'; // $pdo for fetching foto_perfil
+require_once __DIR__ . '/../includes/db_connect.php';
+require_once __DIR__ . '/../includes/helpers.php';
 
 if(!isset($_SESSION['usuario_id'])){
   header('Location: login.php');
@@ -10,9 +11,9 @@ if(!isset($_SESSION['usuario_id'])){
 }
 
 $userId = (int)$_SESSION['usuario_id'];
+$dashboardUrl = getDashboardUrl();
 $msg = '';
 
-// Processa atualização
 if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['__acao']) && $_POST['__acao']==='atualizar_perfil'){
   $nome = trim($_POST['nome'] ?? '');
   $email = trim($_POST['email'] ?? '');
@@ -21,7 +22,6 @@ if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['__acao']) && $_POST['__a
   if($nome==='') $erros[] = 'Nome obrigatório';
   if($email==='') $erros[] = 'E-mail obrigatório';
   elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) $erros[] = 'E-mail inválido';
-  // Checar duplicidade de e-mail
   if(!$erros){
     $stmt = $conn->prepare('SELECT id FROM usuarios WHERE email=? AND id<>? LIMIT 1');
     $stmt->bind_param('si',$email,$userId);
@@ -49,7 +49,6 @@ if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['__acao']) && $_POST['__a
   }
 }
 
-// Carregar dados atuais
 $stmtUser = $conn->prepare('SELECT nome,email,tipo FROM usuarios WHERE id=? LIMIT 1');
 $stmtUser->bind_param('i',$userId);
 $stmtUser->execute();
@@ -72,14 +71,13 @@ $conn->close();
       <span class="bar"></span>
       <span class="bar"></span>
     </button>
-    <a href="dashboard.php">
+    <a href="<?php echo htmlspecialchars($dashboardUrl); ?>">
       <img src="../assets/logo.PNG" alt="Viafacil" class="logo" />
     </a>
     <h1>Conta</h1>
   </header>
   <main class="conta-container">
     <?php
-      // Carregar foto_perfil via PDO (mais simples)
       $foto = null;
       try{
         $stmt = $pdo->prepare('SELECT foto_perfil FROM usuarios WHERE id = :id');
@@ -109,7 +107,7 @@ $conn->close();
   </main>
   <nav class="menu-lateral" id="menuLateral">
     <ul class="lista-itens">
-      <li class="item-menu"><a href="dashboard.php"><img src="../assets/dashboard.png" class="icone-item" alt="Dashboard"/><span class="texto-item">DASHBOARD</span></a></li>
+      <li class="item-menu"><a href="<?php echo htmlspecialchars($dashboardUrl); ?>"><img src="../assets/dashboard.png" class="icone-item" alt="Dashboard"/><span class="texto-item">DASHBOARD</span></a></li>
       <li class="item-menu"><a href="conta.php"><img src="../assets/logo usuario menu.png" class="icone-item" alt="Conta"/><span class="texto-item">CONTA</span></a></li>
       <li class="item-menu"><a href="configs.php"><img src="../assets/configurações.png" class="icone-item" alt="Configurações"/><span class="texto-item">CONFIGURAÇÕES</span></a></li>
   <li class="item-menu"><a href="logout.php"><img src="../assets/sair.png" class="icone-item" alt="Sair"/><span class="texto-item">SAIR</span></a></li>

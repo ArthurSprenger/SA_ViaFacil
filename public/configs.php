@@ -1,6 +1,13 @@
 <?php
+session_start();
+require_once __DIR__ . '/../includes/helpers.php';
 require_once __DIR__ . '/../config/db.php';
 $conn = db_connect();
+if(!isset($_SESSION['usuario_id'])){
+  header('Location: login.php');
+  exit;
+}
+$dashboardUrl = getDashboardUrl();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -17,13 +24,13 @@ $conn = db_connect();
       <span class="bar"></span>
       <span class="bar"></span>
     </button>
-    <a href="dashboard.php"><img src="../assets/logo.PNG" alt="Viafácil" class="logo-trens"/></a>
+    <a href="<?php echo htmlspecialchars($dashboardUrl); ?>"><img src="../assets/logo.PNG" alt="Viafácil" class="logo-trens"/></a>
     <div class="config-title">CONFIGURAÇÕES</div>
   </header>
 
   <nav class="menu-lateral" id="menuLateral">
     <ul class="lista-itens">
-      <li class="item-menu"><a href="dashboard.php"><img src="../assets/dashboard.png" class="icone-item" alt="Dashboard"/><span class="texto-item">DASHBOARD</span></a></li>
+      <li class="item-menu"><a href="<?php echo htmlspecialchars($dashboardUrl); ?>"><img src="../assets/dashboard.png" class="icone-item" alt="Dashboard"/><span class="texto-item">DASHBOARD</span></a></li>
       <li class="item-menu"><a href="conta.php"><img src="../assets/logo usuario menu.png" class="icone-item" alt="Conta"/><span class="texto-item">CONTA</span></a></li>
       <li class="item-menu"><a href="configs.php"><img src="../assets/configurações.png" class="icone-item" alt="Configurações"/><span class="texto-item">CONFIGURAÇÕES</span></a></li>
   <li class="item-menu"><a href="logout.php"><img src="../assets/sair.png" class="icone-item" alt="Sair"/><span class="texto-item">SAIR</span></a></li>
