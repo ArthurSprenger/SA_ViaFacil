@@ -1,5 +1,4 @@
 <?php
-// PDO connection based on provided sample (banco_sabado) but adapted to current DB name
 $servername = 'localhost';
 $username = 'root';
 $password = 'root';

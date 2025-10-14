@@ -219,7 +219,7 @@ th {
     margin-top:-64px;
   }
 }
-@media (max-width: 600px) { 
+@media (max-width: 600px) {
   .cards{
     grid-template-columns:1fr 1fr;
     gap:8px;

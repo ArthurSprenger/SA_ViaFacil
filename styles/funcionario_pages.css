@@ -1,0 +1,444 @@
+@import url('./base.css');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f7f7;
+  min-height: 100vh;
+}
+
+.page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.header-func {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: #003366;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  width: 140px;
+  height: auto;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  position: absolute;
+  left: 16px;
+  z-index: 10;
+}
+
+.bar {
+  width: 28px;
+  height: 4px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+.conteudo-principal {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.titulo-pagina {
+  color: #003366;
+  font-size: 2em;
+  margin-bottom: 24px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.subtitulo {
+  color: #003366;
+  font-size: 1.4em;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.secao-busca {
+  margin-bottom: 24px;
+}
+
+.input-busca {
+  width: 100%;
+  max-width: 600px;
+  padding: 12px 16px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: border-color 0.3s;
+}
+
+.input-busca:focus {
+  outline: none;
+  border-color: #003366;
+}
+
+.secao-conteudo {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card-passageiro {
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+.card-passageiro:hover {
+  box-shadow: 0 4px 16px rgba(0, 51, 102, 0.15);
+  border-color: #003366;
+  transform: translateY(-2px);
+}
+
+.passageiro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.passageiro-id {
+  font-weight: 700;
+  color: #003366;
+  font-size: 1.1em;
+}
+
+.passageiro-status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.status-ativo {
+  background: #e6ffed;
+  color: #216e39;
+}
+
+.status-inativo {
+  background: #ffefef;
+  color: #8b1d1d;
+}
+
+.passageiro-info h3 {
+  color: #222;
+  margin-bottom: 12px;
+  font-size: 1.3em;
+}
+
+.passageiro-info p {
+  color: #666;
+  margin: 6px 0;
+  font-size: 0.95em;
+}
+
+.passageiro-viagem {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.passageiro-viagem p {
+  color: #444;
+  margin: 4px 0;
+  font-size: 0.9em;
+}
+
+.form-aviso,
+.form-solicitacao {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  color: #003366;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 1em;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1em;
+  font-family: Arial, sans-serif;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #003366;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.btn-publicar,
+.btn-enviar {
+  background: #003366;
+  color: #fff;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+  max-width: 300px;
+  display: block;
+  margin: 24px auto 0;
+}
+
+.btn-publicar:hover,
+.btn-enviar:hover {
+  background: #005199;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 51, 102, 0.3);
+}
+
+.msg-sucesso {
+  background: #e6ffed;
+  color: #216e39;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #43b649;
+  font-weight: 600;
+}
+
+.card-aviso {
+  background: #fff;
+  border-left: 4px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.card-aviso.urgente {
+  border-left-color: #ef4444;
+  background: #fff5f5;
+}
+
+.card-aviso.alerta {
+  border-left-color: #f59e0b;
+  background: #fffbeb;
+}
+
+.card-aviso.informacao {
+  border-left-color: #3b82f6;
+  background: #eff6ff;
+}
+
+.aviso-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.aviso-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.card-aviso.urgente .aviso-badge {
+  background: #ef4444;
+  color: #fff;
+}
+
+.card-aviso.alerta .aviso-badge {
+  background: #f59e0b;
+  color: #fff;
+}
+
+.card-aviso.informacao .aviso-badge {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.aviso-data {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.aviso-titulo {
+  color: #222;
+  font-size: 1.2em;
+  margin-bottom: 12px;
+}
+
+.aviso-texto {
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.aviso-footer {
+  padding-top: 12px;
+  border-top: 1px solid #e0e0e0;
+  color: #666;
+  font-size: 0.85em;
+}
+
+.card-solicitacao {
+  background: #fff;
+  border-left: 4px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.card-solicitacao.pendente {
+  border-left-color: #f59e0b;
+  background: #fffbeb;
+}
+
+.card-solicitacao.em-andamento {
+  border-left-color: #3b82f6;
+  background: #eff6ff;
+}
+
+.card-solicitacao.concluida {
+  border-left-color: #43b649;
+  background: #f0fdf4;
+}
+
+.solicitacao-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.solicitacao-id {
+  font-weight: 700;
+  color: #003366;
+  font-size: 0.9em;
+}
+
+.solicitacao-status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: 600;
+}
+
+.card-solicitacao.pendente .solicitacao-status {
+  background: #f59e0b;
+  color: #fff;
+}
+
+.card-solicitacao.em-andamento .solicitacao-status {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.card-solicitacao.concluida .solicitacao-status {
+  background: #43b649;
+  color: #fff;
+}
+
+.solicitacao-titulo {
+  color: #222;
+  font-size: 1.2em;
+  margin-bottom: 12px;
+}
+
+.solicitacao-detalhes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 6px;
+}
+
+.solicitacao-detalhes p {
+  margin: 4px 0;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.solicitacao-descricao {
+  color: #444;
+  line-height: 1.6;
+  margin: 12px 0;
+}
+
+.solicitacao-atualizacao,
+.solicitacao-conclusao {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  font-size: 0.9em;
+  color: #666;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .titulo-pagina {
+    font-size: 1.5em;
+  }
+  
+  .conteudo-principal {
+    padding: 16px 12px;
+  }
+  
+  .secao-conteudo {
+    padding: 16px;
+  }
+  
+  .passageiro-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .solicitacao-detalhes {
+    grid-template-columns: 1fr;
+  }
+}

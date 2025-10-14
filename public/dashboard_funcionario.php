@@ -29,17 +29,17 @@ if(isset($_GET['logout'])){ session_destroy(); header('Location: login.php'); ex
     <nav class="menu-lateral" id="menuLateral">
       <ul class="lista-itens">
   <li class="item-menu"><a href="dashboard_funcionario.php"><img src="../assets/dashboard.png" class="icone-item" alt="Dashboard"/><span class="texto-item">DASHBOARD</span></a></li>
-        <li class="item-menu"><a href="passageiros.php"><img src="../assets/passageiros.png" class="icone-item" alt="Passageiros"/><span class="texto-item">PASSAGEIROS</span></a></li>
+        <li class="item-menu"><a href="passageiros_funcionario.php"><img src="../assets/passageiros.png" class="icone-item" alt="Passageiros"/><span class="texto-item">PASSAGEIROS</span></a></li>
         <li class="item-menu"><a href="trenserotas.php"><img src="../assets/trens.png" class="icone-item" alt="Trens e Rotas"/><span class="texto-item">TRENS E ROTAS</span></a></li>
-        <li class="item-menu"><a href="aviso.php"><img src="../assets/aviso.png" class="icone-item" alt="Aviso"/><span class="texto-item">AVISO</span></a></li>
-        <li class="item-menu"><a href="solicitacoes.php"><img src="../assets/solicitacao.png" class="icone-item" alt="Solicitação"/><span class="texto-item">SOLICITAÇÃO</span></a></li>
+        <li class="item-menu"><a href="aviso_funcionario.php"><img src="../assets/aviso.png" class="icone-item" alt="Aviso"/><span class="texto-item">AVISO</span></a></li>
+        <li class="item-menu"><a href="solicitacoes_funcionario.php"><img src="../assets/solicitacao.png" class="icone-item" alt="Solicitação"/><span class="texto-item">SOLICITAÇÃO</span></a></li>
   <li class="item-menu"><a href="dashboard_funcionario.php?logout=1"><img src="../assets/sair.png" class="icone-item" alt="Sair"/><span class="texto-item">SAIR</span></a></li>
       </ul>
     </nav>
     <div class="sobreposicao-menu" id="sobreposicaoMenu"></div>
     <section class="cards">
       <article class="card">
-        <a href="passageiros.php">
+        <a href="passageiros_funcionario.php">
           <img src="../assets/passageiros.png" alt="Ícone Passageiros" />
           <span>passageiros</span>
         </a>
@@ -51,13 +51,13 @@ if(isset($_GET['logout'])){ session_destroy(); header('Location: login.php'); ex
         </a>
       </article>
       <article class="card">
-        <a href="aviso.php">
+        <a href="aviso_funcionario.php">
           <img src="../assets/aviso.png" alt="Ícone Aviso" />
           <span>aviso</span>
         </a>
       </article>
       <article class="card">
-        <a href="solicitacoes.php">
+        <a href="solicitacoes_funcionario.php">
           <img src="../assets/solicitacao.png" alt="Ícone Solicitação" />
           <span>solicitação</span>
         </a>
