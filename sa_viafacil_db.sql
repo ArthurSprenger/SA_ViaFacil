@@ -24,6 +24,11 @@ WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email='admin@exemplo.com');
 INSERT INTO usuarios (nome, email, senha, tipo)
 SELECT 'Operador Pátio', 'operador@exemplo.com', MD5('operador123'), 'normal'
 WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email='operador@exemplo.com');
+
+INSERT INTO usuarios (nome, email, senha, tipo)
+SELECT 'Felipe Costa', 'felipe@viafacil.com', MD5('felipe123'), 'admin'
+WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email='felipe@viafacil.com');
+
 CREATE TABLE IF NOT EXISTS solicitacoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
