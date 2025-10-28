@@ -37,7 +37,6 @@ if(isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin') { header('Location
     <div class="sobreposicao-menu" id="sobreposicaoMenu"></div>
 
     <main class="conteudo-principal">
-      
       <h1 class="titulo-pagina">Avisos</h1>
 
       <section class="secao-conteudo">
