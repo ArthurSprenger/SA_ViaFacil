@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 require_once __DIR__ . '/../includes/db_connect.php';
 
@@ -6,22 +7,22 @@ $erro = "";
 $sucesso = "";
 $token = $_GET['token'] ?? '';
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-  $novaSenha = trim($_POST['nova_senha'] ?? '');
-  $confirmarSenha = trim($_POST['confirmar_senha'] ?? '');
-  $tokenPost = trim($_POST['token'] ?? '');
-  
-  if(!$novaSenha || !$confirmarSenha){
-    $erro = "Preencha todos os campos.";
-  } else if($novaSenha !== $confirmarSenha){
-    $erro = "As senhas não coincidem.";
-  } else if(strlen($novaSenha) < 6){
-    $erro = "A senha deve ter no mínimo 6 caracteres.";
-  } else {
-    $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
-    $sucesso = "Senha redefinida com sucesso! Faça login com a nova senha.";
-    header("refresh:2;url=login.php");
-  }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $novaSenha = trim($_POST['nova_senha'] ?? '');
+    $confirmarSenha = trim($_POST['confirmar_senha'] ?? '');
+    $tokenPost = trim($_POST['token'] ?? '');
+    
+    if (!$novaSenha || !$confirmarSenha) {
+        $erro = "Preencha todos os campos.";
+    } else if ($novaSenha !== $confirmarSenha) {
+        $erro = "As senhas não coincidem.";
+    } else if (strlen($novaSenha) < 6) {
+        $erro = "A senha deve ter no mínimo 6 caracteres.";
+    } else {
+        $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
+        $sucesso = "Senha redefinida com sucesso! Faça login com a nova senha.";
+        header("refresh:2;url=login.php");
+    }
 }
 ?>
 <!DOCTYPE html>

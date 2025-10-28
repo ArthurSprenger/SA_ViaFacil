@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 require_once __DIR__ . '/../includes/db_connect.php';
 require_once __DIR__ . '/../src/User.php';
@@ -7,38 +8,41 @@ $erro = "";
 $sucesso = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $nome = trim($_POST['nome'] ?? '');
-  $cep = trim($_POST['cep'] ?? '');
-  $logradouro = trim($_POST['logradouro'] ?? '');
-  $numero = trim($_POST['numero'] ?? '');
-  $complemento = trim($_POST['complemento'] ?? '');
-  $bairro = trim($_POST['bairro'] ?? '');
-  $cidade = trim($_POST['cidade'] ?? '');
-  $uf = trim($_POST['uf'] ?? '');
-  $email = trim($_POST['email'] ?? '');
-  $senha = trim($_POST['senha'] ?? '');
-  
-  if (!$nome || !$cep || !$email || !$senha) {
-    $erro = "Preencha todos os campos obrigatórios.";
-  } else {
-    $userRepo = new User($pdo);
+    $nome = trim($_POST['nome'] ?? '');
+    $cep = trim($_POST['cep'] ?? '');
+    $logradouro = trim($_POST['logradouro'] ?? '');
+    $numero = trim($_POST['numero'] ?? '');
+    $complemento = trim($_POST['complemento'] ?? '');
+    $bairro = trim($_POST['bairro'] ?? '');
+    $cidade = trim($_POST['cidade'] ?? '');
+    $uf = trim($_POST['uf'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $senha = trim($_POST['senha'] ?? '');
     
-    $usuarioExistente = $pdo->prepare("SELECT id FROM usuarios WHERE email = ?");
-    $usuarioExistente->execute([$email]);
-    
-    if ($usuarioExistente->fetch()) {
-      $erro = "Este email já está cadastrado.";
+    if (!$nome || !$cep || !$email || !$senha) {
+        $erro = "Preencha todos os campos obrigatórios.";
     } else {
-      $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-      
-      try {
-        $stmt = $pdo->prepare("INSERT INTO usuarios (nome, email, senha, cep, logradouro, numero, complemento, bairro, cidade, uf, tipo, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'normal', 'pendente')");
-        $stmt->execute([$nome, $email, $senhaHash, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf]);
-        $sucesso = "Cadastro realizado! Aguarde a aprovação do administrador para fazer login.";
-        header("refresh:3;url=login.php");
-      } catch (Exception $e) {
-        $erro = "Erro ao realizar cadastro. Tente novamente.";
-      }
+        $userRepo = new User($pdo);
+        
+        $usuarioExistente = $pdo->prepare("SELECT id FROM usuarios WHERE email = ?");
+        $usuarioExistente->execute([$email]);
+        
+        if ($usuarioExistente->fetch()) {
+            $erro = "Este email já está cadastrado.";
+        } else {
+            $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+            
+            try {
+                $stmt = $pdo->prepare("INSERT INTO usuarios (nome, email, senha, cep, logradouro, numero, complemento, bairro, cidade, uf, tipo, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'normal', 'pendente')");
+                $stmt->execute([$nome, $email, $senhaHash, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf]);
+                $sucesso = "Cadastro realizado! Aguarde a aprovação do administrador para fazer login.";
+                header("refresh:3;url=login.php");
+            } catch (Exception $e) {
+                $erro = "Erro ao realizar cadastro. Tente novamente.";
+            }
+        }
+    }
+}
     }
   }
 }

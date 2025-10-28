@@ -1,28 +1,29 @@
 <?php
+
 session_start();
 require_once __DIR__ . '/../includes/db_connect.php';
 
-if(!isset($_SESSION['usuario_id']) || $_SESSION['tipo'] !== 'admin') {
-  header('Location: login.php');
-  exit;
+if (!isset($_SESSION['usuario_id']) || $_SESSION['tipo'] !== 'admin') {
+    header('Location: login.php');
+    exit;
 }
 
 $mensagem = '';
 
 // Aprovar ou rejeitar usuário
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-  $usuario_id = $_POST['usuario_id'] ?? 0;
-  $acao = $_POST['acao'] ?? '';
-  
-  if($acao === 'aprovar'){
-    $stmt = $pdo->prepare("UPDATE usuarios SET status = 'aprovado' WHERE id = ?");
-    $stmt->execute([$usuario_id]);
-    $mensagem = '<div class="msg-sucesso">Usuário aprovado com sucesso!</div>';
-  } else if($acao === 'rejeitar'){
-    $stmt = $pdo->prepare("UPDATE usuarios SET status = 'rejeitado' WHERE id = ?");
-    $stmt->execute([$usuario_id]);
-    $mensagem = '<div class="msg-erro">Usuário rejeitado.</div>';
-  }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $usuario_id = $_POST['usuario_id'] ?? 0;
+    $acao = $_POST['acao'] ?? '';
+    
+    if ($acao === 'aprovar') {
+        $stmt = $pdo->prepare("UPDATE usuarios SET status = 'aprovado' WHERE id = ?");
+        $stmt->execute([$usuario_id]);
+        $mensagem = '<div class="msg-sucesso">Usuário aprovado com sucesso!</div>';
+    } else if ($acao === 'rejeitar') {
+        $stmt = $pdo->prepare("UPDATE usuarios SET status = 'rejeitado' WHERE id = ?");
+        $stmt->execute([$usuario_id]);
+        $mensagem = '<div class="msg-erro">Usuário rejeitado.</div>';
+    }
 }
 
 // Buscar usuários pendentes
