@@ -6,6 +6,13 @@ CREATE TABLE IF NOT EXISTS usuarios (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
+    cep VARCHAR(10) NULL,
+    logradouro VARCHAR(255) NULL,
+    numero VARCHAR(20) NULL,
+    complemento VARCHAR(100) NULL,
+    bairro VARCHAR(100) NULL,
+    cidade VARCHAR(100) NULL,
+    uf VARCHAR(2) NULL,
     tipo ENUM('normal','admin') NOT NULL DEFAULT 'normal',
     criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
     foto_perfil VARCHAR(255) DEFAULT 'default.jpg'

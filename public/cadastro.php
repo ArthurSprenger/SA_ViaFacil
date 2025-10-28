@@ -1,67 +1,139 @@
 <?php
 session_start();
-require_once __DIR__ . '/../config/db_auth.php';
-$mysqli = auth_db();
+require_once __DIR__ . '/../includes/db_connect.php';
+require_once __DIR__ . '/../src/User.php';
 
-if (empty($_SESSION['user_pk'])) {
-    header('Location: login.php');
-    exit;
-}
+$erro = "";
+$sucesso = "";
 
-$register_msg = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
-    $new_user = trim($_POST['new_username'] ?? '');
-    $new_pass = trim($_POST['new_password'] ?? '');
-    $new_func = ($_POST['new_func'] ?? 'func') === 'adm' ? 'adm' : 'func';
-    if ($new_user && $new_pass) {
-        $stmt = $mysqli->prepare('INSERT INTO usuarios (username, senha, cargo) VALUES (?,?,?)');
-        $stmt->bind_param('sss', $new_user, $new_pass, $new_func);
-        if ($stmt->execute()) {
-            $register_msg = 'Usuário cadastrado com sucesso!';
-        } else {
-            $register_msg = 'Erro ao cadastrar novo usuário.';
-        }
-        $stmt->close();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $nome = trim($_POST['nome'] ?? '');
+  $cep = trim($_POST['cep'] ?? '');
+  $logradouro = trim($_POST['logradouro'] ?? '');
+  $numero = trim($_POST['numero'] ?? '');
+  $complemento = trim($_POST['complemento'] ?? '');
+  $bairro = trim($_POST['bairro'] ?? '');
+  $cidade = trim($_POST['cidade'] ?? '');
+  $uf = trim($_POST['uf'] ?? '');
+  $email = trim($_POST['email'] ?? '');
+  $senha = trim($_POST['senha'] ?? '');
+  
+  if (!$nome || !$cep || !$email || !$senha) {
+    $erro = "Preencha todos os campos obrigatórios.";
+  } else {
+    $userRepo = new User($pdo);
+    
+    $usuarioExistente = $pdo->prepare("SELECT id FROM usuarios WHERE email = ?");
+    $usuarioExistente->execute([$email]);
+    
+    if ($usuarioExistente->fetch()) {
+      $erro = "Este email já está cadastrado.";
     } else {
-        $register_msg = 'Preencha todos os campos.';
+      $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+      
+      try {
+        $stmt = $pdo->prepare("INSERT INTO usuarios (nome, email, senha, cep, logradouro, numero, complemento, bairro, cidade, uf, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'normal')");
+        $stmt->execute([$nome, $email, $senhaHash, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf]);
+        $sucesso = "Cadastro realizado com sucesso! Você será redirecionado para o login...";
+        header("refresh:2;url=login.php");
+      } catch (Exception $e) {
+        $erro = "Erro ao realizar cadastro. Tente novamente.";
+      }
     }
+  }
 }
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro de Novo Usuário do Sistema</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Viafacil - Cadastro</title>
   <link rel="stylesheet" href="../styles/login.css" />
-  <style>
-    .cadastro-wrapper{max-width:520px;margin:24px auto;padding:16px;background:#fff;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.08)}
-    .cadastro-wrapper h2,.cadastro-wrapper h3{margin:0 0 10px}
-    .cadastro-msg{margin:8px 0 12px;color:#003366;font-weight:600}
-    .cadastro-form{display:flex;flex-direction:column;gap:10px}
-    .cadastro-form input,.cadastro-form select{padding:10px;border-radius:8px;border:1px solid #ccc}
-    .cadastro-actions{display:flex;gap:10px;align-items:center;margin-top:8px}
-    .btn{background:#003366;color:#fff;border:0;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer}
-    a.voltar{color:#003366;text-decoration:none}
-  </style>
-  </head>
+</head>
 <body>
-  <div class="cadastro-wrapper">
-    <form method="post" class="cadastro-form">
-      <h2>Bem-vindo, <?= htmlspecialchars($_SESSION['username'] ?? '') ?>!</h2>
-      <h3>Cadastro de Novo Usuário</h3>
-      <?php if($register_msg): ?><p class="cadastro-msg"><?= htmlspecialchars($register_msg) ?></p><?php endif; ?>
-      <input type="text" name="new_username" placeholder="Novo Usuário" required>
-      <input type="password" name="new_password" placeholder="Nova Senha" required>
-      <select name="new_func">
-        <option value="adm">ADM</option>
-        <option value="func" selected>FUNC</option>
-      </select>
-      <div class="cadastro-actions">
-        <button class="btn" type="submit" name="register" value="1">Cadastrar</button>
-        <a class="voltar" href="login.php">Voltar</a>
+  <div class="page-center">
+    <div class="login-card" role="main">
+      <img src="../assets/logo.PNG" alt="Viafacil" class="login-logo">
+      <div class="avatar-holder">
+        <img src="../assets/logo usuario.png" alt="Usuário">
       </div>
-    </form>
+
+      <form class="form-login" method="POST" action="">
+        <input class="input-pill" type="text" name="nome" placeholder="nome completo" required>
+        <input class="input-pill" type="email" name="email" placeholder="email" required>
+        <input class="input-pill" type="password" name="senha" placeholder="senha" required>
+        
+        <input class="input-pill" type="text" name="cep" id="cep" placeholder="CEP" maxlength="9" required>
+        <input class="input-pill" type="text" name="logradouro" id="logradouro" placeholder="logradouro" readonly>
+        <input class="input-pill" type="text" name="numero" id="numero" placeholder="número">
+        <input class="input-pill" type="text" name="complemento" id="complemento" placeholder="complemento">
+        <input class="input-pill" type="text" name="bairro" id="bairro" placeholder="bairro" readonly>
+        <input class="input-pill" type="text" name="cidade" id="cidade" placeholder="cidade" readonly>
+        <input class="input-pill" type="text" name="uf" id="uf" placeholder="UF" maxlength="2" readonly>
+        
+        <button class="btn-entrar" type="submit">CADASTRAR</button>
+        
+        <?php if ($erro) { echo '<div class="erro-login">'.htmlspecialchars($erro).'</div>'; } ?>
+        <?php if ($sucesso) { echo '<div class="sucesso-login">'.htmlspecialchars($sucesso).'</div>'; } ?>
+      </form>
+
+      <div class="suporte link-cadastro">
+        <a href="login.php">Já tem conta? Faça login</a>
+      </div>
+      
+      <div class="suporte"><a href="suporte.php">&#9432;&nbsp;Entre em contato com o Suporte Técnico.</a></div>
+    </div>
   </div>
+
+  <script>
+    const cepInput = document.getElementById('cep');
+    const logradouroInput = document.getElementById('logradouro');
+    const bairroInput = document.getElementById('bairro');
+    const cidadeInput = document.getElementById('cidade');
+    const ufInput = document.getElementById('uf');
+    const numeroInput = document.getElementById('numero');
+
+    cepInput.addEventListener('blur', function() {
+      const cep = this.value.replace(/\D/g, '');
+      
+      if (cep.length === 8) {
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+          .then(response => response.json())
+          .then(data => {
+            if (!data.erro) {
+              logradouroInput.value = data.logradouro || '';
+              bairroInput.value = data.bairro || '';
+              cidadeInput.value = data.localidade || '';
+              ufInput.value = data.uf || '';
+              numeroInput.focus();
+            } else {
+              alert('CEP não encontrado!');
+              limparCampos();
+            }
+          })
+          .catch(error => {
+            console.error('Erro ao buscar CEP:', error);
+            alert('Erro ao buscar CEP. Tente novamente.');
+            limparCampos();
+          });
+      }
+    });
+
+    cepInput.addEventListener('input', function() {
+      let valor = this.value.replace(/\D/g, '');
+      if (valor.length > 5) {
+        valor = valor.replace(/^(\d{5})(\d)/, '$1-$2');
+      }
+      this.value = valor;
+    });
+
+    function limparCampos() {
+      logradouroInput.value = '';
+      bairroInput.value = '';
+      cidadeInput.value = '';
+      ufInput.value = '';
+    }
+  </script>
 </body>
 </html>

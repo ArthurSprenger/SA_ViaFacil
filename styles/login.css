@@ -107,6 +107,14 @@ html,body {
   border-radius:8px;
   font-size:0.92rem;
 }
+.sucesso-login {
+  margin-top:8px;
+  background:#e8f5e9;
+  color:#1b5e20;
+  padding:8px 10px;
+  border-radius:8px;
+  font-size:0.92rem;
+}
 .suporte {
   margin-top:12px;
   text-align:center;
