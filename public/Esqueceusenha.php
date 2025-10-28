@@ -16,7 +16,7 @@
       <input type="email" id="recuperar-email" placeholder="Seu e-mail" required />
       <button type="submit">Enviar</button>
     </form>
-    <a href="Login.html" class="back-login-link">Voltar ao Login</a>
+    <a href="login.php" class="back-login-link">Voltar ao Login</a>
   </div>
   <script src="../scripts/recuperar.js"></script>
 </body>
