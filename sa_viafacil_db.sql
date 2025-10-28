@@ -14,24 +14,25 @@ CREATE TABLE IF NOT EXISTS usuarios (
     cidade VARCHAR(100) NULL,
     uf VARCHAR(2) NULL,
     tipo ENUM('normal','admin') NOT NULL DEFAULT 'normal',
+    status ENUM('pendente','aprovado','rejeitado') NOT NULL DEFAULT 'pendente',
     criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
     foto_perfil VARCHAR(255) DEFAULT 'default.jpg'
 );
 
-INSERT INTO usuarios (nome, email, senha, tipo)
-SELECT 'Usuário Normal', 'usuario@exemplo.com', MD5('senha123'), 'normal'
+INSERT INTO usuarios (nome, email, senha, tipo, status)
+SELECT 'Usuário Normal', 'usuario@exemplo.com', MD5('senha123'), 'normal', 'aprovado'
 WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email='usuario@exemplo.com');
 
-INSERT INTO usuarios (nome, email, senha, tipo)
-SELECT 'Administrador', 'admin@exemplo.com', MD5('admin123'), 'admin'
+INSERT INTO usuarios (nome, email, senha, tipo, status)
+SELECT 'Administrador', 'admin@exemplo.com', MD5('admin123'), 'admin', 'aprovado'
 WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email='admin@exemplo.com');
 
-INSERT INTO usuarios (nome, email, senha, tipo)
-SELECT 'Operador Pátio', 'operador@exemplo.com', MD5('operador123'), 'normal'
+INSERT INTO usuarios (nome, email, senha, tipo, status)
+SELECT 'Operador Pátio', 'operador@exemplo.com', MD5('operador123'), 'normal', 'aprovado'
 WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email='operador@exemplo.com');
 
-INSERT INTO usuarios (nome, email, senha, tipo)
-SELECT 'Felipe Costa', 'felipe@viafacil.com', MD5('felipe123'), 'admin'
+INSERT INTO usuarios (nome, email, senha, tipo, status)
+SELECT 'Felipe Costa', 'felipe@viafacil.com', MD5('felipe123'), 'admin', 'aprovado'
 WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email='felipe@viafacil.com');
 
 CREATE TABLE IF NOT EXISTS solicitacoes (

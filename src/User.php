@@ -25,6 +25,11 @@ class User {
 
         if(!$user){ return false; }
 
+        // Verificar se o usuário está aprovado
+        if(isset($user['status']) && $user['status'] !== 'aprovado'){
+            return ['error' => 'pending', 'status' => $user['status']];
+        }
+
         $hash = $user['senha'] ?? '';
         $ok = false;
         if(strpos($hash, '$2y$')===0 || strpos($hash,'$argon2')===0){

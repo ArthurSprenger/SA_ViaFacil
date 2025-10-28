@@ -32,10 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
       
       try {
-        $stmt = $pdo->prepare("INSERT INTO usuarios (nome, email, senha, cep, logradouro, numero, complemento, bairro, cidade, uf, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'normal')");
+        $stmt = $pdo->prepare("INSERT INTO usuarios (nome, email, senha, cep, logradouro, numero, complemento, bairro, cidade, uf, tipo, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'normal', 'pendente')");
         $stmt->execute([$nome, $email, $senhaHash, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf]);
-        $sucesso = "Cadastro realizado com sucesso! Você será redirecionado para o login...";
-        header("refresh:2;url=login.php");
+        $sucesso = "Cadastro realizado! Aguarde a aprovação do administrador para fazer login.";
+        header("refresh:3;url=login.php");
       } catch (Exception $e) {
         $erro = "Erro ao realizar cadastro. Tente novamente.";
       }
@@ -65,12 +65,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input class="input-pill" type="password" name="senha" placeholder="senha" required>
         
         <input class="input-pill" type="text" name="cep" id="cep" placeholder="CEP" maxlength="9" required>
-        <input class="input-pill" type="text" name="logradouro" id="logradouro" placeholder="logradouro" readonly>
-        <input class="input-pill" type="text" name="numero" id="numero" placeholder="número">
-        <input class="input-pill" type="text" name="complemento" id="complemento" placeholder="complemento">
-        <input class="input-pill" type="text" name="bairro" id="bairro" placeholder="bairro" readonly>
-        <input class="input-pill" type="text" name="cidade" id="cidade" placeholder="cidade" readonly>
-        <input class="input-pill" type="text" name="uf" id="uf" placeholder="UF" maxlength="2" readonly>
+        
+        <div id="camposEndereco" style="display: none;">
+          <input class="input-pill" type="text" name="logradouro" id="logradouro" placeholder="logradouro" readonly>
+          <input class="input-pill" type="text" name="numero" id="numero" placeholder="número">
+          <input class="input-pill" type="text" name="complemento" id="complemento" placeholder="complemento">
+          <input class="input-pill" type="text" name="bairro" id="bairro" placeholder="bairro" readonly>
+          <input class="input-pill" type="text" name="cidade" id="cidade" placeholder="cidade" readonly>
+          <input class="input-pill" type="text" name="uf" id="uf" placeholder="UF" maxlength="2" readonly>
+        </div>
         
         <button class="btn-entrar" type="submit">CADASTRAR</button>
         
@@ -93,6 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     const cidadeInput = document.getElementById('cidade');
     const ufInput = document.getElementById('uf');
     const numeroInput = document.getElementById('numero');
+    const camposEndereco = document.getElementById('camposEndereco');
 
     cepInput.addEventListener('blur', function() {
       const cep = this.value.replace(/\D/g, '');
@@ -106,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               bairroInput.value = data.bairro || '';
               cidadeInput.value = data.localidade || '';
               ufInput.value = data.uf || '';
+              camposEndereco.style.display = 'block';
               numeroInput.focus();
             } else {
               alert('CEP não encontrado!');
@@ -133,6 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       bairroInput.value = '';
       cidadeInput.value = '';
       ufInput.value = '';
+      camposEndereco.style.display = 'none';
     }
   </script>
 </body>

@@ -254,6 +254,19 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
           <span>solicitação</span>
         </a>
       </article>
+      <article class="card" id="aprovar">
+        <a href="aprovar_usuarios.php">
+          <img src="../assets/configurações.png" alt="Ícone Aprovar Usuários" />
+          <span>aprovar usuários</span>
+          <?php
+            $stmtPendentes = $conn->query("SELECT COUNT(*) as total FROM usuarios WHERE status='pendente'");
+            $totalPendentes = $stmtPendentes ? $stmtPendentes->fetch_assoc()['total'] : 0;
+            if($totalPendentes > 0): 
+          ?>
+            <span style="position:absolute;top:8px;right:8px;background:#ff9800;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;"><?= $totalPendentes ?></span>
+          <?php endif; ?>
+        </a>
+      </article>
     </section>
   </div>
   <section class="form-section">
