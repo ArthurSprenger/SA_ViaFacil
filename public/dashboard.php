@@ -43,8 +43,9 @@ if(isAdmin()){
       if($stmt->num_rows>0){
         flash('flash_user_add','<div class="msg-alerta">Já existe usuário com esse e-mail.</div>');
       } else {
-        $stmtIns = $conn->prepare('INSERT INTO usuarios (nome,email,senha,tipo) VALUES (?,?,MD5(?),?)');
-        $stmtIns->bind_param('ssss',$nomeNovo,$emailNovo,$senhaNova,$tipoNovo);
+        $senhaHash = password_hash($senhaNova, PASSWORD_DEFAULT);
+        $stmtIns = $conn->prepare('INSERT INTO usuarios (nome,email,senha,tipo) VALUES (?,?,?,?)');
+        $stmtIns->bind_param('ssss',$nomeNovo,$emailNovo,$senhaHash,$tipoNovo);
         if($stmtIns->execute()) flash('flash_user_add','<div class="msg-sucesso">Usuário criado com sucesso.</div>');
         else flash('flash_user_add','<div class="msg-erro">Erro ao criar usuário.</div>');
         $stmtIns->close();
@@ -83,8 +84,9 @@ if(isAdmin()){
         flash('flash_user_edit','<div class="msg-alerta">Outro usuário já usa este e-mail.</div>');
       } else {
         if($senhaNova!==''){
-          $stmtUp = $conn->prepare('UPDATE usuarios SET nome=?, email=?, tipo=?, senha=MD5(?) WHERE id=?');
-          $stmtUp->bind_param('ssssi',$nome,$email,$tipo,$senhaNova,$idEdit);
+          $senhaHash = password_hash($senhaNova, PASSWORD_DEFAULT);
+          $stmtUp = $conn->prepare('UPDATE usuarios SET nome=?, email=?, tipo=?, senha=? WHERE id=?');
+          $stmtUp->bind_param('ssssi',$nome,$email,$tipo,$senhaHash,$idEdit);
         } else {
           $stmtUp = $conn->prepare('UPDATE usuarios SET nome=?, email=?, tipo=? WHERE id=?');
           $stmtUp->bind_param('sssi',$nome,$email,$tipo,$idEdit);
@@ -159,8 +161,9 @@ if(isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin' && $_SERVER['REQUES
     if($stmt->num_rows>0){
       $_SESSION['flash_user_add'] = '<div class="msg-alerta">Já existe usuário com esse e-mail.</div>';
     } else {
-      $stmtIns = $conn->prepare('INSERT INTO usuarios (nome,email,senha,tipo) VALUES (?,?,MD5(?),?)');
-      $stmtIns->bind_param('ssss',$nomeNovo,$emailNovo,$senhaNova,$tipoNovo);
+      $senhaHash = password_hash($senhaNova, PASSWORD_DEFAULT);
+      $stmtIns = $conn->prepare('INSERT INTO usuarios (nome,email,senha,tipo) VALUES (?,?,?,?)');
+      $stmtIns->bind_param('ssss',$nomeNovo,$emailNovo,$senhaHash,$tipoNovo);
       if($stmtIns->execute()){
         $_SESSION['flash_user_add'] = '<div class="msg-sucesso">Usuário criado com sucesso.</div>';
       } else {
@@ -344,7 +347,6 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
           <button type="button" id="btnCancelarEdicao" class="btn-cancelar">Cancelar</button>
         </form>
       </div>
-      <p class="note-md5">(Senhas armazenadas com MD5 temporariamente. Recomendado migrar para password_hash.)</p>
     <?php endif; ?>
     <div class="table-wrap">
       <table class="table-section">

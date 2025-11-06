@@ -32,8 +32,9 @@ if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['__acao']) && $_POST['__a
   }
   if(!$erros){
     if($senha!==''){
-      $stmtUp = $conn->prepare('UPDATE usuarios SET nome=?, email=?, senha=MD5(?) WHERE id=?');
-      $stmtUp->bind_param('sssi',$nome,$email,$senha,$userId);
+      $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+      $stmtUp = $conn->prepare('UPDATE usuarios SET nome=?, email=?, senha=? WHERE id=?');
+      $stmtUp->bind_param('sssi',$nome,$email,$senhaHash,$userId);
     } else {
       $stmtUp = $conn->prepare('UPDATE usuarios SET nome=?, email=? WHERE id=?');
       $stmtUp->bind_param('ssi',$nome,$email,$userId);
@@ -102,7 +103,6 @@ $conn->close();
       <label for="senha">Nova Senha (opcional)</label>
       <input type="password" id="senha" name="senha" placeholder="Deixe em branco para manter" />
       <button type="submit">Salvar alterações</button>
-      <p class="note-md5">Senhas armazenadas temporariamente com MD5 (modo protótipo).</p>
     </form>
   </main>
   <nav class="menu-lateral" id="menuLateral">
