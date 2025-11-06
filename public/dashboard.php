@@ -215,10 +215,10 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
           if($row && !empty($row['foto_perfil'])) $foto = $row['foto_perfil'];
         }catch(Throwable $e){}
       ?>
-      <div class="user-chip">
+      <a href="conta.php" class="user-chip">
         <span class="user-chip__name"><?= htmlspecialchars($_SESSION['username'] ?? '') ?></span>
         <img class="user-chip__avatar" src="../uploads/<?= htmlspecialchars($foto) ?>" alt="Foto" />
-      </div>
+      </a>
     </header>
     <nav class="menu-lateral" id="menuLateral">
       <ul class="lista-itens">

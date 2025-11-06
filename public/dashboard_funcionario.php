@@ -25,6 +25,21 @@ if(isset($_GET['logout'])){ session_destroy(); header('Location: login.php'); ex
       <a href="dashboard_funcionario.php">
         <img src="../assets/logo.PNG" alt="Viafacil" class="logo" />
       </a>
+      <?php
+        require_once __DIR__.'/../includes/db_connect.php';
+        $foto = 'default.jpg';
+        try{
+          $st = $pdo->prepare('SELECT foto_perfil FROM usuarios WHERE id=:id');
+          $st->bindParam(':id', $_SESSION['usuario_id']);
+          $st->execute();
+          $row = $st->fetch();
+          if($row && !empty($row['foto_perfil'])) $foto = $row['foto_perfil'];
+        }catch(Throwable $e){}
+      ?>
+      <a href="conta.php" class="user-chip">
+        <span class="user-chip__name"><?= htmlspecialchars($_SESSION['username'] ?? '') ?></span>
+        <img class="user-chip__avatar" src="../uploads/<?= htmlspecialchars($foto) ?>" alt="Foto" />
+      </a>
     </header>
     <nav class="menu-lateral" id="menuLateral">
       <ul class="lista-itens">

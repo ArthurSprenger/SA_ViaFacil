@@ -208,14 +208,14 @@ $totalPendentes = count($usuariosPendentes);
           
           <form method="POST" class="acoes" style="display: inline;">
             <input type="hidden" name="usuario_id" value="<?= $usuario['id'] ?>">
-            <button type="submit" name="acao" value="aprovar" class="btn btn-aprovar">✓ Aprovar</button>
-            <button type="submit" name="acao" value="rejeitar" class="btn btn-rejeitar" onclick="return confirm('Tem certeza que deseja rejeitar este usuário?')">✗ Rejeitar</button>
+            <button type="submit" name="acao" value="aprovar" class="botao botao-aprovar">✓ Aprovar</button>
+            <button type="submit" name="acao" value="rejeitar" class="botao botao-rejeitar" onclick="return confirm('Tem certeza que deseja rejeitar este usuário?')">✗ Rejeitar</button>
           </form>
         </div>
       <?php endforeach; ?>
     <?php endif; ?>
     
-    <a href="dashboard.php" class="btn-voltar">← Voltar ao Dashboard</a>
+    <a href="dashboard.php" class="botao-voltar">← Voltar ao Dashboard</a>
   </div>
 </body>
 </html>

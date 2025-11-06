@@ -346,6 +346,11 @@ body {
   align-items: center;
   gap: 8px;
   color: #fff;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.user-chip:hover {
+  opacity: 0.9;
 }
 .user-chip__name {
   font-weight: 700;

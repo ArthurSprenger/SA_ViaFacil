@@ -67,7 +67,7 @@ $conn->close();
 <body>
   <header class="conta-header">
     <button class="menu-btn" aria-label="Abrir menu">
-      <span class="bar"></span> n
+      <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
     </button>
