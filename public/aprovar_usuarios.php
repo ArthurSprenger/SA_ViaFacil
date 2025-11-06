@@ -39,7 +39,6 @@ $totalPendentes = count($usuariosPendentes);
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aprovar Usuários | Viafácil</title>
-  <link rel="stylesheet" href="../styles/style.css" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -47,7 +46,7 @@ $totalPendentes = count($usuariosPendentes);
       margin: 0;
       padding: 20px;
     }
-    .container {
+    .conteiner {
       max-width: 1200px;
       margin: 0 auto;
       background: #fff;
@@ -83,39 +82,39 @@ $totalPendentes = count($usuariosPendentes);
       border-radius: 8px;
       margin-bottom: 16px;
     }
-    .usuario-card {
+    .cartao-usuario {
       border: 1px solid #ddd;
       border-radius: 8px;
       padding: 16px;
       margin-bottom: 16px;
       background: #fafafa;
     }
-    .usuario-header {
+    .cabecalho-usuario {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 12px;
     }
-    .usuario-nome {
+    .nome-usuario {
       font-size: 18px;
       font-weight: bold;
       color: #003366;
     }
-    .usuario-data {
+    .data-usuario {
       font-size: 12px;
       color: #666;
     }
-    .usuario-info {
+    .info-usuario {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 12px;
       margin-bottom: 16px;
     }
-    .info-item {
+    .item-info {
       font-size: 14px;
       color: #333;
     }
-    .info-label {
+    .rotulo-info {
       font-weight: bold;
       color: #666;
     }
@@ -123,7 +122,7 @@ $totalPendentes = count($usuariosPendentes);
       display: flex;
       gap: 12px;
     }
-    .btn {
+    .botao {
       padding: 8px 16px;
       border: none;
       border-radius: 6px;
@@ -131,21 +130,21 @@ $totalPendentes = count($usuariosPendentes);
       font-weight: bold;
       font-size: 14px;
     }
-    .btn-aprovar {
+    .botao-aprovar {
       background: #4caf50;
       color: white;
     }
-    .btn-aprovar:hover {
+    .botao-aprovar:hover {
       background: #45a049;
     }
-    .btn-rejeitar {
+    .botao-rejeitar {
       background: #f44336;
       color: white;
     }
-    .btn-rejeitar:hover {
+    .botao-rejeitar:hover {
       background: #da190b;
     }
-    .btn-voltar {
+    .botao-voltar {
       display: inline-block;
       margin-top: 20px;
       padding: 10px 20px;
@@ -153,6 +152,9 @@ $totalPendentes = count($usuariosPendentes);
       color: white;
       text-decoration: none;
       border-radius: 6px;
+    }
+    .botao-voltar:hover {
+      background: #004488;
     }
     .vazio {
       text-align: center;
