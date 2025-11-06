@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/includes/phpMQTT.php';
+require_once __DIR__ . '/phpMQTT.php';
 
 function publicarNotificacao($tipo, $titulo, $mensagem, $usuario_remetente_id, $usuario_destinatario_id = null) {
     $server = "broker.hivemq.com";
