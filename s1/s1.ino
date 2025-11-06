@@ -14,7 +14,6 @@ const String broker_user      = "";
 const String broker_pass      = "";
 
 void setup() {
-  // put your setup code here, to run once:
   Serial.begin(115200);
   Serial.println("Conectando ao Wifi");
   WiFi.begin(SSID,PASS);
@@ -36,5 +35,4 @@ Serial.println("\n Conectado ao broker com sucesso!");
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
 }
