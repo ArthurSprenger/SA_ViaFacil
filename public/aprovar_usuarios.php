@@ -162,7 +162,7 @@ $totalPendentes = count($usuariosPendentes);
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="conteiner">
     <h1>Aprovar Usuários 
       <?php if($totalPendentes > 0): ?>
         <span class="badge-pendentes"><?= $totalPendentes ?></span>
@@ -177,30 +177,30 @@ $totalPendentes = count($usuariosPendentes);
       </div>
     <?php else: ?>
       <?php foreach($usuariosPendentes as $usuario): ?>
-        <div class="usuario-card">
-          <div class="usuario-header">
-            <div class="usuario-nome"><?= htmlspecialchars($usuario['nome']) ?></div>
-            <div class="usuario-data">Cadastrado em: <?= date('d/m/Y H:i', strtotime($usuario['criado_em'])) ?></div>
+        <div class="cartao-usuario">
+          <div class="cabecalho-usuario">
+            <div class="nome-usuario"><?= htmlspecialchars($usuario['nome']) ?></div>
+            <div class="data-usuario">Cadastrado em: <?= date('d/m/Y H:i', strtotime($usuario['criado_em'])) ?></div>
           </div>
           
-          <div class="usuario-info">
-            <div class="info-item">
-              <span class="info-label">Email:</span> <?= htmlspecialchars($usuario['email']) ?>
+          <div class="info-usuario">
+            <div class="item-info">
+              <span class="rotulo-info">Email:</span> <?= htmlspecialchars($usuario['email']) ?>
             </div>
-            <div class="info-item">
-              <span class="info-label">CEP:</span> <?= htmlspecialchars($usuario['cep'] ?? 'Não informado') ?>
+            <div class="item-info">
+              <span class="rotulo-info">CEP:</span> <?= htmlspecialchars($usuario['cep'] ?? 'Não informado') ?>
             </div>
             <?php if($usuario['logradouro']): ?>
-              <div class="info-item">
-                <span class="info-label">Endereço:</span> 
+              <div class="item-info">
+                <span class="rotulo-info">Endereço:</span> 
                 <?= htmlspecialchars($usuario['logradouro']) ?>, 
                 <?= htmlspecialchars($usuario['numero'] ?? 'S/N') ?>
               </div>
-              <div class="info-item">
-                <span class="info-label">Bairro:</span> <?= htmlspecialchars($usuario['bairro']) ?>
+              <div class="item-info">
+                <span class="rotulo-info">Bairro:</span> <?= htmlspecialchars($usuario['bairro']) ?>
               </div>
-              <div class="info-item">
-                <span class="info-label">Cidade/UF:</span> 
+              <div class="item-info">
+                <span class="rotulo-info">Cidade/UF:</span> 
                 <?= htmlspecialchars($usuario['cidade']) ?>/<?= htmlspecialchars($usuario['uf']) ?>
               </div>
             <?php endif; ?>
