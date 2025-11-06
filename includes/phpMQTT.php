@@ -144,3 +144,51 @@ class phpMQTT
         $buffer .= chr($this->keepalive & 0xff);
         $i++;
 
+        $buffer .= $this->strwritestring($this->clientid, $i);
+
+        if ($this->will !== null) {
+            $buffer .= $this->strwritestring($this->will['topic'], $i);
+            $buffer .= $this->strwritestring($this->will['content'], $i);
+        }
+
+        if ($this->username !== null) {
+            $buffer .= $this->strwritestring($this->username, $i);
+        }
+        if ($this->password !== null) {
+            $buffer .= $this->strwritestring($this->password, $i);
+        }
+
+        $head = chr(0x10);
+
+        while ($i > 0) {
+            $encodedByte = $i % 128;
+            $i /= 128;
+            $i = (int)$i;
+            if ($i > 0) {
+                $encodedByte |= 128;
+            }
+            $head .= chr($encodedByte);
+        }
+
+        fwrite($this->socket, $head, 2);
+        fwrite($this->socket, $buffer);
+
+        $string = $this->read(4);
+
+        if (ord($string[0]) >> 4 === 2 && $string[3] === chr(0)) {
+            $this->_debugMessage('Connected to Broker');
+        } else {
+            $this->_errorMessage(
+                sprintf(
+                    "Connection failed! (Error: 0x%02x 0x%02x)\n",
+                    ord($string[0]),
+                    ord($string[3])
+                )
+            );
+            return false;
+        }
+
+        $this->timesinceping = time();
+        return true;
+    }
+
