@@ -27,7 +27,7 @@ $dashboardUrl = ($_SESSION['tipo'] ?? 'normal') === 'admin' ? 'dashboard.php' : 
   <title>Monitoramento de Sensores - ViaFácil</title>
   <link rel="stylesheet" href="../styles/dashboard.css">
   <style>
-    .sensor-grid {
+    .grade-sensores {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
@@ -36,7 +36,7 @@ $dashboardUrl = ($_SESSION['tipo'] ?? 'normal') === 'admin' ? 'dashboard.php' : 
       margin: 0 auto;
     }
     
-    .sensor-card {
+    .cartao-sensor {
       background: white;
       border-radius: 12px;
       padding: 20px;
@@ -44,12 +44,12 @@ $dashboardUrl = ($_SESSION['tipo'] ?? 'normal') === 'admin' ? 'dashboard.php' : 
       transition: transform 0.2s;
     }
     
-    .sensor-card:hover {
+    .cartao-sensor:hover {
       transform: translateY(-4px);
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     
-    .sensor-header {
+    .cabecalho-sensor {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -58,14 +58,14 @@ $dashboardUrl = ($_SESSION['tipo'] ?? 'normal') === 'admin' ? 'dashboard.php' : 
       border-bottom: 2px solid #f0f0f0;
     }
     
-    .sensor-tipo {
+    .tipo-sensor {
       font-size: 18px;
       font-weight: 600;
       color: #2c3e50;
       text-transform: uppercase;
     }
     
-    .sensor-status {
+    .status-sensor {
       padding: 4px 12px;
       border-radius: 20px;
       font-size: 12px;
@@ -82,31 +82,31 @@ $dashboardUrl = ($_SESSION['tipo'] ?? 'normal') === 'admin' ? 'dashboard.php' : 
       color: #721c24;
     }
     
-    .sensor-valor {
+    .valor-sensor {
       font-size: 36px;
       font-weight: 700;
       color: #3498db;
       margin: 10px 0;
     }
     
-    .sensor-unidade {
+    .unidade-sensor {
       font-size: 18px;
       color: #7f8c8d;
       margin-left: 5px;
     }
     
-    .sensor-timestamp {
+    .timestamp-sensor {
       font-size: 12px;
       color: #95a5a6;
       margin-top: 10px;
     }
     
-    .sensor-loading {
+    .carregando-sensor {
       color: #95a5a6;
       font-style: italic;
     }
     
-    .page-title {
+    .titulo-pagina {
       text-align: center;
       padding: 30px 20px 10px;
       font-size: 28px;
@@ -114,7 +114,7 @@ $dashboardUrl = ($_SESSION['tipo'] ?? 'normal') === 'admin' ? 'dashboard.php' : 
       color: #2c3e50;
     }
     
-    .refresh-info {
+    .info-atualizacao {
       text-align: center;
       color: #7f8c8d;
       font-size: 14px;
@@ -162,18 +162,18 @@ $dashboardUrl = ($_SESSION['tipo'] ?? 'normal') === 'admin' ? 'dashboard.php' : 
     
     <div class="sobreposicao-menu" id="sobreposicaoMenu"></div>
     
-    <h1 class="page-title">🔧 Monitoramento de Sensores IoT</h1>
-    <div class="refresh-info">Atualização automática a cada 3 segundos</div>
+    <h1 class="titulo-pagina">🔧 Monitoramento de Sensores IoT</h1>
+    <div class="info-atualizacao">Atualização automática a cada 3 segundos</div>
     
-    <div class="sensor-grid">
+    <div class="grade-sensores">
       <?php foreach($sensores as $sensor): ?>
-        <div class="sensor-card" data-sensor-id="<?= $sensor['id'] ?>">
-          <div class="sensor-header">
-            <span class="sensor-tipo"><?= htmlspecialchars(str_replace('_', ' ', $sensor['tipo'])) ?></span>
-            <span class="sensor-status status-<?= $sensor['status'] ?>"><?= strtoupper($sensor['status']) ?></span>
+        <div class="cartao-sensor" data-sensor-id="<?= $sensor['id'] ?>">
+          <div class="cabecalho-sensor">
+            <span class="tipo-sensor"><?= htmlspecialchars(str_replace('_', ' ', $sensor['tipo'])) ?></span>
+            <span class="status-sensor status-<?= $sensor['status'] ?>"><?= strtoupper($sensor['status']) ?></span>
           </div>
-          <div class="sensor-valor sensor-loading">Aguardando dados...</div>
-          <div class="sensor-timestamp"></div>
+          <div class="valor-sensor carregando-sensor">Aguardando dados...</div>
+          <div class="timestamp-sensor"></div>
         </div>
       <?php endforeach; ?>
     </div>
@@ -202,11 +202,11 @@ $dashboardUrl = ($_SESSION['tipo'] ?? 'normal') === 'admin' ? 'dashboard.php' : 
         data.forEach(sensor => {
           const card = document.querySelector(`[data-sensor-id="${sensor.id_sensor}"]`);
           if (card) {
-            const valorDiv = card.querySelector('.sensor-valor');
-            const timestampDiv = card.querySelector('.sensor-timestamp');
+            const valorDiv = card.querySelector('.valor-sensor');
+            const timestampDiv = card.querySelector('.timestamp-sensor');
             
-            valorDiv.innerHTML = `${sensor.valor}<span class="sensor-unidade">${sensor.unidade}</span>`;
-            valorDiv.classList.remove('sensor-loading');
+            valorDiv.innerHTML = `${sensor.valor}<span class="unidade-sensor">${sensor.unidade}</span>`;
+            valorDiv.classList.remove('carregando-sensor');
             
             timestampDiv.textContent = `Última leitura: ${sensor.data_hora}`;
           }
