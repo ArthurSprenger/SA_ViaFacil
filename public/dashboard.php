@@ -278,15 +278,51 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
       </article>
     </section>
   </div>
+  
+  <?php if(isAdmin()): ?>
   <section class="form-section">
     <h2>Enviar avisos</h2>
-    <form id="aviso-form">
-      <input type="text" id="aviso-input" placeholder="enviar avisos" required />
-      <button type="submit" id="aviso-btn">ENVIAR EM AVISOS</button>
+    <?php
+    $msgAviso = '';
+    if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['__acao']) && $_POST['__acao']==='enviar_aviso'){
+      require_once __DIR__ . '/../includes/mqtt_notificacoes.php';
+      $titulo = trim($_POST['titulo_aviso'] ?? '');
+      $mensagem = trim($_POST['mensagem_aviso'] ?? '');
+      if($titulo && $mensagem){
+        $stmt = $conn->prepare("INSERT INTO avisos (titulo, mensagem, usuario_id) VALUES (?, ?, ?)");
+        $stmt->bind_param('ssi', $titulo, $mensagem, $_SESSION['usuario_id']);
+        if($stmt->execute()){
+          publicarNotificacao('aviso', $titulo, $mensagem, $_SESSION['usuario_id']);
+          $msgAviso = '<div style="background:#d4edda;color:#155724;padding:10px;border-radius:8px;margin:10px 0;">Aviso enviado com sucesso!</div>';
+        } else {
+          $msgAviso = '<div style="background:#f8d7da;color:#721c24;padding:10px;border-radius:8px;margin:10px 0;">Erro ao enviar aviso.</div>';
+        }
+        $stmt->close();
+      }
+    }
+    echo $msgAviso;
+    ?>
+    <form method="POST">
+      <input type="hidden" name="__acao" value="enviar_aviso" />
+      <input type="text" name="titulo_aviso" placeholder="Título do aviso" required style="margin-bottom:10px;" />
+      <textarea name="mensagem_aviso" placeholder="Mensagem do aviso..." required style="width:100%;padding:10px;margin-bottom:10px;border:1px solid #ddd;border-radius:8px;min-height:80px;"></textarea>
+      <button type="submit" style="background:#28a745;color:white;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:600;">ENVIAR AVISO</button>
     </form>
   </section>
+  <?php endif; ?>
+  
   <section class="form-section">
     <h2>Solicitações</h2>
+    <?php
+    $sqlSolicitacoes = "SELECT s.*, u.nome as usuario_nome FROM solicitacoes s INNER JOIN usuarios u ON s.usuario_id = u.id ORDER BY s.criado_em DESC LIMIT 20";
+    $resSolicitacoes = $conn->query($sqlSolicitacoes);
+    $solicitacoes = [];
+    if($resSolicitacoes){
+      while($row = $resSolicitacoes->fetch_assoc()){
+        $solicitacoes[] = $row;
+      }
+    }
+    ?>
     <div class="table-wrap">
       <table class="table-section">
       <thead>
@@ -294,28 +330,24 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
           <th>Estação</th>
           <th>Horário</th>
           <th>Situação</th>
-          <th>Ação</th>
+          <th>Usuário</th>
+          <th>Data</th>
         </tr>
       </thead>
       <tbody id="tabela-solicitacoes">
-        <tr>
-          <td>Central</td>
-          <td>08:00</td>
-          <td>Pendente</td>
-          <td><button class="btn-aviso">ENVIAR SOLICITAÇÃO</button></td>
-        </tr>
-        <tr>
-          <td>Jardim</td>
-          <td>09:30</td>
-          <td>Resolvido</td>
-          <td><button class="btn-aviso">ENVIAR SOLICITAÇÃO</button></td>
-        </tr>
-        <tr>
-          <td>Vila Nova</td>
-          <td>10:15</td>
-          <td>Pendente</td>
-          <td><button class="btn-aviso">ENVIAR SOLICITAÇÃO</button></td>
-        </tr> 
+        <?php if(count($solicitacoes) > 0): ?>
+          <?php foreach($solicitacoes as $sol): ?>
+            <tr>
+              <td><?= htmlspecialchars($sol['estacao']) ?></td>
+              <td><?= htmlspecialchars($sol['horario']) ?></td>
+              <td><?= htmlspecialchars($sol['situacao']) ?></td>
+              <td><?= htmlspecialchars($sol['usuario_nome']) ?></td>
+              <td><?= date('d/m/Y', strtotime($sol['criado_em'])) ?></td>
+            </tr>
+          <?php endforeach; ?>
+        <?php else: ?>
+          <tr><td colspan="5" style="text-align:center;color:#95a5a6;padding:20px;">Nenhuma solicitação encontrada.</td></tr>
+        <?php endif; ?>
       </tbody>
       </table>
     </div>

@@ -11,4 +11,3 @@ CREATE TABLE IF NOT EXISTS usuarios (
 -- Usuário de exemplo (apenas protótipo; não use senha simples em produção)
 INSERT INTO usuarios (username, senha, cargo) VALUES ('admin', '123', 'adm')
 ON DUPLICATE KEY UPDATE username=VALUES(username);
-a

@@ -38,45 +38,12 @@ if(isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin') { header('Location
 
     <main class="conteudo-principal">
       <h1 class="titulo-pagina">Avisos</h1>
+      <div style="text-align: center; color: #7f8c8d; font-size: 14px; margin-bottom: 20px;">
+        Atualização automática a cada 5 segundos
+      </div>
 
-      <section class="secao-conteudo">
-        <h2 class="subtitulo">Avisos Ativos</h2>
-
-        <div class="card-aviso">
-          <div class="aviso-header">
-            <span class="aviso-badge">URGENTE</span>
-            <span class="aviso-data">14/10/2025</span>
-          </div>
-          <h3 class="aviso-titulo">Interdição temporária - Estação Central</h3>
-          <p class="aviso-texto">A Estação Central estará interditada para manutenção de emergência nos trilhos no dia 15/10/2025 das 06h às 10h.</p>
-          <div class="aviso-footer">
-            <span>Publicado por: Administrador</span>
-          </div>
-        </div>
-
-        <div class="card-aviso">
-          <div class="aviso-header">
-            <span class="aviso-badge">ALERTA</span>
-            <span class="aviso-data">13/10/2025</span>
-          </div>
-          <h3 class="aviso-titulo">Atraso nas viagens da linha Jardim</h3>
-          <p class="aviso-texto">Devido às condições climáticas, as viagens da linha Jardim podem sofrer atrasos de até 15 minutos.</p>
-          <div class="aviso-footer">
-            <span>Publicado por: Maria Oliveira</span>
-          </div>
-        </div>
-
-        <div class="card-aviso">
-          <div class="aviso-header">
-            <span class="aviso-badge">INFORMAÇÃO</span>
-            <span class="aviso-data">12/10/2025</span>
-          </div>
-          <h3 class="aviso-titulo">Novos horários disponíveis</h3>
-          <p class="aviso-texto">A partir de segunda-feira, novos horários noturnos estarão disponíveis para a linha Vila Nova → Central.</p>
-          <div class="aviso-footer">
-            <span>Publicado por: Carlos Silva</span>
-          </div>
-        </div>
+      <section class="secao-conteudo" id="lista-avisos">
+        <p style="text-align: center; color: #95a5a6;">Carregando avisos...</p>
       </section>
     </main>
   </div>
@@ -94,6 +61,39 @@ if(isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin') { header('Location
       sobreposicao.addEventListener('click', fecharMenu);
       document.addEventListener('keydown', (e) => { if(e.key === 'Escape') fecharMenu(); });
       menuLateral.querySelectorAll('a').forEach(link => link.addEventListener('click', fecharMenu));
+
+      async function carregarAvisos() {
+        try {
+          const response = await fetch('get_avisos.php');
+          const avisos = await response.json();
+          
+          const container = document.getElementById('lista-avisos');
+          
+          if (avisos.length === 0) {
+            container.innerHTML = '<p style="text-align: center; color: #95a5a6;">Nenhum aviso no momento.</p>';
+            return;
+          }
+          
+          container.innerHTML = avisos.map(aviso => `
+            <div class="card-aviso">
+              <div class="aviso-header">
+                <span class="aviso-badge">AVISO</span>
+                <span class="aviso-data">${aviso.data_formatada}</span>
+              </div>
+              <h3 class="aviso-titulo">${aviso.titulo}</h3>
+              <p class="aviso-texto">${aviso.mensagem}</p>
+              <div class="aviso-footer">
+                <span>Publicado por: ${aviso.autor}</span>
+              </div>
+            </div>
+          `).join('');
+        } catch (error) {
+          console.error('Erro ao carregar avisos:', error);
+        }
+      }
+
+      carregarAvisos();
+      setInterval(carregarAvisos, 5000);
     })();
   </script>
 </body>
