@@ -162,7 +162,7 @@ $dashboardUrl = ($_SESSION['tipo'] ?? 'normal') === 'admin' ? 'dashboard.php' : 
     
     <div class="sobreposicao-menu" id="sobreposicaoMenu"></div>
     
-    <h1 class="titulo-pagina">🔧 Monitoramento de Sensores IoT</h1>
+    <h1 class="titulo-pagina">Monitoramento de Sensores IoT</h1>
     <div class="info-atualizacao">Atualização automática a cada 3 segundos</div>
     
     <div class="grade-sensores">
