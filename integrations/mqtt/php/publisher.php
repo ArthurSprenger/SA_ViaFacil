@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/includes/phpMQTT.php';
+require_once __DIR__ . '/../../../includes/phpMQTT.php';
 
 $server = "broker.hivemq.com";
 $port = 1883;
@@ -34,6 +34,7 @@ $sensores = [
 ];
 
 echo "[" . date('Y-m-d H:i:s') . "] Iniciando Simulador MQTT...\n";
+
 echo "[" . date('Y-m-d H:i:s') . "] Broker: $server:$port\n";
 echo str_repeat("-", 60) . "\n";
 
@@ -51,29 +52,29 @@ $contador = 0;
 
 while (true) {
     $contador++;
-    
+
     foreach ($sensores as $sensor) {
         $valor = round(
             $sensor['min'] + (($sensor['max'] - $sensor['min']) * (rand(0, 100) / 100)),
             2
         );
-        
+
         $payload = json_encode([
             'tipo' => $sensor['tipo'],
             'valor' => $valor,
             'unidade' => $sensor['unidade'],
             'timestamp' => date('Y-m-d H:i:s')
         ]);
-        
+
         $topic = "viafacil/sensores/" . $sensor['tipo'];
-        
+
         $mqtt->publish($topic, $payload, 0);
-        
+
         echo "[" . date('H:i:s') . "] [$contador] Publicado: {$sensor['tipo']} = $valor {$sensor['unidade']}\n";
     }
-    
+
     echo str_repeat("-", 60) . "\n";
-    
+
     sleep(5);
 }
 

@@ -1,17 +1,18 @@
 <?php
-require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/../../config/db.php';
 
 $conn = db_connect();
 
+echo "<!DOCTYPE html>";
+echo "<html lang='pt-BR'>";
+echo "<head>";
+echo "<meta charset='UTF-8'>";
+echo "<title>Usuários no Banco de Dados</title>";
+echo "<link rel='stylesheet' href='../../styles/ver_usuarios.css'>";
+echo "</head>";
+echo "<body>";
+
 echo "<h2>Usuários no Banco de Dados</h2>";
-echo "<style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-    th { background-color: #4CAF50; color: white; }
-    tr:nth-child(even) { background-color: #f2f2f2; }
-    .senha { font-family: monospace; font-size: 11px; color: #666; }
-</style>";
 
 $result = $conn->query("SELECT id, nome, email, senha, tipo, status FROM usuarios ORDER BY id ASC");
 
@@ -25,8 +26,8 @@ if ($result && $result->num_rows > 0) {
             <th>Tipo</th>
             <th>Status</th>
           </tr>";
-    
-    while($row = $result->fetch_assoc()) {
+
+    while ($row = $result->fetch_assoc()) {
         echo "<tr>";
         echo "<td>" . $row['id'] . "</td>";
         echo "<td>" . htmlspecialchars($row['nome']) . "</td>";
@@ -36,9 +37,9 @@ if ($result && $result->num_rows > 0) {
         echo "<td>" . $row['status'] . "</td>";
         echo "</tr>";
     }
-    
+
     echo "</table>";
-    
+
     echo "<h3 style='margin-top: 30px;'>Senhas padrão para teste:</h3>";
     echo "<ul>";
     echo "<li><strong>admin@exemplo.com</strong> → senha: <code>admin123</code></li>";
@@ -46,10 +47,12 @@ if ($result && $result->num_rows > 0) {
     echo "<li><strong>operador@exemplo.com</strong> → senha: <code>operador123</code></li>";
     echo "<li><strong>felipe@viafacil.com</strong> → senha: <code>felipe123</code></li>";
     echo "</ul>";
-    
 } else {
     echo "<p>Nenhum usuário encontrado.</p>";
 }
 
 $conn->close();
+
+echo "</body>";
+echo "</html>";
 ?>

@@ -17,8 +17,9 @@ $avisoStatusLabels = avisosStatusOptions();
       header('Location: dashboard_funcionario.php');
       exit;
     }
-    $solicitacaoId = (int)($_POST['solicitacao_id'] ?? 0);
-    $novoStatus = strtolower(trim($_POST['nova_situacao'] ?? ''));
+  $solicitacaoId = (int)($_POST['solicitacao_id'] ?? 0);
+  $novoStatus = strtolower(trim($_POST['nova_situacao'] ?? ''));
+  $publicarAviso = !empty($_POST['publicar_aviso']);
     $mapStatus = solicitacaoStatusOptions();
 
     if(!$solicitacaoId || !isset($mapStatus[$novoStatus])){
@@ -47,14 +48,17 @@ $avisoStatusLabels = avisosStatusOptions();
       $titulo = 'Atualização de solicitação';
       $mensagem = sprintf('Status da solicitação em "%s" alterado para %s.', $estacaoSolicitada, $mapStatus[$novoStatus]);
       publicarNotificacao('solicitacao', $titulo, $mensagem, $_SESSION['usuario_id'], (int)$usuarioSolicitante);
+
       $gerouAviso = false;
       $prioridadeSolicitacao = $prioridadeSolicitacao ?: 'media';
-      if (($statusAnterior ?? '') !== 'resolvido' && $novoStatus === 'resolvido') {
+
+      if ($publicarAviso) {
         $estacaoTitulo = $estacaoSolicitada ? trim($estacaoSolicitada) : 'Estação não informada';
-        $tituloAviso = sprintf('Solicitação aprovada - %s', $estacaoTitulo);
+        $statusRotulo = $mapStatus[$novoStatus] ?? ucfirst($novoStatus);
+        $tituloAviso = sprintf('Solicitação %s - %s', $statusRotulo, $estacaoTitulo);
         $tipoFormatado = $tipoSolicitacao ? ucwords(str_replace('_', ' ', $tipoSolicitacao)) : 'Geral';
         $prioridadeFormatada = $prioridadeSolicitacao ? ucwords($prioridadeSolicitacao) : 'Média';
-        $descricaoAviso = $descricaoSolicitacao ? $descricaoSolicitacao : 'Sem detalhes adicionais.';
+        $descricaoAviso = $descricaoSolicitacao ?: 'Sem detalhes adicionais.';
 
         $mensagemAviso = sprintf(
           "Estação: %s\nTipo: %s\nPrioridade: %s\nDescrição: %s",
@@ -70,15 +74,15 @@ $avisoStatusLabels = avisosStatusOptions();
         } elseif ($prioridadeSolicitacao === 'alta') {
           $tipoAvisoAuto = 'alerta';
         }
+
         $destinoAvisoAuto = 'funcionarios';
         $statusAvisoAuto = 'ativo';
 
         $avisoExistenteId = null;
-        $avisoExistenteStatus = null;
-        $stmtAvisoBusca = $conn->prepare('SELECT id, status FROM avisos WHERE solicitacao_id=? LIMIT 1');
+        $stmtAvisoBusca = $conn->prepare('SELECT id FROM avisos WHERE solicitacao_id=? LIMIT 1');
         $stmtAvisoBusca->bind_param('i', $solicitacaoId);
         if ($stmtAvisoBusca->execute()) {
-          $stmtAvisoBusca->bind_result($avisoExistenteId, $avisoExistenteStatus);
+          $stmtAvisoBusca->bind_result($avisoExistenteId);
           $stmtAvisoBusca->fetch();
         }
         $stmtAvisoBusca->close();
@@ -95,6 +99,7 @@ $avisoStatusLabels = avisosStatusOptions();
           $stmtAvisoNovo->bind_param('sssssii', $tituloAviso, $mensagemAviso, $tipoAvisoAuto, $destinoAvisoAuto, $statusAvisoAuto, $_SESSION['usuario_id'], $solicitacaoId);
           if ($stmtAvisoNovo->execute()) {
             $gerouAviso = true;
+            $avisoExistenteId = $stmtAvisoNovo->insert_id;
           }
           $stmtAvisoNovo->close();
         }
@@ -114,6 +119,8 @@ $avisoStatusLabels = avisosStatusOptions();
       $msgSucesso = '<div class="msg-sucesso">Status atualizado com sucesso.';
       if (!empty($gerouAviso)) {
         $msgSucesso .= ' Aviso publicado para os funcionários.';
+      } elseif ($publicarAviso) {
+        $msgSucesso .= ' Não foi possível publicar o aviso.';
       }
       $msgSucesso .= '</div>';
       flash('flash_solicitacao', $msgSucesso);
@@ -158,7 +165,120 @@ function flash($key,$html){ $_SESSION[$key]=$html; }
 
 if ($isAdminSessao && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['__acao'])) {
   $acaoAviso = $_POST['__acao'];
-  if (in_array($acaoAviso, ['enviar_aviso', 'atualizar_aviso_status', 'excluir_aviso'], true)) {
+  if ($acaoAviso === 'criar_aviso_solicitacao') {
+    $solicitacaoIdAviso = (int)($_POST['solicitacao_id'] ?? 0);
+    $tituloManual = trim($_POST['titulo_aviso'] ?? '');
+    $mensagemManual = trim($_POST['mensagem_aviso'] ?? '');
+    $tipoManual = $_POST['tipo_aviso'] ?? 'informativo';
+    $destinoManual = $_POST['destino_aviso'] ?? 'funcionarios';
+    $expiraManual = trim($_POST['expira_em'] ?? '');
+
+    if (!$solicitacaoIdAviso) {
+      flash('flash_solicitacao', '<div class="msg-erro">Solicitação inválida para criar aviso.</div>');
+      header('Location: dashboard.php#solicitacoes');
+      exit;
+    }
+
+    if (!isset($avisoTipos[$tipoManual])) {
+      $tipoManual = 'informativo';
+    }
+    if (!isset($avisoDestinos[$destinoManual])) {
+      $destinoManual = 'funcionarios';
+    }
+
+    $stmtSolInfo = $conn->prepare('SELECT s.usuario_id, s.estacao, s.descricao, s.tipo, s.prioridade, s.status, u.nome FROM solicitacoes s INNER JOIN usuarios u ON s.usuario_id = u.id WHERE s.id = ? LIMIT 1');
+    $stmtSolInfo->bind_param('i', $solicitacaoIdAviso);
+    $stmtSolInfo->execute();
+    $stmtSolInfo->store_result();
+    if ($stmtSolInfo->num_rows === 0) {
+      $stmtSolInfo->close();
+      flash('flash_solicitacao', '<div class="msg-erro">Não foi possível localizar a solicitação selecionada.</div>');
+      header('Location: dashboard.php#solicitacoes');
+      exit;
+    }
+    $stmtSolInfo->bind_result($dadosUsuarioId, $dadosEstacao, $dadosDescricao, $dadosTipo, $dadosPrioridade, $dadosStatus, $dadosUsuarioNome);
+    $stmtSolInfo->fetch();
+    $stmtSolInfo->close();
+
+    $estacaoTitulo = $dadosEstacao ? trim($dadosEstacao) : 'Estação não informada';
+    $tipoFormatado = $dadosTipo ? ucwords(str_replace('_', ' ', $dadosTipo)) : 'Geral';
+    $prioridadeSolic = $dadosPrioridade ? strtolower($dadosPrioridade) : 'media';
+    $prioridadeFormatada = ucwords($prioridadeSolic);
+    $descricaoBase = $dadosDescricao ?: 'Sem detalhes adicionais.';
+
+    $tituloSugestao = sprintf('Solicitação resolvida - %s', $estacaoTitulo);
+    if ($dadosStatus !== 'resolvido') {
+      $tituloSugestao = sprintf('Solicitação em %s', $estacaoTitulo);
+    }
+    $mensagemSugestao = sprintf(
+      "Estação: %s\nTipo: %s\nPrioridade: %s\nDescrição: %s",
+      $estacaoTitulo,
+      $tipoFormatado,
+      $prioridadeFormatada,
+      $descricaoBase
+    );
+
+    if ($tituloManual === '') {
+      $tituloManual = $tituloSugestao;
+    }
+    if ($mensagemManual === '') {
+      $mensagemManual = $mensagemSugestao;
+    }
+
+    $expiraSql = null;
+    if ($expiraManual !== '') {
+      $expiraDt = DateTime::createFromFormat('Y-m-d\TH:i', $expiraManual) ?: DateTime::createFromFormat('Y-m-d H:i:s', $expiraManual);
+      if ($expiraDt instanceof DateTime) {
+        $expiraSql = $expiraDt->format('Y-m-d H:i:s');
+      }
+    }
+
+    $statusAviso = 'ativo';
+    $avisoExistenteId = null;
+    $stmtBuscaAviso = $conn->prepare('SELECT id FROM avisos WHERE solicitacao_id = ? LIMIT 1');
+    $stmtBuscaAviso->bind_param('i', $solicitacaoIdAviso);
+    if ($stmtBuscaAviso->execute()) {
+      $stmtBuscaAviso->bind_result($avisoExistenteId);
+      $stmtBuscaAviso->fetch();
+    }
+    $stmtBuscaAviso->close();
+
+    if ($avisoExistenteId) {
+      $stmtAtualizaAviso = $conn->prepare('UPDATE avisos SET titulo=?, mensagem=?, tipo=?, destino=?, status=?, expira_em=?, encerrado_em=NULL, usuario_id=?, atualizado_em=NOW() WHERE id=?');
+      $stmtAtualizaAviso->bind_param('ssssssii', $tituloManual, $mensagemManual, $tipoManual, $destinoManual, $statusAviso, $expiraSql, $_SESSION['usuario_id'], $avisoExistenteId);
+      $execAviso = $stmtAtualizaAviso->execute();
+      $stmtAtualizaAviso->close();
+      $avisoProcessadoId = $avisoExistenteId;
+    } else {
+      $stmtCriaAviso = $conn->prepare('INSERT INTO avisos (titulo, mensagem, tipo, destino, status, expira_em, usuario_id, solicitacao_id) VALUES (?,?,?,?,?,?,?,?)');
+      $stmtCriaAviso->bind_param('ssssssii', $tituloManual, $mensagemManual, $tipoManual, $destinoManual, $statusAviso, $expiraSql, $_SESSION['usuario_id'], $solicitacaoIdAviso);
+      $execAviso = $stmtCriaAviso->execute();
+      $avisoProcessadoId = $stmtCriaAviso->insert_id;
+      $stmtCriaAviso->close();
+    }
+
+    if (!empty($execAviso)) {
+      require_once __DIR__ . '/../includes/mqtt_notificacoes.php';
+      publicarNotificacao('aviso', $tituloManual, $mensagemManual, $_SESSION['usuario_id'], null, [
+        'persisted' => true,
+        'tipo_aviso' => $tipoManual,
+        'destino' => $destinoManual,
+        'status' => $statusAviso,
+        'solicitacao_id' => $solicitacaoIdAviso,
+        'prioridade' => $prioridadeSolic,
+        'aviso_id' => $avisoProcessadoId
+      ]);
+      flash('flash_solicitacao', '<div class="msg-sucesso">Aviso publicado com base na solicitação selecionada.</div>');
+      if (!empty($dadosUsuarioId)) {
+        publicarNotificacao('solicitacao', 'Solicitação divulgada', 'Sua solicitação foi publicada como aviso para a equipe.', $_SESSION['usuario_id'], (int)$dadosUsuarioId);
+      }
+    } else {
+      flash('flash_solicitacao', '<div class="msg-erro">Não foi possível publicar o aviso. Tente novamente.</div>');
+    }
+
+    header('Location: dashboard.php#solicitacoes');
+    exit;
+  } elseif (in_array($acaoAviso, ['enviar_aviso', 'atualizar_aviso_status', 'excluir_aviso'], true)) {
     if ($acaoAviso === 'enviar_aviso') {
       $tituloAviso = trim($_POST['titulo_aviso'] ?? '');
       $mensagemAviso = trim($_POST['mensagem_aviso'] ?? '');
@@ -715,6 +835,10 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
                       <option value="<?= htmlspecialchars($codigo) ?>" <?= $codigo===$statusCodigo ? 'selected' : '' ?>><?= $label ?></option>
                     <?php endforeach; ?>
                   </select>
+                  <label class="opcao-publicar-aviso">
+                    <input type="checkbox" name="publicar_aviso" value="1" />
+                    <span>Publicar aviso para os funcionários</span>
+                  </label>
                   <button type="submit">Atualizar</button>
                 </form>
               </td>
