@@ -22,6 +22,23 @@ DB_CONFIG = {
 def get_db_connection():
     return mysql.connector.connect(**DB_CONFIG)
 
+
+def parse_datetime(value):
+    if not value:
+        return None
+    if isinstance(value, (int, float)):
+        try:
+            return datetime.fromtimestamp(value).strftime('%Y-%m-%d %H:%M:%S')
+        except Exception:
+            return None
+    if isinstance(value, str):
+        for fmt in ('%Y-%m-%d %H:%M:%S', '%Y-%m-%dT%H:%M:%S', '%Y-%m-%dT%H:%M', '%d/%m/%Y %H:%M'):
+            try:
+                return datetime.strptime(value, fmt).strftime('%Y-%m-%d %H:%M:%S')
+            except ValueError:
+                continue
+    return None
+
 def on_connect(client, userdata, flags, rc):
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     if rc == 0:
@@ -50,6 +67,30 @@ def on_message(client, userdata, msg):
     mensagem = data.get('mensagem')
     usuario_remetente_id = data.get('usuario_remetente_id')
     usuario_destinatario_id = data.get('usuario_destinatario_id')
+    already_persisted = bool(data.get('persisted'))
+    aviso_tipo = data.get('tipo_aviso', 'informativo')
+    destino = data.get('destino', 'todos')
+    status = data.get('status', 'ativo')
+    expira_em_sql = parse_datetime(data.get('expira_em'))
+    solicitacao_id = data.get('solicitacao_id')
+
+    if isinstance(solicitacao_id, str):
+        solicitacao_id = solicitacao_id.strip()
+        if solicitacao_id.isdigit():
+            solicitacao_id = int(solicitacao_id)
+        else:
+            solicitacao_id = None
+    elif isinstance(solicitacao_id, (int, float)):
+        solicitacao_id = int(solicitacao_id)
+    else:
+        solicitacao_id = None
+
+    if aviso_tipo not in {'informativo', 'alerta', 'urgente'}:
+        aviso_tipo = 'informativo'
+    if destino not in {'todos', 'funcionarios', 'administradores'}:
+        destino = 'todos'
+    if status not in {'ativo', 'encerrado'}:
+        status = 'ativo'
     
     if not all([tipo, titulo, mensagem, usuario_remetente_id]):
         print("  [ERRO] Campos obrigatórios ausentes")
@@ -59,12 +100,12 @@ def on_message(client, userdata, msg):
         conn = get_db_connection()
         cursor = conn.cursor()
         
-        if tipo == 'aviso':
+        if tipo == 'aviso' and not already_persisted:
             cursor.execute(
-                "INSERT INTO avisos (titulo, mensagem, usuario_id) VALUES (%s, %s, %s)",
-                (titulo, mensagem, usuario_remetente_id)
+                "INSERT INTO avisos (titulo, mensagem, tipo, destino, status, expira_em, usuario_id, solicitacao_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+                (titulo, mensagem, aviso_tipo, destino, status, expira_em_sql, usuario_remetente_id, solicitacao_id)
             )
-            print(f"  [✓] Aviso salvo no banco!")
+            print("  [✓] Aviso salvo no banco!")
         
         cursor.execute(
             "INSERT INTO notificacoes (tipo, titulo, mensagem, usuario_remetente_id, usuario_destinatario_id) VALUES (%s, %s, %s, %s, %s)",

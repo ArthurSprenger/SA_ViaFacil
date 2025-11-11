@@ -146,6 +146,34 @@ body {
     background: #f1f1f1;
     color: #007bff;
   }
+  .aviso-form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .aviso-grid {
+    display: grid;
+    grid-template-columns: minmax(220px, 1.4fr) 160px 180px 180px;
+    gap: 12px;
+  }
+  .aviso-grid input,
+  .aviso-grid select {
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.95em;
+    background: #fff;
+  }
+  .aviso-form-grid textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.95em;
+    resize: vertical;
+    min-height: 110px;
+  }
   .btn-aviso {
     background: #43b649;
     color: #fff;
@@ -159,6 +187,60 @@ body {
   }
   .btn-aviso:hover {
     background: #2e8c34;
+  }
+  .btn-aviso.btn-status {
+    background: #2563eb;
+  }
+  .btn-aviso.btn-status:hover {
+    background: #1d4ed8;
+  }
+  .btn-aviso.btn-perigo {
+    background: #dc2626;
+  }
+  .btn-aviso.btn-perigo:hover {
+    background: #b91c1c;
+  }
+  .texto-esquerda {
+    text-align: left !important;
+  }
+  .acoes-aviso {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+  }
+  .form-acao-aviso {
+    display: inline-flex;
+    gap: 8px;
+  }
+  .linha-aviso--encerrado {
+    background: #f8fafc;
+    color: #475569;
+  }
+  .linha-aviso--encerrado td {
+    opacity: 0.85;
+  }
+  @media (max-width: 960px) {
+    .aviso-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .aviso-grid {
+      grid-template-columns: 1fr;
+    }
+    .acoes-aviso {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .form-acao-aviso {
+      width: 100%;
+      justify-content: center;
+    }
+    .form-acao-aviso button {
+      width: 100%;
+    }
   }
   .sidebar-menu {
     position: fixed;

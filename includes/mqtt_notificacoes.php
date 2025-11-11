@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/phpMQTT.php';
 
-function publicarNotificacao($tipo, $titulo, $mensagem, $usuario_remetente_id, $usuario_destinatario_id = null) {
+function publicarNotificacao($tipo, $titulo, $mensagem, $usuario_remetente_id, $usuario_destinatario_id = null, array $extras = []) {
     $server = "broker.hivemq.com";
     $port = 1883;
     $client_id = "viafacil_publisher_" . uniqid();
@@ -12,14 +12,14 @@ function publicarNotificacao($tipo, $titulo, $mensagem, $usuario_remetente_id, $
         return false;
     }
     
-    $payload = json_encode([
+    $payload = json_encode(array_merge([
         'tipo' => $tipo,
         'titulo' => $titulo,
         'mensagem' => $mensagem,
         'usuario_remetente_id' => $usuario_remetente_id,
         'usuario_destinatario_id' => $usuario_destinatario_id,
         'timestamp' => date('Y-m-d H:i:s')
-    ]);
+    ], $extras));
     
     $topic = "viafacil/notificacoes/" . $tipo;
     

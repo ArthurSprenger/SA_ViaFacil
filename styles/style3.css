@@ -479,3 +479,83 @@ main {
 .cabecalho-passageiros a:hover {
     opacity: 0.9;
 }
+
+.tabela-solicitacoes-admin .texto-destaque {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.tabela-solicitacoes-admin .texto-secundario {
+    font-size: 0.85em;
+    color: #5d6d7e;
+    margin-top: 4px;
+    line-height: 1.35;
+    word-break: break-word;
+}
+
+.tag-status,
+.tag-prioridade {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #fff;
+    text-transform: none;
+}
+
+.tag-status {
+    background: #7f8c8d;
+}
+
+.status-pendente { background: #f39c12; }
+.status-em_andamento { background: #3498db; }
+.status-resolvido { background: #27ae60; }
+.status-cancelado { background: #c0392b; }
+
+.tag-prioridade {
+    background: #95a5a6;
+}
+
+.prioridade-baixa { background: #3498db; }
+.prioridade-media { background: #16a085; }
+.prioridade-alta { background: #e67e22; }
+.prioridade-urgente { background: #e74c3c; }
+
+.form-status-solicitacao {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+}
+
+.form-status-solicitacao select {
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #d0d7de;
+    font-size: 0.9em;
+}
+
+.form-status-solicitacao button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #003366;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.form-status-solicitacao button:hover {
+    background: #00509e;
+}
+
+@media (max-width: 900px) {
+    .form-status-solicitacao {
+        align-items: stretch;
+    }
+    .form-status-solicitacao select,
+    .form-status-solicitacao button {
+        width: 100%;
+    }
+}

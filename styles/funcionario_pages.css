@@ -243,6 +243,16 @@ body {
   font-weight: 600;
 }
 
+.msg-erro {
+  background: #fdecea;
+  color: #c0392b;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #e74c3c;
+  font-weight: 600;
+}
+
 .card-aviso {
   background: #fff;
   border-left: 4px solid #ddd;
@@ -262,9 +272,15 @@ body {
   background: #fffbeb;
 }
 
-.card-aviso.informacao {
+.card-aviso.informativo {
   border-left-color: #3b82f6;
   background: #eff6ff;
+}
+
+.card-aviso.encerrado {
+  border-left-color: #9ca3af;
+  background: #f3f4f6;
+  opacity: 0.8;
 }
 
 .aviso-header {
@@ -292,8 +308,13 @@ body {
   color: #fff;
 }
 
-.card-aviso.informacao .aviso-badge {
+.card-aviso.informativo .aviso-badge {
   background: #3b82f6;
+  color: #fff;
+}
+
+.card-aviso.encerrado .aviso-badge {
+  background: #9ca3af;
   color: #fff;
 }
 
@@ -311,6 +332,16 @@ body {
 .aviso-texto {
   color: #444;
   line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.aviso-expira {
+  font-size: 0.85em;
+  color: #555;
+  background: #f1f5f9;
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 16px;
   margin-bottom: 12px;
 }
 
@@ -340,9 +371,15 @@ body {
   background: #eff6ff;
 }
 
-.card-solicitacao.concluida {
+.card-solicitacao.concluida,
+.card-solicitacao.resolvido {
   border-left-color: #43b649;
   background: #f0fdf4;
+}
+
+.card-solicitacao.cancelado {
+  border-left-color: #e53935;
+  background: #fef2f2;
 }
 
 .solicitacao-header {
@@ -375,8 +412,14 @@ body {
   color: #fff;
 }
 
-.card-solicitacao.concluida .solicitacao-status {
+.card-solicitacao.concluida .solicitacao-status,
+.card-solicitacao.resolvido .solicitacao-status {
   background: #43b649;
+  color: #fff;
+}
+
+.card-solicitacao.cancelado .solicitacao-status {
+  background: #e53935;
   color: #fff;
 }
 

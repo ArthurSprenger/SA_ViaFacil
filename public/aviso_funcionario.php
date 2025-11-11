@@ -62,6 +62,22 @@ if(isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin') { header('Location
       document.addEventListener('keydown', (e) => { if(e.key === 'Escape') fecharMenu(); });
       menuLateral.querySelectorAll('a').forEach(link => link.addEventListener('click', fecharMenu));
 
+      const tipoLabels = {
+        informativo: 'Informativo',
+        alerta: 'Alerta',
+        urgente: 'Urgente'
+      };
+
+      function escapeHtml(value) {
+        if (typeof value !== 'string') return value ?? '';
+        return value
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
       async function carregarAvisos() {
         try {
           const response = await fetch('get_avisos.php');
@@ -69,21 +85,27 @@ if(isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin') { header('Location
           
           const container = document.getElementById('lista-avisos');
           
+          if (!Array.isArray(avisos)) {
+            container.innerHTML = '<p style="text-align: center; color: #e67e22;">Falha ao carregar avisos. Tente novamente.</p>';
+            return;
+          }
+
           if (avisos.length === 0) {
             container.innerHTML = '<p style="text-align: center; color: #95a5a6;">Nenhum aviso no momento.</p>';
             return;
           }
           
           container.innerHTML = avisos.map(aviso => `
-            <div class="card-aviso">
+            <div class="card-aviso ${escapeHtml(aviso.tipo || 'informativo')}">
               <div class="aviso-header">
-                <span class="aviso-badge">AVISO</span>
-                <span class="aviso-data">${aviso.data_formatada}</span>
+                <span class="aviso-badge">${escapeHtml(tipoLabels[aviso.tipo] || 'Aviso')}</span>
+                <span class="aviso-data">${escapeHtml(aviso.data_formatada)}</span>
               </div>
-              <h3 class="aviso-titulo">${aviso.titulo}</h3>
-              <p class="aviso-texto">${aviso.mensagem}</p>
+              <h3 class="aviso-titulo">${escapeHtml(aviso.titulo)}</h3>
+              <p class="aviso-texto">${escapeHtml(aviso.mensagem)}</p>
+              ${aviso.expira_formatada ? `<div class="aviso-expira">Válido até: ${escapeHtml(aviso.expira_formatada)}</div>` : ''}
               <div class="aviso-footer">
-                <span>Publicado por: ${aviso.autor}</span>
+                <span>Publicado por: ${escapeHtml(aviso.autor)}</span>
               </div>
             </div>
           `).join('');

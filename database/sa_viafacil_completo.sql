@@ -41,14 +41,19 @@ CREATE TABLE IF NOT EXISTS usuarios (
 CREATE TABLE IF NOT EXISTS solicitacoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
-    estacao VARCHAR(100) NOT NULL,
-    horario VARCHAR(20) NOT NULL,
-    situacao VARCHAR(50) NOT NULL DEFAULT 'Pendente',
+    tipo VARCHAR(60) NOT NULL DEFAULT 'geral',
+    estacao VARCHAR(120) NOT NULL,
+    horario DATETIME NULL,
+    descricao TEXT NULL,
+    prioridade VARCHAR(20) NOT NULL DEFAULT 'media',
+    status VARCHAR(20) NOT NULL DEFAULT 'pendente',
     criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
     atualizado_em DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
     INDEX idx_usuario (usuario_id),
-    INDEX idx_situacao (situacao),
+    INDEX idx_tipo (tipo),
+    INDEX idx_prioridade (prioridade),
+    INDEX idx_status (status),
     INDEX idx_criado (criado_em)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -89,11 +94,23 @@ CREATE TABLE IF NOT EXISTS avisos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     mensagem TEXT NOT NULL,
+    tipo VARCHAR(20) NOT NULL DEFAULT 'informativo',
+    destino VARCHAR(30) NOT NULL DEFAULT 'todos',
+    status VARCHAR(20) NOT NULL DEFAULT 'ativo',
+    expira_em DATETIME NULL,
+    encerrado_em DATETIME NULL,
+    solicitacao_id INT NULL,
     usuario_id INT NOT NULL,
     criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+    atualizado_em DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
     INDEX idx_usuario (usuario_id),
-    INDEX idx_criado (criado_em)
+    INDEX idx_criado (criado_em),
+    INDEX idx_tipo (tipo),
+    INDEX idx_destino (destino),
+    INDEX idx_status (status),
+    INDEX idx_expira (expira_em),
+    INDEX idx_solicitacao (solicitacao_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================================
@@ -187,16 +204,16 @@ AND NOT EXISTS (SELECT 1 FROM sensor_data WHERE id_sensor=2 AND valor=3.60);
 -- DADOS INICIAIS: AVISOS
 -- Descrição: Avisos de exemplo para o sistema
 -- ============================================================
-INSERT INTO avisos (titulo, mensagem, usuario_id)
-SELECT 'INTERDIÇÃO TEMPORÁRIA - LINHA 47', 'Manutenção programada para hoje às 14h', 2
+INSERT INTO avisos (titulo, mensagem, tipo, destino, status, usuario_id, solicitacao_id)
+SELECT 'INTERDIÇÃO TEMPORÁRIA - LINHA 47', 'Manutenção programada para hoje às 14h', 'alerta', 'todos', 'ativo', 2, NULL
 WHERE NOT EXISTS (SELECT 1 FROM avisos WHERE titulo='INTERDIÇÃO TEMPORÁRIA - LINHA 47');
 
-INSERT INTO avisos (titulo, mensagem, usuario_id)
-SELECT 'MANUTENÇÃO PROGRAMADA - LINHA 33', 'Trecho entre estações Central e Vila Nova', 2
+INSERT INTO avisos (titulo, mensagem, tipo, destino, status, usuario_id, solicitacao_id)
+SELECT 'MANUTENÇÃO PROGRAMADA - LINHA 33', 'Trecho entre estações Central e Vila Nova', 'informativo', 'funcionarios', 'ativo', 2, NULL
 WHERE NOT EXISTS (SELECT 1 FROM avisos WHERE titulo='MANUTENÇÃO PROGRAMADA - LINHA 33');
 
-INSERT INTO avisos (titulo, mensagem, usuario_id)
-SELECT 'OBJETO NA VIA - LINHA 63', 'Aguardando remoção. Previsão: 30 minutos', 2
+INSERT INTO avisos (titulo, mensagem, tipo, destino, status, usuario_id, solicitacao_id)
+SELECT 'OBJETO NA VIA - LINHA 63', 'Aguardando remoção. Previsão: 30 minutos', 'urgente', 'todos', 'ativo', 2, NULL
 WHERE NOT EXISTS (SELECT 1 FROM avisos WHERE titulo='OBJETO NA VIA - LINHA 63');
 
 -- ============================================================
