@@ -1,18 +1,7 @@
--- ============================================================
--- DATABASE: SA_VIAFACIL - SCRIPT COMPLETO
--- Sistema de Gerenciamento Ferroviário Via Fácil
--- Autor: Felipe Costa
--- Data: 06/11/2025
--- ============================================================
 
--- Criação do banco de dados
 CREATE DATABASE IF NOT EXISTS sa_viafacil_db DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE sa_viafacil_db;
 
--- ============================================================
--- TABELA: USUARIOS
--- Descrição: Armazena informações dos usuários do sistema
--- ============================================================
 CREATE TABLE IF NOT EXISTS usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -34,10 +23,6 @@ CREATE TABLE IF NOT EXISTS usuarios (
     INDEX idx_status (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ============================================================
--- TABELA: SOLICITACOES
--- Descrição: Registra solicitações dos usuários relacionadas a estações
--- ============================================================
 CREATE TABLE IF NOT EXISTS solicitacoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
@@ -57,10 +42,6 @@ CREATE TABLE IF NOT EXISTS solicitacoes (
     INDEX idx_criado (criado_em)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ============================================================
--- TABELA: SENSOR
--- Descrição: Catálogo de sensores IoT do sistema ferroviário
--- ============================================================
 CREATE TABLE IF NOT EXISTS sensor (
     id INT AUTO_INCREMENT PRIMARY KEY,
     tipo VARCHAR(60) NOT NULL,
@@ -71,10 +52,6 @@ CREATE TABLE IF NOT EXISTS sensor (
     INDEX idx_status (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ============================================================
--- TABELA: SENSOR_DATA
--- Descrição: Armazena leituras dos sensores IoT
--- ============================================================
 CREATE TABLE IF NOT EXISTS sensor_data (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     id_sensor INT NOT NULL,
@@ -86,10 +63,6 @@ CREATE TABLE IF NOT EXISTS sensor_data (
     INDEX idx_data (data_hora)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ============================================================
--- TABELA: AVISOS
--- Descrição: Avisos publicados pelos administradores
--- ============================================================
 CREATE TABLE IF NOT EXISTS avisos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
@@ -113,10 +86,6 @@ CREATE TABLE IF NOT EXISTS avisos (
     INDEX idx_solicitacao (solicitacao_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ============================================================
--- TABELA: NOTIFICACOES
--- Descrição: Sistema de notificações em tempo real via MQTT
--- ============================================================
 CREATE TABLE IF NOT EXISTS notificacoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     tipo ENUM('aviso','solicitacao','alerta') NOT NULL,
@@ -135,10 +104,6 @@ CREATE TABLE IF NOT EXISTS notificacoes (
     INDEX idx_criado (criado_em)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ============================================================
--- DADOS INICIAIS: USUARIOS
--- Descrição: Usuários padrão do sistema (usar bcrypt em produção)
--- ============================================================
 INSERT INTO usuarios (nome, email, senha, tipo, status)
 SELECT 'Usuário Normal', 'usuario@exemplo.com', MD5('senha123'), 'normal', 'aprovado'
 WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email='usuario@exemplo.com');
@@ -155,10 +120,6 @@ INSERT INTO usuarios (nome, email, senha, tipo, status)
 SELECT 'Felipe Costa', 'felipe@viafacil.com', MD5('felipe123'), 'admin', 'aprovado'
 WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email='felipe@viafacil.com');
 
--- ============================================================
--- DADOS INICIAIS: SENSORES
--- Descrição: Sensores IoT para monitoramento ferroviário
--- ============================================================
 INSERT INTO sensor (tipo, descricao, status) 
 SELECT 'temperatura_freio', 'Sensor de temperatura dos freios - Locomotiva A', 'ativo'
 WHERE NOT EXISTS (SELECT 1 FROM sensor WHERE tipo='temperatura_freio' AND descricao LIKE '%Locomotiva A%');
@@ -167,9 +128,6 @@ INSERT INTO sensor (tipo, descricao, status)
 SELECT 'vibracao_motor', 'Sensor de vibração do motor principal - Locomotiva A', 'ativo'
 WHERE NOT EXISTS (SELECT 1 FROM sensor WHERE tipo='vibracao_motor' AND descricao LIKE '%Locomotiva A%');
 
--- ============================================================
--- DADOS INICIAIS: SENSOR_DATA (Exemplos de leituras)
--- ============================================================
 INSERT INTO sensor_data (id_sensor, valor, unidade, data_hora)
 SELECT 1, 84.5, '°C', DATE_SUB(NOW(), INTERVAL 10 MINUTE)
 WHERE EXISTS (SELECT 1 FROM sensor WHERE id=1)
@@ -200,10 +158,6 @@ SELECT 2, 3.60, 'mm/s', NOW()
 WHERE EXISTS (SELECT 1 FROM sensor WHERE id=2)
 AND NOT EXISTS (SELECT 1 FROM sensor_data WHERE id_sensor=2 AND valor=3.60);
 
--- ============================================================
--- DADOS INICIAIS: AVISOS
--- Descrição: Avisos de exemplo para o sistema
--- ============================================================
 INSERT INTO avisos (titulo, mensagem, tipo, destino, status, usuario_id, solicitacao_id)
 SELECT 'INTERDIÇÃO TEMPORÁRIA - LINHA 47', 'Manutenção programada para hoje às 14h', 'alerta', 'todos', 'ativo', 2, NULL
 WHERE NOT EXISTS (SELECT 1 FROM avisos WHERE titulo='INTERDIÇÃO TEMPORÁRIA - LINHA 47');
@@ -215,7 +169,3 @@ WHERE NOT EXISTS (SELECT 1 FROM avisos WHERE titulo='MANUTENÇÃO PROGRAMADA - L
 INSERT INTO avisos (titulo, mensagem, tipo, destino, status, usuario_id, solicitacao_id)
 SELECT 'OBJETO NA VIA - LINHA 63', 'Aguardando remoção. Previsão: 30 minutos', 'urgente', 'todos', 'ativo', 2, NULL
 WHERE NOT EXISTS (SELECT 1 FROM avisos WHERE titulo='OBJETO NA VIA - LINHA 63');
-
--- ============================================================
--- FIM DO SCRIPT
--- ============================================================
