@@ -21,7 +21,7 @@ if ($isAdmin) {
 } else {
     $destinosPermitidos = "'todos','funcionarios'";
     $where[] = "a.status = 'ativo'";
-    $where[] = '(a.expira_em IS NULL OR a.expira_em > NOW())';
+    $where[] = "(a.expira_em IS NULL OR a.expira_em <= '1000-01-01 00:00:00' OR a.expira_em > NOW())";
     $where[] = "a.destino IN ($destinosPermitidos)";
 }
 

@@ -113,6 +113,14 @@ body {
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 1em;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+  .form-section select,
+  .form-section textarea,
+  .form-section button {
+    box-sizing: border-box;
+    max-width: 100%;
   }
   .form-section button {
     padding: 8px 16px;
@@ -152,10 +160,32 @@ body {
     gap: 12px;
     margin-bottom: 18px;
   }
+  .opcao-publicar-aviso {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.85em;
+    color: #374151;
+    line-height: 1.35;
+    width: 100%;
+  }
+
+  .opcao-publicar-aviso input[type="checkbox"] {
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 900px) {
+    .opcao-publicar-aviso {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
   .aviso-grid {
     display: grid;
-    grid-template-columns: minmax(220px, 1.4fr) 160px 180px 180px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 12px;
+    width: 100%;
   }
   .aviso-grid input,
   .aviso-grid select {
