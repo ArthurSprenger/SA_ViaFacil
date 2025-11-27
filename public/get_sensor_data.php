@@ -36,8 +36,8 @@ if (!empty($sensores)) {
             $topics_config = [];
             
             foreach ($sensores as $sensor) {
-                // Formato do tópico baseado no tipo do sensor
-                $topic = "S" . $sensor['id'] . "_" . $sensor['tipo'];
+                // Formato do tópico: S1 tipo (com espaço)
+                $topic = "S" . $sensor['id'] . " " . $sensor['tipo'];
                 
                 $topics_config[$topic] = [
                     "qos" => 0,

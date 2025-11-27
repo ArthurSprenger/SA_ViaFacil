@@ -121,12 +121,16 @@ SELECT 'Felipe Costa', 'felipe@viafacil.com', MD5('felipe123'), 'admin', 'aprova
 WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email='felipe@viafacil.com');
 
 INSERT INTO sensor (tipo, descricao, status) 
-SELECT 'temperatura_freio', 'Sensor de temperatura dos freios - Locomotiva A', 'ativo'
-WHERE NOT EXISTS (SELECT 1 FROM sensor WHERE tipo='temperatura_freio' AND descricao LIKE '%Locomotiva A%');
+SELECT 'umidade', 'Sensor de umidade - S1', 'ativo'
+WHERE NOT EXISTS (SELECT 1 FROM sensor WHERE tipo='umidade');
 
 INSERT INTO sensor (tipo, descricao, status)
-SELECT 'vibracao_motor', 'Sensor de vibração do motor principal - Locomotiva A', 'ativo'
-WHERE NOT EXISTS (SELECT 1 FROM sensor WHERE tipo='vibracao_motor' AND descricao LIKE '%Locomotiva A%');
+SELECT 'temperatura', 'Sensor de temperatura - S1', 'ativo'
+WHERE NOT EXISTS (SELECT 1 FROM sensor WHERE tipo='temperatura');
+
+INSERT INTO sensor (tipo, descricao, status)
+SELECT 'iluminacao', 'Sensor de iluminação (LDR) - S1', 'ativo'
+WHERE NOT EXISTS (SELECT 1 FROM sensor WHERE tipo='iluminacao');
 
 INSERT INTO sensor_data (id_sensor, valor, unidade, data_hora)
 SELECT 1, 84.5, '°C', DATE_SUB(NOW(), INTERVAL 10 MINUTE)
