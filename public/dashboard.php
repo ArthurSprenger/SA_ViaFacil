@@ -919,34 +919,6 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
     </div>
   </section>
 
-  <section class="form-section" id="sensores-placeholder">
-    <h2>Monitoramento de Sensores</h2>
-    <?php if(empty($sensores)): ?>
-      <p class="sensors-note">Integração de sensores em desenvolvimento.</p>
-      <p class="sensors-subnote">As tabelas sensor e sensor_data já estão preparadas e populadas no script SQL.</p>
-    <?php else: ?>
-      <div class="table-wrap">
-        <table class="table-section">
-          <thead>
-            <tr><th>ID</th><th>Tipo</th><th>Status</th><th>Última leitura</th><th>Total Leituras</th></tr>
-          </thead>
-          <tbody>
-          <?php foreach($sensores as $s): ?>
-            <tr>
-              <td><?= (int)$s['id'] ?></td>
-              <td><?= htmlspecialchars($s['tipo']) ?></td>
-              <td><?= htmlspecialchars($s['status']) ?></td>
-              <td><?= htmlspecialchars($s['ultima_leitura']) ?></td>
-              <td><?= (int)$s['total_leituras'] ?></td>
-            </tr>
-          <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-      <p class="test-data-note">* Exibindo dados de teste. Visualização em tempo real será implementada.</p>
-    <?php endif; ?>
-  </section>
-
   <?php $conn->close(); ?>
 
   <script>

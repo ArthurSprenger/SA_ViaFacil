@@ -26,6 +26,7 @@ $dashboardUrl = ($_SESSION['tipo'] ?? 'normal') === 'admin' ? 'dashboard.php' : 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Monitoramento de Sensores - ViaFácil</title>
   <link rel="stylesheet" href="../styles/dashboard.css">
+  <link rel="stylesheet" href="../styles/sensores.css">
 </head>
 <body>
   <div class="dashboard-bg">
@@ -68,7 +69,10 @@ $dashboardUrl = ($_SESSION['tipo'] ?? 'normal') === 'admin' ? 'dashboard.php' : 
     <div class="sobreposicao-menu" id="sobreposicaoMenu"></div>
     
     <h1 class="titulo-pagina">Monitoramento de Sensores IoT</h1>
-    <div class="info-atualizacao">Atualização automática a cada 3 segundos</div>
+    <div class="info-atualizacao">
+      <span>Atualização automática a cada 3 segundos</span>
+      <span id="worker-status" style="margin-left: 1rem;"></span>
+    </div>
     
     <div class="grade-sensores">
       <?php foreach($sensores as $sensor): ?>
@@ -102,26 +106,57 @@ $dashboardUrl = ($_SESSION['tipo'] ?? 'normal') === 'admin' ? 'dashboard.php' : 
     async function atualizarSensores() {
       try {
         const response = await fetch('get_sensor_data.php');
-        const data = await response.json();
+        if (!response.ok) {
+          throw new Error('Erro na requisição');
+        }
         
-        data.forEach(sensor => {
-          const card = document.querySelector(`[data-sensor-id="${sensor.id_sensor}"]`);
-          if (card) {
-            const valorDiv = card.querySelector('.valor-sensor');
-            const timestampDiv = card.querySelector('.timestamp-sensor');
-            
-            valorDiv.innerHTML = `${sensor.valor}<span class="unidade-sensor">${sensor.unidade}</span>`;
-            valorDiv.classList.remove('carregando-sensor');
-            
-            timestampDiv.textContent = `Última leitura: ${sensor.data_hora}`;
-          }
-        });
+        const result = await response.json();
+        
+        // Atualizar indicador de conexão MQTT
+        const infoDiv = document.querySelector('.info-atualizacao');
+        const workerStatus = document.getElementById('worker-status');
+        
+        if (result.mqtt_conectado) {
+          infoDiv.style.color = '#28a745';
+          const msg = result.mensagens_recebidas > 0 
+            ? `🟢 MQTT Online (${result.mensagens_recebidas} msgs)`
+            : '🟡 MQTT Online (aguardando dados)';
+          workerStatus.innerHTML = msg;
+        } else {
+          infoDiv.style.color = '#ffc107';
+          workerStatus.innerHTML = '⚠️ Conectando...';
+        }
+        
+        const data = result.dados || result;
+        
+        if (data && data.length > 0) {
+          data.forEach(sensor => {
+            const card = document.querySelector(`[data-sensor-id="${sensor.id_sensor}"]`);
+            if (card) {
+              const valorDiv = card.querySelector('.valor-sensor');
+              const timestampDiv = card.querySelector('.timestamp-sensor');
+              
+              // Formatar o valor com até 2 casas decimais
+              const valorFormatado = parseFloat(sensor.valor).toFixed(2);
+              valorDiv.innerHTML = `${valorFormatado}<span class="unidade-sensor">${sensor.unidade}</span>`;
+              valorDiv.classList.remove('carregando-sensor');
+              
+              timestampDiv.textContent = `Última leitura: ${sensor.data_hora}`;
+            }
+          });
+        }
       } catch (error) {
         console.error('Erro ao atualizar sensores:', error);
+        const infoDiv = document.querySelector('.info-atualizacao');
+        infoDiv.textContent = '❌ Erro de conexão';
+        infoDiv.style.color = '#dc3545';
       }
     }
 
+    // Atualizar imediatamente ao carregar
     atualizarSensores();
+    
+    // Atualizar a cada 3 segundos
     setInterval(atualizarSensores, 3000);
   </script>
 </body>

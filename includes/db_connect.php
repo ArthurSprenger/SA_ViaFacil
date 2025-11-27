@@ -2,7 +2,7 @@
 
 $servername = 'localhost';
 $username = 'root';
-$password = 'root';
+$password = '';
 $dbname = 'sa_viafacil_db';
 
 try {

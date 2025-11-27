@@ -1,0 +1,178 @@
+/* Estilos específicos para a página de sensores */
+
+.titulo-pagina {
+  color: #fff;
+  text-align: center;
+  margin: 2rem 0 0.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.info-atualizacao {
+  color: #b0b0b0;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+.grade-sensores {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 0 2rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.cartao-sensor {
+  background: linear-gradient(135deg, #1e3a5f 0%, #2a5298 100%);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cartao-sensor:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+}
+
+.cabecalho-sensor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 0.75rem;
+}
+
+.tipo-sensor {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-sensor {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-ativo {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.status-inativo {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.status-manutencao {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.valor-sensor {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin: 1rem 0;
+  line-height: 1;
+  min-height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.valor-sensor.carregando-sensor {
+  font-size: 1.2rem;
+  color: #b0b0b0;
+  font-weight: 400;
+}
+
+.unidade-sensor {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-left: 0.5rem;
+  color: #e0e0e0;
+}
+
+.timestamp-sensor {
+  color: #b0b0b0;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+/* Animação de carregamento */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.carregando-sensor {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Efeitos visuais para diferentes tipos de sensores */
+.cartao-sensor[data-sensor-id="1"] {
+  background: linear-gradient(135deg, #d35400 0%, #e67e22 100%);
+}
+
+.cartao-sensor[data-sensor-id="2"] {
+  background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+}
+
+.cartao-sensor[data-sensor-id="3"] {
+  background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .grade-sensores {
+    grid-template-columns: 1fr;
+    padding: 0 1rem 2rem;
+  }
+
+  .titulo-pagina {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .valor-sensor {
+    font-size: 2.5rem;
+  }
+
+  .unidade-sensor {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cartao-sensor {
+    padding: 1rem;
+  }
+
+  .tipo-sensor {
+    font-size: 1rem;
+  }
+
+  .valor-sensor {
+    font-size: 2rem;
+  }
+
+  .unidade-sensor {
+    font-size: 1rem;
+  }
+}

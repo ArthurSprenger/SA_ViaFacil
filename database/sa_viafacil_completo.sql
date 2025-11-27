@@ -1,4 +1,3 @@
-ef339175de264ab783f4bea1e2a1abe9.s1.eu.hivemq.cloud
 CREATE DATABASE IF NOT EXISTS sa_viafacil_db DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE sa_viafacil_db;
 
@@ -132,35 +131,25 @@ INSERT INTO sensor (tipo, descricao, status)
 SELECT 'iluminacao', 'Sensor de iluminação (LDR) - S1', 'ativo'
 WHERE NOT EXISTS (SELECT 1 FROM sensor WHERE tipo='iluminacao');
 
-INSERT INTO sensor_data (id_sensor, valor, unidade, data_hora)
-SELECT 1, 84.5, '°C', DATE_SUB(NOW(), INTERVAL 10 MINUTE)
-WHERE EXISTS (SELECT 1 FROM sensor WHERE id=1)
-AND NOT EXISTS (SELECT 1 FROM sensor_data WHERE id_sensor=1 AND valor=84.5);
+INSERT INTO sensor (tipo, descricao, status)
+SELECT 'distancia1', 'Sensor ultrassônico 1 - S2', 'ativo'
+WHERE NOT EXISTS (SELECT 1 FROM sensor WHERE tipo='distancia1');
 
-INSERT INTO sensor_data (id_sensor, valor, unidade, data_hora)
-SELECT 1, 86.2, '°C', DATE_SUB(NOW(), INTERVAL 5 MINUTE)
-WHERE EXISTS (SELECT 1 FROM sensor WHERE id=1)
-AND NOT EXISTS (SELECT 1 FROM sensor_data WHERE id_sensor=1 AND valor=86.2);
+INSERT INTO sensor (tipo, descricao, status)
+SELECT 'distancia2', 'Sensor ultrassônico 2 - S2', 'ativo'
+WHERE NOT EXISTS (SELECT 1 FROM sensor WHERE tipo='distancia2');
 
-INSERT INTO sensor_data (id_sensor, valor, unidade, data_hora)
-SELECT 1, 87.1, '°C', NOW()
-WHERE EXISTS (SELECT 1 FROM sensor WHERE id=1)
-AND NOT EXISTS (SELECT 1 FROM sensor_data WHERE id_sensor=1 AND valor=87.1);
+INSERT INTO sensor (tipo, descricao, status)
+SELECT 'presenca', 'Sensor de presença - S3', 'ativo'
+WHERE NOT EXISTS (SELECT 1 FROM sensor WHERE tipo='presenca');
 
-INSERT INTO sensor_data (id_sensor, valor, unidade, data_hora)
-SELECT 2, 3.20, 'mm/s', DATE_SUB(NOW(), INTERVAL 12 MINUTE)
-WHERE EXISTS (SELECT 1 FROM sensor WHERE id=2)
-AND NOT EXISTS (SELECT 1 FROM sensor_data WHERE id_sensor=2 AND valor=3.20);
+INSERT INTO sensor (tipo, descricao, status)
+SELECT 'ultrassom', 'Sensor ultrassônico - S3', 'ativo'
+WHERE NOT EXISTS (SELECT 1 FROM sensor WHERE tipo='ultrassom');
 
-INSERT INTO sensor_data (id_sensor, valor, unidade, data_hora)
-SELECT 2, 3.45, 'mm/s', DATE_SUB(NOW(), INTERVAL 6 MINUTE)
-WHERE EXISTS (SELECT 1 FROM sensor WHERE id=2)
-AND NOT EXISTS (SELECT 1 FROM sensor_data WHERE id_sensor=2 AND valor=3.45);
-
-INSERT INTO sensor_data (id_sensor, valor, unidade, data_hora)
-SELECT 2, 3.60, 'mm/s', NOW()
-WHERE EXISTS (SELECT 1 FROM sensor WHERE id=2)
-AND NOT EXISTS (SELECT 1 FROM sensor_data WHERE id_sensor=2 AND valor=3.60);
+INSERT INTO sensor (tipo, descricao, status)
+SELECT 'velocidade', 'Sensor de velocidade - Trem', 'ativo'
+WHERE NOT EXISTS (SELECT 1 FROM sensor WHERE tipo='velocidade');
 
 INSERT INTO avisos (titulo, mensagem, tipo, destino, status, usuario_id, solicitacao_id)
 SELECT 'INTERDIÇÃO TEMPORÁRIA - LINHA 47', 'Manutenção programada para hoje às 14h', 'alerta', 'todos', 'ativo', 2, NULL
