@@ -541,3 +541,244 @@ body {
   border-radius: 6px;
   font-size: 0.85rem;
 }
+
+/* Estilos para Página de Sensores */
+.grade-sensores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.cartao-sensor {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.cartao-sensor:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.cabecalho-sensor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.tipo-sensor {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c3e50;
+  text-transform: uppercase;
+}
+
+.status-sensor {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-ativo {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-inativo {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status-manutencao {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.valor-sensor {
+  font-size: 36px;
+  font-weight: 700;
+  color: #3498db;
+  margin: 10px 0;
+}
+
+.unidade-sensor {
+  font-size: 18px;
+  color: #7f8c8d;
+  margin-left: 5px;
+}
+
+.timestamp-sensor {
+  font-size: 12px;
+  color: #95a5a6;
+  margin-top: 10px;
+}
+
+.carregando-sensor {
+  color: #95a5a6;
+  font-style: italic;
+}
+
+.titulo-pagina {
+  text-align: center;
+  padding: 30px 20px 10px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.info-atualizacao {
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 14px;
+  padding-bottom: 10px;
+}
+
+/* Painel de Teste MQTT */
+.painel-teste-mqtt {
+  max-width: 1400px;
+  margin: 0 auto 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.teste-mqtt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+.teste-mqtt-header:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #63408a 100%);
+}
+
+.btn-toggle-teste {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: transform 0.3s;
+}
+
+.teste-mqtt-content {
+  padding: 20px;
+}
+
+.teste-mqtt-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.teste-mqtt-form input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.teste-mqtt-form input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.btn-testar-mqtt {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+
+.btn-testar-mqtt:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-testar-mqtt:active {
+  transform: translateY(0);
+}
+
+.teste-mqtt-result {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mqtt-valor {
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+}
+
+.mqtt-loading {
+  color: #667eea;
+  font-weight: 600;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.mqtt-error {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.mqtt-success {
+  color: #27ae60;
+  font-weight: 600;
+  text-align: left;
+  width: 100%;
+}
+
+.mqtt-label {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.mqtt-data {
+  font-size: 32px;
+  color: #2c3e50;
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.mqtt-time {
+  color: #95a5a6;
+  font-size: 12px;
+  margin-top: 10px;
+  font-weight: normal;
+}

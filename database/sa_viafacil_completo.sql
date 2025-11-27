@@ -1,4 +1,4 @@
-
+ef339175de264ab783f4bea1e2a1abe9.s1.eu.hivemq.cloud
 CREATE DATABASE IF NOT EXISTS sa_viafacil_db DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE sa_viafacil_db;
 
