@@ -102,10 +102,9 @@ if(isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin') { header('Location
                 <span class="aviso-data">${escapeHtml(aviso.data_formatada)}</span>
               </div>
               <h3 class="aviso-titulo">${escapeHtml(aviso.titulo)}</h3>
-              <p class="aviso-texto">${escapeHtml(aviso.mensagem)}</p>
-              ${aviso.expira_formatada ? `<div class="aviso-expira">Válido até: ${escapeHtml(aviso.expira_formatada)}</div>` : ''}
+              <p class="aviso-texto">${escapeHtml(aviso.mensagem).replace(/\\n/g, '<br>')}</p>
               <div class="aviso-footer">
-                <span>Publicado por: ${escapeHtml(aviso.autor)}</span>
+                <span>${escapeHtml(aviso.autor)}</span>
               </div>
             </div>
           `).join('');

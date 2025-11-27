@@ -450,6 +450,7 @@ if(isAdmin()){
           if($idEdit===$_SESSION['usuario_id']) {
             $tipoAnterior = $_SESSION['tipo'];
             $_SESSION['tipo']=$tipo; // atualizar sessão se alterou próprio tipo
+            $_SESSION['username']=$nome; // atualizar nome na sessão
             flash('flash_user_edit','<div class="msg-sucesso">Usuário atualizado.</div>');
             // Se o próprio admin foi rebaixado para normal, mandar para dashboard_funcionario
             if($tipoAnterior==='admin' && $tipo==='normal'){

@@ -367,51 +367,47 @@ body {
 
 .card-solicitacao {
   background: #fff;
-  border-left: 4px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border-left: 3px solid #ddd;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .card-solicitacao.pendente {
   border-left-color: #f59e0b;
-  background: #fffbeb;
 }
 
 .card-solicitacao.em-andamento {
   border-left-color: #3b82f6;
-  background: #eff6ff;
 }
 
 .card-solicitacao.concluida,
 .card-solicitacao.resolvido {
   border-left-color: #43b649;
-  background: #f0fdf4;
 }
 
 .card-solicitacao.cancelado {
   border-left-color: #e53935;
-  background: #fef2f2;
 }
 
 .solicitacao-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .solicitacao-id {
   font-weight: 700;
   color: #003366;
-  font-size: 0.9em;
+  font-size: 0.85em;
 }
 
 .solicitacao-status {
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.8em;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.75em;
   font-weight: 600;
 }
 
@@ -438,30 +434,34 @@ body {
 
 .solicitacao-titulo {
   color: #222;
-  font-size: 1.2em;
-  margin-bottom: 12px;
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  font-weight: 600;
 }
 
 .solicitacao-detalhes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 8px;
-  margin-bottom: 12px;
-  padding: 12px;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 10px;
 }
 
 .solicitacao-detalhes p {
-  margin: 4px 0;
-  font-size: 0.9em;
-  color: #555;
+  margin: 0;
+  font-size: 0.85em;
+  color: #666;
+}
+
+.solicitacao-detalhes strong {
+  color: #333;
+  font-weight: 600;
 }
 
 .solicitacao-descricao {
-  color: #444;
-  line-height: 1.6;
-  margin: 12px 0;
+  color: #555;
+  line-height: 1.5;
+  margin: 10px 0;
+  font-size: 0.9em;
 }
 
 .solicitacao-atualizacao,

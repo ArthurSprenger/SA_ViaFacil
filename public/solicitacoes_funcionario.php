@@ -207,7 +207,7 @@ $stmtMinhas->close();
                 <p><strong>Data/Hora:</strong> <?= $horarioTexto ?></p>
               </div>
               <?php if(!empty($sol['descricao'])): ?>
-                <p class="solicitacao-descricao"><?= nl2br(htmlspecialchars($sol['descricao'])) ?></p>
+                <p class="solicitacao-descricao"><?= htmlspecialchars($sol['descricao']) ?></p>
               <?php endif; ?>
               <p class="solicitacao-atualizacao">Última atualização: <?= $atualizadoTexto ?></p>
             </div>

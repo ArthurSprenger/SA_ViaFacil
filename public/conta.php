@@ -40,6 +40,8 @@ if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['__acao']) && $_POST['__a
       $stmtUp->bind_param('ssi',$nome,$email,$userId);
     }
     if($stmtUp->execute()){
+      // Atualizar a sessão com os novos dados
+      $_SESSION['username'] = $nome;
       $msg = '<div class="msg-sucesso">Dados atualizados'.($senha!==''?' (senha alterada)':'').'.</div>';
     } else {
       $msg = '<div class="msg-erro">Falha ao atualizar.</div>';
