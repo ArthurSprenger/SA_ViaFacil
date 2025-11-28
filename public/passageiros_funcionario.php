@@ -20,6 +20,13 @@ $menuLinks = [
     'is_active' => false,
   ],
   [
+    'href' => 'conta.php',
+    'icon' => 'logo usuario menu.png',
+    'alt' => 'Conta',
+    'label' => 'Conta',
+    'is_active' => false,
+  ],
+  [
     'href' => 'passageiros_funcionario.php',
     'icon' => 'passageiros.png',
     'alt' => 'Passageiros',
@@ -48,7 +55,14 @@ $menuLinks = [
     'is_active' => false,
   ],
   [
-    'href' => 'dashboard_funcionario.php?logout=1',
+    'href' => 'configs.php',
+    'icon' => 'configurações.png',
+    'alt' => 'Configurações',
+    'label' => 'Configurações',
+    'is_active' => false,
+  ],
+  [
+    'href' => 'logout.php',
     'icon' => 'sair.png',
     'alt' => 'Sair',
     'label' => 'Sair',

@@ -44,10 +44,10 @@ $avisoStatusLabels = avisosStatusOptions();
     $stmtUpdate = $conn->prepare('UPDATE solicitacoes SET status=? WHERE id=?');
     $stmtUpdate->bind_param('si', $novoStatus, $solicitacaoId);
     if($stmtUpdate->execute()){
-      require_once __DIR__ . '/../includes/mqtt_notificacoes.php';
-      $titulo = 'Atualização de solicitação';
-      $mensagem = sprintf('Status da solicitação em "%s" alterado para %s.', $estacaoSolicitada, $mapStatus[$novoStatus]);
-      publicarNotificacao('solicitacao', $titulo, $mensagem, $_SESSION['usuario_id'], (int)$usuarioSolicitante);
+      // require_once __DIR__ . '/../includes/mqtt_notificacoes.php';
+      // $titulo = 'Atualização de solicitação';
+      // $mensagem = sprintf('Status da solicitação em "%s" alterado para %s.', $estacaoSolicitada, $mapStatus[$novoStatus]);
+      // publicarNotificacao('solicitacao', $titulo, $mensagem, $_SESSION['usuario_id'], (int)$usuarioSolicitante);
 
       $gerouAviso = false;
       $prioridadeSolicitacao = $prioridadeSolicitacao ?: 'media';
@@ -105,14 +105,14 @@ $avisoStatusLabels = avisosStatusOptions();
         }
 
         if ($gerouAviso) {
-          publicarNotificacao('aviso', $tituloAviso, $mensagemAviso, $_SESSION['usuario_id'], null, [
-            'persisted' => true,
-            'tipo_aviso' => $tipoAvisoAuto,
-            'destino' => $destinoAvisoAuto,
-            'status' => $statusAvisoAuto,
-            'solicitacao_id' => $solicitacaoId,
-            'prioridade' => $prioridadeSolicitacao
-          ]);
+          // publicarNotificacao('aviso', $tituloAviso, $mensagemAviso, $_SESSION['usuario_id'], null, [
+          //   'persisted' => true,
+          //   'tipo_aviso' => $tipoAvisoAuto,
+          //   'destino' => $destinoAvisoAuto,
+          //   'status' => $statusAvisoAuto,
+          //   'solicitacao_id' => $solicitacaoId,
+          //   'prioridade' => $prioridadeSolicitacao
+          // ]);
         }
       }
 
@@ -258,20 +258,20 @@ if ($isAdminSessao && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['__a
     }
 
     if (!empty($execAviso)) {
-      require_once __DIR__ . '/../includes/mqtt_notificacoes.php';
-      publicarNotificacao('aviso', $tituloManual, $mensagemManual, $_SESSION['usuario_id'], null, [
-        'persisted' => true,
-        'tipo_aviso' => $tipoManual,
-        'destino' => $destinoManual,
-        'status' => $statusAviso,
-        'solicitacao_id' => $solicitacaoIdAviso,
-        'prioridade' => $prioridadeSolic,
-        'aviso_id' => $avisoProcessadoId
-      ]);
+      // require_once __DIR__ . '/../includes/mqtt_notificacoes.php';
+      // publicarNotificacao('aviso', $tituloManual, $mensagemManual, $_SESSION['usuario_id'], null, [
+      //   'persisted' => true,
+      //   'tipo_aviso' => $tipoManual,
+      //   'destino' => $destinoManual,
+      //   'status' => $statusAviso,
+      //   'solicitacao_id' => $solicitacaoIdAviso,
+      //   'prioridade' => $prioridadeSolic,
+      //   'aviso_id' => $avisoProcessadoId
+      // ]);
       flash('flash_solicitacao', '<div class="msg-sucesso">Aviso publicado com base na solicitação selecionada.</div>');
-      if (!empty($dadosUsuarioId)) {
-        publicarNotificacao('solicitacao', 'Solicitação divulgada', 'Sua solicitação foi publicada como aviso para a equipe.', $_SESSION['usuario_id'], (int)$dadosUsuarioId);
-      }
+      // if (!empty($dadosUsuarioId)) {
+      //   publicarNotificacao('solicitacao', 'Solicitação divulgada', 'Sua solicitação foi publicada como aviso para a equipe.', $_SESSION['usuario_id'], (int)$dadosUsuarioId);
+      // }
     } else {
       flash('flash_solicitacao', '<div class="msg-erro">Não foi possível publicar o aviso. Tente novamente.</div>');
     }
@@ -312,14 +312,14 @@ if ($isAdminSessao && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['__a
       $stmtAviso->bind_param('ssssssi', $tituloAviso, $mensagemAviso, $tipoAviso, $destinoAviso, $statusAviso, $expiraSql, $_SESSION['usuario_id']);
 
       if ($stmtAviso->execute()) {
-        require_once __DIR__ . '/../includes/mqtt_notificacoes.php';
-        publicarNotificacao('aviso', $tituloAviso, $mensagemAviso, $_SESSION['usuario_id'], null, [
-          'persisted' => true,
-          'tipo_aviso' => $tipoAviso,
-          'destino' => $destinoAviso,
-          'status' => $statusAviso,
-          'expira_em' => $expiraSql
-        ]);
+        // require_once __DIR__ . '/../includes/mqtt_notificacoes.php';
+        // publicarNotificacao('aviso', $tituloAviso, $mensagemAviso, $_SESSION['usuario_id'], null, [
+        //   'persisted' => true,
+        //   'tipo_aviso' => $tipoAviso,
+        //   'destino' => $destinoAviso,
+        //   'status' => $statusAviso,
+        //   'expira_em' => $expiraSql
+        // ]);
         flash('flash_aviso','<div class="msg-sucesso">Aviso publicado com sucesso.</div>');
       } else {
         flash('flash_aviso','<div class="msg-erro">Erro ao publicar o aviso.</div>');
