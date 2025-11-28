@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
     $senha = trim($_POST['senha'] ?? '');
     
-    if (!$nome || !$cep || !$email || !$senha) {
+    if (!$nome || !$cep || !$logradouro || !$numero || !$bairro || !$cidade || !$uf || !$email || !$senha) {
         $erro = "Preencha todos os campos obrigatórios.";
     } else {
         $userRepo = new User($pdo);
@@ -68,12 +68,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input class="input-pill" type="text" name="cep" id="cep" placeholder="CEP" maxlength="9" required>
         
         <div id="camposEndereco" style="display: none;">
-          <input class="input-pill" type="text" name="logradouro" id="logradouro" placeholder="logradouro" readonly>
-          <input class="input-pill" type="text" name="numero" id="numero" placeholder="número">
+          <input class="input-pill" type="text" name="logradouro" id="logradouro" placeholder="logradouro" readonly required>
+          <input class="input-pill" type="text" name="numero" id="numero" placeholder="número" required>
           <input class="input-pill" type="text" name="complemento" id="complemento" placeholder="complemento">
-          <input class="input-pill" type="text" name="bairro" id="bairro" placeholder="bairro" readonly>
-          <input class="input-pill" type="text" name="cidade" id="cidade" placeholder="cidade" readonly>
-          <input class="input-pill" type="text" name="uf" id="uf" placeholder="UF" maxlength="2" readonly>
+          <input class="input-pill" type="text" name="bairro" id="bairro" placeholder="bairro" readonly required>
+          <input class="input-pill" type="text" name="cidade" id="cidade" placeholder="cidade" readonly required>
+          <input class="input-pill" type="text" name="uf" id="uf" placeholder="UF" maxlength="2" readonly required>
         </div>
         
         <button class="btn-entrar" type="submit">CADASTRAR</button>
@@ -99,30 +99,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     const numeroInput = document.getElementById('numero');
     const camposEndereco = document.getElementById('camposEndereco');
 
-    cepInput.addEventListener('blur', function() {
+    cepInput.addEventListener('blur', async function() {
       const cep = this.value.replace(/\D/g, '');
       
       if (cep.length === 8) {
-        fetch(`https://viacep.com.br/ws/${cep}/json/`)
-          .then(response => response.json())
-          .then(data => {
-            if (!data.erro) {
-              logradouroInput.value = data.logradouro || '';
-              bairroInput.value = data.bairro || '';
-              cidadeInput.value = data.localidade || '';
-              ufInput.value = data.uf || '';
-              camposEndereco.style.display = 'block';
-              numeroInput.focus();
-            } else {
-              alert('CEP não encontrado!');
-              limparCampos();
-            }
-          })
-          .catch(error => {
-            console.error('Erro ao buscar CEP:', error);
-            alert('Erro ao buscar CEP. Tente novamente.');
+        try {
+          const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+          
+          if (!response.ok) {
+            throw new Error('Erro na requisição');
+          }
+          
+          const data = await response.json();
+          
+          if (!data.erro) {
+            logradouroInput.value = data.logradouro || '';
+            bairroInput.value = data.bairro || '';
+            cidadeInput.value = data.localidade || '';
+            ufInput.value = data.uf || '';
+            camposEndereco.style.display = 'block';
+            numeroInput.focus();
+          } else {
+            alert('CEP não encontrado!');
             limparCampos();
-          });
+          }
+        } catch (error) {
+          console.error('Erro ao buscar CEP:', error);
+          // Mostra os campos mesmo com erro para permitir preenchimento manual
+          camposEndereco.style.display = 'block';
+          logradouroInput.removeAttribute('readonly');
+          bairroInput.removeAttribute('readonly');
+          cidadeInput.removeAttribute('readonly');
+          ufInput.removeAttribute('readonly');
+          alert('Não foi possível buscar o CEP automaticamente. Preencha manualmente.');
+        }
       }
     });
 
@@ -139,6 +149,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       bairroInput.value = '';
       cidadeInput.value = '';
       ufInput.value = '';
+      logradouroInput.setAttribute('readonly', 'readonly');
+      bairroInput.setAttribute('readonly', 'readonly');
+      cidadeInput.setAttribute('readonly', 'readonly');
+      ufInput.setAttribute('readonly', 'readonly');
       camposEndereco.style.display = 'none';
     }
   </script>
