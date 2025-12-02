@@ -162,7 +162,7 @@ $passageiros = [
     <main class="conteudo-principal" role="main">
       <section class="cabecalho-pagina">
         <p class="subtitulo">Área do colaborador</p>
-        <h1 class="titulo-pagina">Passageiros</h1>
+        <h1 class="titulo-pagina">passageiros</h1>
         <p class="descricao-pagina">
           Consulte rapidamente o status de passageiros, últimas viagens e dados de contato.
         </p>

@@ -83,7 +83,7 @@ if(isset($_GET['logout'])){ session_destroy(); header('Location: login.php'); ex
   </div>
 
   <section class="section">
-    <h2>Próximas Viagens</h2>
+    <h2>próximas viagens</h2>
     <div class="table-wrap viagens-resumo">
       <table>
         <thead>

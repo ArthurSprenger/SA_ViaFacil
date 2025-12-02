@@ -617,13 +617,6 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
         <a href="aprovar_usuarios.php">
           <img src="../assets/configurações.png" alt="Ícone Aprovar Usuários" />
           <span>aprovar usuários</span>
-          <?php
-            $stmtPendentes = $conn->query("SELECT COUNT(*) as total FROM usuarios WHERE status='pendente'");
-            $totalPendentes = $stmtPendentes ? $stmtPendentes->fetch_assoc()['total'] : 0;
-            if($totalPendentes > 0): 
-          ?>
-            <span style="position:absolute;top:8px;right:8px;background:#ff9800;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;"><?= $totalPendentes ?></span>
-          <?php endif; ?>
         </a>
       </article>
       <article class="card" id="sensores">
@@ -654,7 +647,7 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
     }
   ?>
   <section class="form-section" id="avisos">
-    <h2>Avisos</h2>
+    <h2>avisos</h2>
     <?php if($msgAviso){ echo $msgAviso; } ?>
     <?php if($isAdminSessao): ?>
       <form method="POST" class="aviso-form-grid">
@@ -748,7 +741,7 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
   </section>
   
   <section class="form-section" id="solicitacoes">
-    <h2>Solicitações</h2>
+    <h2>solicitações</h2>
     <?php
     $sqlSolicitacoes = "SELECT s.*, u.nome as usuario_nome FROM solicitacoes s INNER JOIN usuarios u ON s.usuario_id = u.id ORDER BY s.criado_em DESC LIMIT 50";
     $resSolicitacoes = $conn->query($sqlSolicitacoes);
@@ -855,7 +848,7 @@ if ($conn->query("SHOW TABLES LIKE 'sensor' ")->num_rows) {
   </section>
 
   <section class="form-section" id="usuarios-listagem">
-    <h2>Usuários Cadastrados</h2>
+    <h2>usuários cadastrados</h2>
     <?php if(isAdmin()): ?>
       <form method="POST" class="form-users-add">
         <input type="hidden" name="__acao" value="criar_usuario" />

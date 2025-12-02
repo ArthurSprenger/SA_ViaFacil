@@ -2,7 +2,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
     background: #f7f7f7;
     min-height: 100vh;
   }
@@ -110,7 +110,7 @@ body {
   .form-section input {
     flex: 1 1 120px;
     padding: 8px;
-    border-radius: 5px;
+    border-radius: 0;
     border: 1px solid #ccc;
     font-size: 1em;
     box-sizing: border-box;
@@ -124,7 +124,7 @@ body {
   }
   .form-section button {
     padding: 8px 16px;
-    border-radius: 5px;
+    border-radius: 0;
     border: none;
     background: #43b649;
     color: #fff;
@@ -139,6 +139,7 @@ body {
     width: 100%;
     border-collapse: collapse;
     margin-top: 12px;
+    font-family: 'Segoe UI', Arial, sans-serif;
   }
   .table-wrap {
     overflow-x: auto;
@@ -191,7 +192,7 @@ body {
   .aviso-grid select {
     padding: 10px;
     border: 1px solid #d1d5db;
-    border-radius: 8px;
+    border-radius: 0;
     font-size: 0.95em;
     background: #fff;
   }
@@ -199,7 +200,7 @@ body {
     width: 100%;
     padding: 12px;
     border: 1px solid #d1d5db;
-    border-radius: 8px;
+    border-radius: 0;
     font-size: 0.95em;
     resize: vertical;
     min-height: 110px;
@@ -208,7 +209,7 @@ body {
     background: #43b649;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 0;
     padding: 6px 10px;
     cursor: pointer;
     font-size: 0.95em;
@@ -392,7 +393,7 @@ body {
   background: #d9534f;
   color: #fff;
   border: 0;
-  border-radius: 4px;
+  border-radius: 0;
   padding: 4px 8px;
   font-size: 0.7rem;
   cursor: pointer;
@@ -401,7 +402,7 @@ body {
   background: #007bff;
   color: #fff;
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: 0;
   font-size: 0.7rem;
   text-decoration: none;
   display: inline-block;
@@ -553,16 +554,18 @@ body {
 }
 
 .cartao-sensor {
-  background: white;
-  border-radius: 12px;
+  background: #fff;
+  border-radius: 0;
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  box-shadow: none;
+  transition: none;
+  border: 1px solid #ddd;
+  font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 .cartao-sensor:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: none;
+  box-shadow: none;
 }
 
 .cabecalho-sensor {
@@ -577,13 +580,14 @@ body {
 .tipo-sensor {
   font-size: 18px;
   font-weight: 600;
-  color: #2c3e50;
-  text-transform: uppercase;
+  color: #333;
+  text-transform: none;
+  font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 .status-sensor {
   padding: 4px 12px;
-  border-radius: 20px;
+  border-radius: 0;
   font-size: 12px;
   font-weight: 600;
 }
@@ -606,13 +610,14 @@ body {
 .valor-sensor {
   font-size: 36px;
   font-weight: 700;
-  color: #3498db;
+  color: #333;
   margin: 10px 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 .unidade-sensor {
   font-size: 18px;
-  color: #7f8c8d;
+  color: #333;
   margin-left: 5px;
 }
 

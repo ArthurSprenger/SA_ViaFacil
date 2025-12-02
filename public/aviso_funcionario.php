@@ -39,7 +39,7 @@ if(isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin') { header('Location
     <div class="sobreposicao-menu" id="sobreposicaoMenu"></div>
 
     <main class="conteudo-principal">
-      <h1 class="titulo-pagina">Avisos</h1>
+      <h1 class="titulo-pagina">avisos</h1>
       <div style="text-align: center; color: #7f8c8d; font-size: 14px; margin-bottom: 20px;">
         Atualização automática a cada 5 segundos
       </div>

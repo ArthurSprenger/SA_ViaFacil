@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Arial, sans-serif;
   background: #f7f7f7;
   min-height: 100vh;
 }
@@ -22,13 +22,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 3px 16px;
   background: #003366;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
+  min-height: 22px;
 }
 
 .logo {
-  width: 140px;
+  width: 85px;
   height: auto;
 }
 
@@ -267,32 +268,34 @@ body {
 }
 
 .card-aviso {
-  background: #fff;
-  border-left: 4px solid #ddd;
-  border-radius: 8px;
+  background: #003366;
+  border-left: none;
+  border-radius: 0;
   padding: 20px;
   margin-bottom: 16px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
+  color: #fff;
 }
 
 .card-aviso.urgente {
-  border-left-color: #ef4444;
-  background: #fff5f5;
+  border-left: none;
+  background: #003366;
+}
 }
 
 .card-aviso.alerta {
-  border-left-color: #f59e0b;
-  background: #fffbeb;
+  border-left: none;
+  background: #003366;
 }
 
 .card-aviso.informativo {
-  border-left-color: #3b82f6;
-  background: #eff6ff;
+  border-left: none;
+  background: #003366;
 }
 
 .card-aviso.encerrado {
-  border-left-color: #9ca3af;
-  background: #f3f4f6;
+  border-left: none;
+  background: #003366;
   opacity: 0.8;
 }
 
@@ -305,45 +308,47 @@ body {
 
 .aviso-badge {
   padding: 4px 12px;
-  border-radius: 20px;
+  border-radius: 0;
   font-size: 0.75em;
   font-weight: 700;
-  text-transform: uppercase;
+  text-transform: none;
+  background: #fff;
+  color: #003366;
 }
 
 .card-aviso.urgente .aviso-badge {
-  background: #ef4444;
-  color: #fff;
+  background: #fff;
+  color: #003366;
 }
 
 .card-aviso.alerta .aviso-badge {
-  background: #f59e0b;
-  color: #fff;
+  background: #fff;
+  color: #003366;
 }
 
 .card-aviso.informativo .aviso-badge {
-  background: #3b82f6;
-  color: #fff;
+  background: #fff;
+  color: #003366;
 }
 
 .card-aviso.encerrado .aviso-badge {
-  background: #9ca3af;
-  color: #fff;
+  background: #fff;
+  color: #003366;
 }
 
 .aviso-data {
-  color: #666;
+  color: #fff;
   font-size: 0.9em;
 }
 
 .aviso-titulo {
-  color: #222;
+  color: #fff;
   font-size: 1.2em;
   margin-bottom: 12px;
 }
 
 .aviso-texto {
-  color: #444;
+  color: #fff;
   line-height: 1.6;
   margin-bottom: 12px;
 }
@@ -360,35 +365,41 @@ body {
 
 .aviso-footer {
   padding-top: 12px;
-  border-top: 1px solid #e0e0e0;
-  color: #666;
+  border-top: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
   font-size: 0.85em;
 }
 
 .card-solicitacao {
-  background: #fff;
-  border-left: 3px solid #ddd;
-  border-radius: 6px;
-  padding: 16px;
-  margin-bottom: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: #003366;
+  border-left: none;
+  border-radius: 0;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: none;
+  border: none;
+  color: #fff;
 }
 
 .card-solicitacao.pendente {
-  border-left-color: #f59e0b;
+  border-left: none;
+  background: #003366;
 }
 
 .card-solicitacao.em-andamento {
-  border-left-color: #3b82f6;
+  border-left: none;
+  background: #003366;
 }
 
 .card-solicitacao.concluida,
 .card-solicitacao.resolvido {
-  border-left-color: #43b649;
+  border-left: none;
+  background: #003366;
 }
 
 .card-solicitacao.cancelado {
-  border-left-color: #e53935;
+  border-left: none;
+  background: #003366;
 }
 
 .solicitacao-header {
@@ -400,40 +411,42 @@ body {
 
 .solicitacao-id {
   font-weight: 700;
-  color: #003366;
+  color: #fff;
   font-size: 0.85em;
 }
 
 .solicitacao-status {
   padding: 3px 10px;
-  border-radius: 12px;
+  border-radius: 0;
   font-size: 0.75em;
   font-weight: 600;
+  background: #fff;
+  color: #003366;
 }
 
 .card-solicitacao.pendente .solicitacao-status {
-  background: #f59e0b;
-  color: #fff;
+  background: #fff;
+  color: #003366;
 }
 
 .card-solicitacao.em-andamento .solicitacao-status {
-  background: #3b82f6;
-  color: #fff;
+  background: #fff;
+  color: #003366;
 }
 
 .card-solicitacao.concluida .solicitacao-status,
 .card-solicitacao.resolvido .solicitacao-status {
-  background: #43b649;
-  color: #fff;
+  background: #fff;
+  color: #003366;
 }
 
 .card-solicitacao.cancelado .solicitacao-status {
-  background: #e53935;
-  color: #fff;
+  background: #fff;
+  color: #003366;
 }
 
 .solicitacao-titulo {
-  color: #222;
+  color: #fff;
   font-size: 1.1em;
   margin-bottom: 10px;
   font-weight: 600;
@@ -449,16 +462,16 @@ body {
 .solicitacao-detalhes p {
   margin: 0;
   font-size: 0.85em;
-  color: #666;
+  color: #fff;
 }
 
 .solicitacao-detalhes strong {
-  color: #333;
+  color: #fff;
   font-weight: 600;
 }
 
 .solicitacao-descricao {
-  color: #555;
+  color: #fff;
   line-height: 1.5;
   margin: 10px 0;
   font-size: 0.9em;
@@ -468,10 +481,10 @@ body {
 .solicitacao-conclusao {
   margin-top: 12px;
   padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0;
   font-size: 0.9em;
-  color: #666;
+  color: #fff;
   font-style: italic;
 }
 

@@ -33,7 +33,7 @@
   <div class="sobreposicao-menu" id="sobreposicaoFull"></div>
 
   <div class="conteudo">
-    <h1>Próximas Viagens (Completo)</h1>
+    <h1>próximas viagens (completo)</h1>
     <div class="tabela-area">
     <div class="table-wrap">
       <table>

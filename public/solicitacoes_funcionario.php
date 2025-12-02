@@ -131,7 +131,7 @@ $stmtMinhas->close();
     <div class="sobreposicao-menu" id="sobreposicaoMenu"></div>
 
     <main class="conteudo-principal">
-      <h1 class="titulo-pagina">Nova Solicitação</h1>
+      <h1 class="titulo-pagina">nova solicitação</h1>
 
   <?php if($mensagem){ echo $mensagem; } ?>
 
