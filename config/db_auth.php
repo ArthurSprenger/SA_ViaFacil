@@ -2,7 +2,7 @@
 // Conexão de autenticação (modelo solicitado)
 // Banco: login_db | Tabela: usuarios (pk, username UNIQUE, senha, cargo ENUM('adm','func'))
 
-$mysqli = @new mysqli("localhost", "root", "root", "login_db");
+$mysqli = @new mysqli("localhost", "root", "", "login_db");
 if ($mysqli->connect_errno) {
     die("Erro de conexão: " . $mysqli->connect_error);
 }
